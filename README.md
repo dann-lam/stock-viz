@@ -27,9 +27,12 @@ https://www.alphavantage.co
 Alpha Vantage API
 
 ---To Do---
-Sequelize Models for Users
+Create front end components
+Create front end pages
+Integrate API
 
----Features To Do ---
+---Larger Features To Do ---
 3D Graphs/Animated?
 Multiple Ticker requests, same graph comparisons.
 Cards for general revenue generation of TIX for same time period.
+Sequelize Models for Users
