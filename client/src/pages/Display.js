@@ -2,7 +2,10 @@ import React, { useState } from "react";
 import Chart from "chart.js/auto";
 import { CategoryScale } from "chart.js";
 import { Data } from "../utils/data";
-import PieChart from "../components/PieChart";
+// import PieChart from "../components/PieChart";
+import LineChart from "../components/LineChart";
+import TickerMod from "../components/TickerMod";
+import Search from "../components/Search";
 
 Chart.register(CategoryScale);
 
@@ -27,9 +30,13 @@ const Display = () => {
   });
 
   return (
-    <div>
-      <PieChart chartData={chartData} />
+    <div className="flex items-center justify-center flex-col py-16">
+      {/* <PieChart chartData={chartData} /> */}
+      <LineChart chartData={chartData} />
+      <Search />
+      <TickerMod />
     </div>
   );
 };
+
 export default Display;

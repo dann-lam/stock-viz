@@ -20,8 +20,10 @@ As a user, I want to be able to make an account so that I can save my searches.
 Node Packages:
 concurrently
 tailwindcss
-
+chartJS
 React
+
+https://www.hyperui.dev/components/marketing/footers
 
 https://www.alphavantage.co
 Alpha Vantage API
