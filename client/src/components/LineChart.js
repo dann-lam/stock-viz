@@ -3,9 +3,7 @@ import { Line } from "react-chartjs-2";
 
 function LineChart({ chartData }) {
   return (
-    <div className="chart-container w-2/5 shadow-lg">
-      <h2 style={{ textAlign: "center" }}>Line Chart</h2>
-
+    <div className="chart-container w-2/5 shadow-lg py-8 px-8 border-zinc-900 rounded-lg border-0">
       <Line
         data={chartData}
         options={{

@@ -9,7 +9,7 @@ const TickerMod = () => {
         <p>Hi</p>
       </div>
       <div class="h-16 rounded-lg bg-gray-100">
-      <CheckBox />
+        <CheckBox />
       </div>
       <div class="h-16 rounded-lg bg-gray-100">
         <p>Hi</p>

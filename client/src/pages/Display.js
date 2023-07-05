@@ -6,6 +6,7 @@ import { Data } from "../utils/data";
 import LineChart from "../components/LineChart";
 import TickerMod from "../components/TickerMod";
 import Search from "../components/Search";
+import Labels from "../components/Labels";
 
 Chart.register(CategoryScale);
 
@@ -32,8 +33,10 @@ const Display = () => {
   return (
     <div className="flex items-center justify-center flex-col py-16">
       {/* <PieChart chartData={chartData} /> */}
+      <h2 style={{ textAlign: "center" }}>Line Chart</h2>
       <LineChart chartData={chartData} />
       <Search />
+      <Labels />
       <TickerMod />
     </div>
   );
