@@ -3,7 +3,8 @@ import { Line } from "react-chartjs-2";
 
 function LineChart({ chartData }) {
   return (
-    <div className="chart-container w-2/5 shadow-lg py-8 px-8 border-zinc-900 rounded-lg border-0">
+    //chart-container shadow-lg py-8 px-8 w-4/5 py-8 px-8
+    <div className="chart-container shadow-lg py-8 px-8 h-80 rounded-lg">
       <Line
         data={chartData}
         options={{
@@ -19,6 +20,7 @@ function LineChart({ chartData }) {
           responsive: true,
           maintainAspectRatio: true,
         }}
+        className="h-full"
       />
     </div>
   );

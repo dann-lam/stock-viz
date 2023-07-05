@@ -7,12 +7,10 @@ import Display from "./pages/Display";
 
 export default function App() {
   return (
-    <div className="App flex flex-col min-h-screen">
-      <div>
-        <Navbar />
-        <Display />
-        <Footer />
-      </div>
+    <div className="App flex flex-col min-h-screen items-center">
+      <Navbar />
+      <Display />
+      <Footer />
     </div>
   );
 }

@@ -29,14 +29,14 @@ const Display = () => {
       },
     ],
   });
-
+  //items-center justify-center justify-items-center self-center
   return (
-    <div className="flex items-center justify-center flex-col py-16">
+    <div className="flex flex-col py-16 h-max w-4/5 items-center">
       {/* <PieChart chartData={chartData} /> */}
       <h2 style={{ textAlign: "center" }}>Line Chart</h2>
       <LineChart chartData={chartData} />
       <Search />
-      <Labels />
+      <Labels className="divide-y divide-slate-700" />
       <TickerMod />
     </div>
   );
