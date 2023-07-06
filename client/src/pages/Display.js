@@ -36,7 +36,8 @@ const Display = () => {
       <h2 style={{ textAlign: "center" }}>Line Chart</h2>
       <LineChart chartData={chartData} />
       <Search />
-      <Labels className="divide-y divide-slate-700" />
+      <Labels />
+      <hr className="divide-slate-400/10 w-3/5 m-4" />
       <TickerMod />
     </div>
   );

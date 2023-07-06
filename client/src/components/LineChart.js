@@ -3,7 +3,7 @@ import { Line } from "react-chartjs-2";
 
 function LineChart({ chartData }) {
   return (
-    //chart-container shadow-lg py-8 px-8 w-4/5 py-8 px-8
+    //chart-container shadow-lg py-8 px-8 w-4/5 py-8 px-8 h-80
     <div className="chart-container shadow-lg py-8 px-8 h-80 rounded-lg">
       <Line
         data={chartData}

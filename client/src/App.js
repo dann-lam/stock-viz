@@ -10,7 +10,7 @@ export default function App() {
     <div className="App flex flex-col min-h-screen items-center">
       <Navbar />
       <Display />
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 }
