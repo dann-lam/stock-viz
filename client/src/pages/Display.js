@@ -39,6 +39,7 @@ const Display = () => {
       <Labels />
       <hr className="divide-slate-400/10 w-3/5 m-4" />
       <TickerMod />
+      <TickerMod />
     </div>
   );
 };
