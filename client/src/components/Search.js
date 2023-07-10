@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 
 let Search = () => {
+  const [search, setSearch] = useState(null);
+
   return (
-    <div className="relative py-16 ">
+    <div className="flex relative items-center justify-center py-16 w-1/5">
       <label htmlFor="Search" className="sr-only">
         {" "}
         Search{" "}
@@ -11,11 +13,11 @@ let Search = () => {
       <input
         type="text"
         id="Search"
-        placeholder="  Enter Symbol"
-        className="w-full border-gray-200 py-2.5 pe-10 shadow-lg sm:text-sm rounded-lg"
+        placeholder="Enter Symbol"
+        className="w-full border-gray-200 py-2.5 pe-10 shadow-lg sm:text-sm rounded-lg px-2.5"
       />
 
-      <span className="absolute inset-y-0 end-0 grid w-10 place-content-center">
+      <span className="absolute inset-y-0 end-0 grid w-1/5 place-content-center">
         <button type="button" className="text-gray-600 hover:text-gray-700">
           <span className="sr-only">Search</span>
 
