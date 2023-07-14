@@ -1,15 +1,27 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import searchTicker from "../utils/searchTicker";
+import { TimeIntervalContext } from "../pages/Display";
+
 let Search = () => {
+  //timeInterval is fed into our API request
+  const timeInterval = useContext(TimeIntervalContext);
   //State value for user inputs for symbol.
   const [search, setSearch] = useState("");
   const [values, setValues] = useState([]);
 
   let sortedDates = [];
   let sortedPrices = [];
+
+  //Function to ingest our data and format it.
+  const formatData = (data) => {
+    let formattedData;
+
+    return formattedData;
+  };
   //capture/update our input value
   const handleSearch = (event) => {
     setSearch(event.target.value);
+    console.log({ timeInterval });
   };
 
   //Handle button click
@@ -17,19 +29,15 @@ let Search = () => {
     event.preventDefault();
     try {
       console.log("Search: ", search);
-      const response = await searchTicker(search);
+      const response = await searchTicker(search, { timeInterval });
 
       const data = await response.json();
       //response returns a promise
+      let formatted = formatData(data);
+      
       console.log(data["Time Series (Daily)"]);
-
-      // response
-      //   .then((jsonData) => jsonData.json())
-      //   //returns another promise with json
-      //   .then((data) => console.log(data));
-      //Our dates come back in the object with unsorted dates.
-      //So we sort the dates, put them into a new array, and grab the closing price for every date.
-      //We then iterate through both arrays of sorted dates, and their closing price, and send the data to our react chart.
+      //"TimeSeries (Daily)" is specific to the TIMES_SERIES_DAILY query on our fetch.
+      //It should be modular, depending on what the user requests.
 
       //example query:
       //data["Time Series (5min)"]["2023-07-11 19:55:00"]["4. close"]
@@ -40,7 +48,7 @@ let Search = () => {
   };
 
   return (
-    <div className="flex relative items-center justify-center py-16 w-1/5">
+    <div className="flex relative items-center justify-center py-8 w-1/5">
       <input
         type="text"
         placeholder="Enter Symbol"
