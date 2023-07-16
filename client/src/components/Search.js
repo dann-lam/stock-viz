@@ -1,27 +1,24 @@
 import React, { useState, useContext } from "react";
 import searchTicker from "../utils/searchTicker";
-import { TimeIntervalContext } from "../pages/Display";
+import { chartTimeContext } from "../pages/Display";
+
+import { fetchParser } from "../utils/fetchParser";
+
+
 
 let Search = () => {
   //timeInterval is fed into our API request
-  const timeInterval = useContext(TimeIntervalContext);
+  const { timeInterval, setTimeInterval } = useContext(chartTimeContext);
   //State value for user inputs for symbol.
   const [search, setSearch] = useState("");
   const [values, setValues] = useState([]);
 
-  let sortedDates = [];
-  let sortedPrices = [];
-
   //Function to ingest our data and format it.
-  const formatData = (data) => {
-    let formattedData;
 
-    return formattedData;
-  };
   //capture/update our input value
   const handleSearch = (event) => {
     setSearch(event.target.value);
-    console.log({ timeInterval });
+    console.log(timeInterval);
   };
 
   //Handle button click
@@ -29,19 +26,17 @@ let Search = () => {
     event.preventDefault();
     try {
       console.log("Search: ", search);
-      const response = await searchTicker(search, { timeInterval });
+      const response = await searchTicker(search, timeInterval);
 
       const data = await response.json();
       //response returns a promise
-      let formatted = formatData(data);
-      
-      console.log(data["Time Series (Daily)"]);
-      //"TimeSeries (Daily)" is specific to the TIMES_SERIES_DAILY query on our fetch.
-      //It should be modular, depending on what the user requests.
+      //This is accessing our data's returned values based on the second key.
 
-      //example query:
-      //data["Time Series (5min)"]["2023-07-11 19:55:00"]["4. close"]
-      //get the data out of our json'd promise.
+      let calledData = data[Object.keys(data)[1]];
+      //Takes our data and turns it into something the chart can see.
+      let chartData = fetchParser(calledData);
+      // Update the react variable that controls the chart.
+      
     } catch (err) {
       console.error(err);
     }
