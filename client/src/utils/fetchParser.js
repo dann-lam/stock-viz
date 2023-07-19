@@ -13,8 +13,7 @@ const oneDayLabelsFormat = (data) => {
   let dateKeys = Object.keys(data);
   let ourLabels = [];
   let ourPrices = [];
-  console.log("Data is: ");
-  console.log(data);
+
   for (let i = 0; i < dateKeys.length; i++) {
     //String interpolated to tack on the T00:00:00 so that we don't render the wrong time.
 

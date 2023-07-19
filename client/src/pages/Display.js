@@ -20,7 +20,7 @@ const Display = () => {
   const [timeInterval, setTimeInterval] = useState({
     interval: "1D",
   });
-  const [search, setSearch] = useState("");
+
   //chartData displays our chart, currently accepts data returned from our API call.
 
   const [chartData, setChartData] = useState({
@@ -70,7 +70,7 @@ const Display = () => {
     //Add in a use effect that will update the chart.
     //Set a timer here to grab our data.
     // let blah = foo.subscribe();
-  }, [timeInterval, chartData, search, setChartData]);
+  }, [timeInterval, chartData, setChartData]);
 
   return (
     <div className="flex flex-col py-16 h-max w-4/5 items-center">
@@ -83,8 +83,6 @@ const Display = () => {
           setTimeInterval,
           chartData,
           setChartData,
-          search,
-          setSearch,
         }}
       >
         <LineChart chartData={chartData} />

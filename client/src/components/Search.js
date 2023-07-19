@@ -6,8 +6,9 @@ import { fetchParser } from "../utils/fetchParser";
 
 let Search = () => {
   //timeInterval is fed into our API request
-  const { timeInterval, setChartData, setSearch, search } =
-    useContext(chartTimeContext);
+  const { timeInterval, setChartData } = useContext(chartTimeContext);
+
+  const [search, setSearch] = useState("");
   //State value for user inputs for symbol.
 
   //Function to ingest our data and format it.

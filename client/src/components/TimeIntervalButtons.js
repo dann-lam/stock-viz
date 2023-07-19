@@ -1,60 +1,19 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import { chartTimeContext } from "../pages/Display";
-import searchTicker from "../utils/searchTicker";
-import { fetchParser } from "../utils/fetchParser";
+import { searchTicker } from "../utils/searchTicker";
 
 let TimeIntervalButtons = () => {
-  const { setTimeInterval, search, timeInterval, setChartData, chartData } =
-    useContext(chartTimeContext);
-  useEffect(() => {
-    //Add in a use effect that will update the chart.
-    //Set a timer here to grab our data.
-    // let blah = foo.subscribe();
-  }, [timeInterval, search, chartData, setTimeInterval, setChartData]);
+  const { setTimeInterval, search } = useContext(chartTimeContext);
+
   //Button Logic to update our Time
-  const timeChanger = async (event) => {
+  const timeChanger = (event) => {
     event.preventDefault();
-    try {
-      //This is taken from the searchClicker, need to refactor it.
-      const response = await searchTicker(search, timeInterval);
 
-      const data = await response.json();
-      console.log("Data is: ");
-      console.log(data);
-      //response returns a promise
-      //This is accessing our data's returned values based on the second key.
-
-      let calledData = data[Object.keys(data)[1]];
-      //Takes our data and turns it into something the chart can see.
-      let chartData = fetchParser(calledData, timeInterval);
-      // Update the react variable that controls the chart.
-      await setChartData((prevData) => ({
-        ...prevData,
-        labels: chartData.labels,
-        datasets: [
-          {
-            label: ``,
-            data: chartData.data,
-            backgroundColor: [
-              "rgba(75,192,192,1)",
-              "#ecf0f1",
-              "#50AF95",
-              "#f3ba2f",
-              "#2a71d0",
-            ],
-            borderColor: "black",
-            borderWidth: 2,
-          },
-        ],
-      }));
-
-      setTimeInterval((prevState) => ({
-        ...prevState,
-        interval: event.target.dataset.interval,
-      }));
-    } catch (err) {
-      console.error(err);
-    }
+    setTimeInterval((prevState) => ({
+      ...prevState,
+      interval: event.target.dataset.interval,
+    }));
+    //This is taken from the searchClicker, need to refactor it.
   };
   return (
     <div className="grid grid-cols-1  lg:grid-cols-8 lg:gap-8 w-4/8 py-8">

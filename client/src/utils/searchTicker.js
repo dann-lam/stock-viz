@@ -1,4 +1,3 @@
-
 const searchTicker = (query, timeInterval) => {
   //Make switch case and object to handle timeInterval that will affect the function request on our API.
   const timeMap = {
@@ -16,8 +15,10 @@ const searchTicker = (query, timeInterval) => {
   // let currTime = queryTime;
 
   return fetch(
-    `https://www.alphavantage.co/query?function=${currFunc}&symbol=${query}&interval=${interval}&apikey=NP9GNGJNY8XMZIK9&datatype=json`
+    `https://www.alphavantage.co/query?function=${currFunc}&symbol=${query}&interval=${interval}&apikey=66M911GUXN2WRHBR&datatype=json`
   );
 };
 // https://www.alphavantage.co/query?function=TIME_SERIES_WEEKLY&symbol=IBM&apikey=demo
 export default searchTicker;
+//NP9GNGJNY8XMZIK9
+//66M911GUXN2WRHBR
