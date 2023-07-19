@@ -1,13 +1,14 @@
 import React, { createContext, useState, useEffect } from "react";
 import Chart from "chart.js/auto";
 import { CategoryScale } from "chart.js";
-import { Data } from "../utils/data";
 // import PieChart from "../components/PieChart";
 import LineChart from "../components/LineChart";
 import TickerMod from "../components/TickerMod";
 import Search from "../components/Search";
 import Labels from "../components/Labels";
 import TimeIntervalButtons from "../components/TimeIntervalButtons";
+
+import "chartjs-adapter-dayjs-4/dist/chartjs-adapter-dayjs-4.esm";
 // import { Observable } from "rxjs";
 
 Chart.register(CategoryScale);
@@ -18,17 +19,16 @@ const Display = () => {
   //timeInterval is mostly being used to update our API call.
   const [timeInterval, setTimeInterval] = useState({
     interval: "1D",
-    data: Data,
   });
-
+  const [search, setSearch] = useState("");
   //chartData displays our chart, currently accepts data returned from our API call.
 
   const [chartData, setChartData] = useState({
-    labels: timeInterval.data.map((data) => data.year),
+    // labels: timeInterval.data.map((data) => data.year),
+    labels: [],
     datasets: [
       {
-        label: "Users Gained ",
-        data: timeInterval.data.map((data) => data.userGain),
+        data: [],
         backgroundColor: [
           "rgba(75,192,192,1)",
           "#ecf0f1",
@@ -38,6 +38,27 @@ const Display = () => {
         ],
         borderColor: "black",
         borderWidth: 2,
+        tension: 0.4,
+        // options: {
+        //   scales: {
+        //     x: {
+        //       ticks: {
+        //         maxTicksLimit: 5,
+        //         callback: (value, index, values) => {
+        //           if (
+        //             index === 0 ||
+        //             index === values.length - 1 ||
+        //             index % Math.floor(values.length / 4) === 0
+        //           ) {
+        //             return value;
+        //           } else {
+        //             return "";
+        //           }
+        //         },
+        //       },
+        //     },
+        //   },
+        // },
       },
     ],
   });
@@ -48,11 +69,8 @@ const Display = () => {
   useEffect(() => {
     //Add in a use effect that will update the chart.
     //Set a timer here to grab our data.
-
     // let blah = foo.subscribe();
-
-    console.log(timeInterval.data);
-  }, [timeInterval, chartData]);
+  }, [timeInterval, chartData, search, setChartData]);
 
   return (
     <div className="flex flex-col py-16 h-max w-4/5 items-center">
@@ -60,7 +78,14 @@ const Display = () => {
       <h2 style={{ textAlign: "center" }}>Line Chart</h2>
       {/* Time interval context provider is wrapped around relevent components */}
       <chartTimeContext.Provider
-        value={{ timeInterval, setTimeInterval, chartData, setChartData }}
+        value={{
+          timeInterval,
+          setTimeInterval,
+          chartData,
+          setChartData,
+          search,
+          setSearch,
+        }}
       >
         <LineChart chartData={chartData} />
         <TimeIntervalButtons />

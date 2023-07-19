@@ -1,17 +1,14 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import searchTicker from "../utils/searchTicker";
 import { chartTimeContext } from "../pages/Display";
 
 import { fetchParser } from "../utils/fetchParser";
 
-
-
 let Search = () => {
   //timeInterval is fed into our API request
-  const { timeInterval, setTimeInterval } = useContext(chartTimeContext);
+  const { timeInterval, setChartData, setSearch, search } =
+    useContext(chartTimeContext);
   //State value for user inputs for symbol.
-  const [search, setSearch] = useState("");
-  const [values, setValues] = useState([]);
 
   //Function to ingest our data and format it.
 
@@ -34,9 +31,29 @@ let Search = () => {
 
       let calledData = data[Object.keys(data)[1]];
       //Takes our data and turns it into something the chart can see.
-      let chartData = fetchParser(calledData);
+      let chartData = fetchParser(calledData, timeInterval);
       // Update the react variable that controls the chart.
-      
+      console.log("chartData is");
+      console.log(chartData);
+      setChartData((prevData) => ({
+        ...prevData,
+        labels: chartData.labels,
+        datasets: [
+          {
+            label: ``,
+            data: chartData.data,
+            backgroundColor: [
+              "rgba(75,192,192,1)",
+              "#ecf0f1",
+              "#50AF95",
+              "#f3ba2f",
+              "#2a71d0",
+            ],
+            borderColor: "black",
+            borderWidth: 2,
+          },
+        ],
+      }));
     } catch (err) {
       console.error(err);
     }

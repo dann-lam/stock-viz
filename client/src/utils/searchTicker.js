@@ -1,14 +1,18 @@
+
 const searchTicker = (query, timeInterval) => {
   //Make switch case and object to handle timeInterval that will affect the function request on our API.
   const timeMap = {
-    "1D": { TIME_SERIES_INTRADAY: "60min" },
-    "5D": { TIME_SERIES_DAILY_ADJUSTED: "10min" },
+    "1D": { TIME_SERIES_INTRADAY: "5min" },
+    "5D": { TIME_SERIES_INTRADAY: "30min" },
+    //TIME_SERIES_DAILY_ADJUSTED actually doesn't need the interval to be set.
+    //I just do it because it's convenient, it doesn't make a difference however.
+    "1M": { TIME_SERIES_DAILY_ADJUSTED: "30min" },
   };
   //The results of a button click determine the query function to be called.
   //The type of request is based off of which button is pushed.
   let currFunc = Object.keys(timeMap[timeInterval.interval])[0];
   let interval = timeMap[timeInterval.interval][currFunc];
-  console.log(timeInterval);
+
   // let currTime = queryTime;
 
   return fetch(
