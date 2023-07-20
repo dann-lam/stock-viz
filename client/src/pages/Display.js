@@ -22,6 +22,7 @@ const Display = () => {
   });
 
   //chartData displays our chart, currently accepts data returned from our API call.
+  const [search, setSearch] = useState("");
 
   const [chartData, setChartData] = useState({
     // labels: timeInterval.data.map((data) => data.year),
@@ -70,7 +71,16 @@ const Display = () => {
     //Add in a use effect that will update the chart.
     //Set a timer here to grab our data.
     // let blah = foo.subscribe();
-  }, [timeInterval, chartData, setChartData]);
+    console.log("useEffect: timeInterval, chartData, search");
+    console.log(timeInterval, chartData, search);
+  }, [
+    timeInterval,
+    chartData,
+    setChartData,
+    setTimeInterval,
+    search,
+    setSearch,
+  ]);
 
   return (
     <div className="flex flex-col py-16 h-max w-4/5 items-center">
@@ -83,6 +93,8 @@ const Display = () => {
           setTimeInterval,
           chartData,
           setChartData,
+          search,
+          setSearch,
         }}
       >
         <LineChart chartData={chartData} />
