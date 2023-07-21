@@ -8,8 +8,8 @@ import { PopoverPicker } from "./ColorPicker";
 import Indicator from "./Indicator";
 const TickerMod = () => {
   const [symbolColor, setsymbolColor] = useState("#AFC787");
-  const [indicatorColor, setindicatorColor] = useState("#aabbcc");
-  const [symbol, setSymbol] = useState("AAPL");
+  // const [indicatorColor, setindicatorColor] = useState("#aabbcc");
+  // const [symbol, setSymbol] = useState("AAPL");
   return (
     <div className="grid grid-cols-1 gap-4 lg:grid-cols-6 lg:gap-8 w-3/5 py-2 ">
       <div className="h-8 flex items-center  justify-center font-thin">

@@ -8,36 +8,45 @@ let TimeIntervalButtons = () => {
 
   useEffect(() => {
     const searchIt = async () => {
-      try {
-        console.log("timeintervalbutton going into searchTicker", timeInterval);
-        const response = await searchTicker(search, timeInterval);
-        const data = await response.json();
-        let calledData = await data[Object.keys(data)[1]];
-        let chartData = fetchParser(calledData, timeInterval);
-        setChartData({
-          labels: chartData.labels,
-          datasets: [
-            {
-              label: ``,
-              data: chartData.data,
-              backgroundColor: [
-                "rgba(75,192,192,1)",
-                "#ecf0f1",
-                "#50AF95",
-                "#f3ba2f",
-                "#2a71d0",
-              ],
-              borderColor: "black",
-              borderWidth: 2,
-            },
-          ],
-        });
-      } catch (err) {
-        console.error(err);
+      if (!search) {
+        return console.log("No search found!");
+      } else {
+        try {
+          console.log(
+            "timeintervalbutton going into searchTicker",
+            timeInterval
+          );
+          const response = await searchTicker(search, timeInterval);
+          const data = await response.json();
+          let calledData = await data[Object.keys(data)[1]];
+          let chartData = fetchParser(calledData, timeInterval);
+          setChartData({
+            labels: chartData.labels,
+            datasets: [
+              {
+                label: ``,
+                data: chartData.data,
+                backgroundColor: [
+                  "rgba(75,192,192,1)",
+                  "#ecf0f1",
+                  "#50AF95",
+                  "#f3ba2f",
+                  "#2a71d0",
+                ],
+                borderColor: "black",
+                borderWidth: 2,
+              },
+            ],
+          });
+        } catch (err) {
+          console.error(err);
+        }
       }
     };
-    if (timeInterval) {
+    if (timeInterval && search) {
       searchIt();
+    } else {
+      return console.log("No search or timeInterval found.");
     }
   }, [timeInterval, search, setChartData]);
   //Button Logic to update our Time

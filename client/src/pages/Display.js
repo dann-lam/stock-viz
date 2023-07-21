@@ -20,7 +20,7 @@ const Display = () => {
   const [timeInterval, setTimeInterval] = useState({
     interval: "1D",
   });
-
+  const [symbolColor, setsymbolColor] = useState("#AFC787");
   //chartData displays our chart, currently accepts data returned from our API call.
   const [search, setSearch] = useState("");
 
@@ -63,6 +63,7 @@ const Display = () => {
       },
     ],
   });
+  //Whenever Tickermod is updated, with the color, setChartData to reflect those colors.
 
   //Make a click handler for our buttons to set timeInterval.
 
@@ -80,6 +81,8 @@ const Display = () => {
     setTimeInterval,
     search,
     setSearch,
+    symbolColor,
+    setsymbolColor,
   ]);
 
   return (
