@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from "react";
-import { chartTimeContext } from "../pages/Display";
+import { chartTimeContext } from "../App";
 import searchTicker from "../utils/searchTicker";
 import { fetchParser } from "../utils/fetchParser";
 let TimeIntervalButtons = () => {

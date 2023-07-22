@@ -1,6 +1,6 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import searchTicker from "../utils/searchTicker";
-import { chartTimeContext } from "../pages/Display";
+import { chartTimeContext } from "../App";
 
 import { fetchParser } from "../utils/fetchParser";
 
@@ -65,7 +65,7 @@ let Search = () => {
   };
 
   return (
-    <div className="flex relative items-center justify-center py-8 w-1/5">
+    <div className="flex relative items-center justify-center w-4/5">
       <input
         type="text"
         placeholder="Enter Symbol"

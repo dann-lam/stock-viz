@@ -1,9 +1,9 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext } from "react";
 import { Line } from "react-chartjs-2";
-import { chartTimeContext } from "../pages/Display";
+import { chartTimeContext } from "../App";
 
 function LineChart({ chartData }) {
-  const { timeInterval } = useContext(chartTimeContext);
+  const { timeInterval, search } = useContext(chartTimeContext);
   // if (timeInterval)
 
   const displayFormMap = {
@@ -20,7 +20,7 @@ function LineChart({ chartData }) {
           plugins: {
             title: {
               display: true,
-              text: `Interval: ${timeInterval.interval}`,
+              text: `${search}`,
             },
             legend: {
               display: false,
