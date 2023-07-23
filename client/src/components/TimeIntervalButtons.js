@@ -1,54 +1,21 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useCallback } from "react";
 import { chartTimeContext } from "../App";
 import searchTicker from "../utils/searchTicker";
 import { fetchParser } from "../utils/fetchParser";
+import searchIt from "../utils/searchIt";
 let TimeIntervalButtons = () => {
   const { setTimeInterval, search, timeInterval, setChartData } =
     useContext(chartTimeContext);
 
   useEffect(() => {
-    const searchIt = async () => {
-      if (!search) {
-        return console.log("No search found!");
-      } else {
-        try {
-          console.log(
-            "timeintervalbutton going into searchTicker",
-            timeInterval
-          );
-          const response = await searchTicker(search, timeInterval);
-          const data = await response.json();
-          let calledData = await data[Object.keys(data)[1]];
-          let chartData = fetchParser(calledData, timeInterval);
-          setChartData({
-            labels: chartData.labels,
-            datasets: [
-              {
-                label: ``,
-                data: chartData.data,
-                backgroundColor: [
-                  "rgba(75,192,192,1)",
-                  "#ecf0f1",
-                  "#50AF95",
-                  "#f3ba2f",
-                  "#2a71d0",
-                ],
-                borderColor: "black",
-                borderWidth: 2,
-              },
-            ],
-          });
-        } catch (err) {
-          console.error(err);
-        }
-      }
-    };
-    if (timeInterval && search) {
-      searchIt();
+    // Create a debouncer for our memorizedSearchIt
+    //Upon
+    if (timeInterval) {
+      console.log("useEffect from timeINtervalButton firing: ", timeInterval);
     } else {
       return console.log("No search or timeInterval found.");
     }
-  }, [timeInterval, search, setChartData]);
+  }, [timeInterval]);
   //Button Logic to update our Time
   const timeChanger = async (event) => {
     event.preventDefault();
@@ -58,6 +25,13 @@ let TimeIntervalButtons = () => {
       ...prevState,
       interval: event.target.dataset.interval,
     }));
+    console.log("Immediately detected timeInterval is: ", timeInterval);
+    //Wrap our searches in this setTimeInterval updater, to ensure that we have the most up to date stuff.
+    //We *could* use the useEffec to achieve this effect but the sideffects of updating it is unfortunate.
+    setTimeInterval((currState) => {
+      searchIt(search, currState.interval, setChartData);
+      return currState.interval;
+    });
   };
 
   //This is taken from the searchClicker, need to refactor it.

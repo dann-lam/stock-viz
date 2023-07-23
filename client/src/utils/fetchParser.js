@@ -10,6 +10,7 @@
 // };
 
 const oneDayLabelsFormat = (data) => {
+  console.log("onedayLabelsFormat: Data is: ", data);
   let dateKeys = Object.keys(data);
   let ourLabels = [];
   let ourPrices = [];
@@ -53,6 +54,8 @@ export const fetchParser = (data, timeInterval) => {
     labels: "",
     data: "",
   };
+  console.log("fetchParser timeInterval: ", timeInterval);
+  console.log("Data found? Data: ", data);
   //Depending on what the timeInterval is, we'll format it to something ChartJS likes.
   //Essentially, because I am storing our formatted data as an array, we are accessing and then setting the appropriate values to the corresponding keys on our formatted data, and then returning it to our chart.
   if (timeInterval.interval === "1D") {
