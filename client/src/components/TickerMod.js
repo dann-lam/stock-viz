@@ -16,7 +16,21 @@ const TickerMod = () => {
     indicatorColor,
   } = useContext(chartTimeContext);
   //MAYBE a useEffect hook, for updating chartData, after We've set the symbol/indicator color.
-
+  //Update the symbolColor and chart data.
+  const updateChartColor = (event) => {
+    setsymbolColor(event);
+    //Targets specifically the border color, copies over any left overs as well taht we may have missed.
+    setChartData((prevData) => ({
+      ...prevData,
+      datasets: [
+        {
+          ...prevData.datasets[0],
+          borderColor: symbolColor,
+        },
+        ...prevData.datasets.slice(1),
+      ],
+    }));
+  };
   return (
     <div className="grid grid-cols-1 gap-4 lg:grid-cols-4 lg:gap-8 w-3/5 py-2 ">
       <div className="flex items-center  justify-center">
@@ -24,7 +38,7 @@ const TickerMod = () => {
         <Search />
       </div>
       <div className="flex items-center  justify-center">
-        <PopoverPicker color={symbolColor} onChange={setsymbolColor} />
+        <PopoverPicker color={symbolColor} onChange={updateChartColor} />
       </div>
       <div className="h-8 flex items-center  justify-center font-thin">
         <Indicator />

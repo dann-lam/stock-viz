@@ -6,7 +6,7 @@ import { fetchParser } from "../utils/fetchParser";
 
 let Search = () => {
   //timeInterval is fed into our API request
-  const { timeInterval, setChartData, search, setSearch } =
+  const { timeInterval, setChartData, search, setSearch, symbolColor } =
     useContext(chartTimeContext);
 
   //State value for user inputs for symbol.
@@ -25,7 +25,7 @@ let Search = () => {
     if (!search) {
       return console.log("No search found!");
     } else {
-      searchIt(search, timeInterval, setChartData);
+      searchIt(search, timeInterval, setChartData, symbolColor);
       // try {
       //   const response = await searchTicker(search, timeInterval);
 

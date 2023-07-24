@@ -4,7 +4,7 @@ import { fetchParser } from "./fetchParser";
 
 //timeInterval is fed into our API request
 //Handle button click
-const searchIt = async (search, timeInterval, setChartData) => {
+const searchIt = async (search, timeInterval, setChartData, symbolColor) => {
   try {
     console.log("Looking for undefined: ", search, timeInterval, setChartData);
     const response = await searchTicker(search, timeInterval);
@@ -25,18 +25,14 @@ const searchIt = async (search, timeInterval, setChartData) => {
       labels: chartData.labels,
       datasets: [
         {
-          label: ``,
+          ...prevData.datasets[0],
+          label: `Closing Price`,
           data: chartData.data,
-          backgroundColor: [
-            "rgba(75,192,192,1)",
-            "#ecf0f1",
-            "#50AF95",
-            "#f3ba2f",
-            "#2a71d0",
-          ],
-          borderColor: "black",
-          borderWidth: 2,
+          pointRadius: 2,
+          tension: 0.4,
+          borderColor: symbolColor,
         },
+        ...prevData.datasets.slice(1),
       ],
     }));
   } catch (err) {

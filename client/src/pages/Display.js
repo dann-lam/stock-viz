@@ -15,7 +15,7 @@ Chart.register(CategoryScale);
 // export const chartTimeContext = createContext();
 
 const Display = () => {
-  const { search, timeInterval, symbolColor, chartData } =
+  const { search, timeInterval, symbolColor, chartData, } =
     useContext(chartTimeContext);
 
   //Checking our timeInterval each time it's changed.

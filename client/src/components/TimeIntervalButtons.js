@@ -4,7 +4,7 @@ import searchTicker from "../utils/searchTicker";
 import { fetchParser } from "../utils/fetchParser";
 import searchIt from "../utils/searchIt";
 let TimeIntervalButtons = () => {
-  const { setTimeInterval, search, timeInterval, setChartData } =
+  const { setTimeInterval, search, timeInterval, setChartData, symbolColor } =
     useContext(chartTimeContext);
 
   useEffect(() => {
@@ -30,7 +30,7 @@ let TimeIntervalButtons = () => {
     //We *could* use the useEffec to achieve this effect but the sideffects of updating it is unfortunate.
     setTimeInterval((currState) => {
       console.log("timeInterval button: ", search, currState, setChartData);
-      searchIt(search, currState, setChartData);
+      searchIt(search, currState, setChartData, symbolColor);
       return currState;
     });
   };

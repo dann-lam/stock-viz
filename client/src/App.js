@@ -1,5 +1,5 @@
 import "./App.css";
-import React, { createContext, useState} from "react";
+import React, { createContext, useState } from "react";
 import "chartjs-adapter-dayjs-4/dist/chartjs-adapter-dayjs-4.esm";
 import Navbar from "./components/Navbar";
 // import Footer from "./components/Footer";
@@ -23,41 +23,39 @@ export default function App() {
   const [chartData, setChartData] = useState({
     // labels: timeInterval.data.map((data) => data.year),
     labels: [],
-    datasets: [
-      {
-        data: [],
-        backgroundColor: [
-          "rgba(75,192,192,1)",
-          "#ecf0f1",
-          "#50AF95",
-          "#f3ba2f",
-          "#2a71d0",
-        ],
-        borderColor: "black",
-        borderWidth: 2,
-        tension: 0.4,
-        // options: {
-        //   scales: {
-        //     x: {
-        //       ticks: {
-        //         maxTicksLimit: 5,
-        //         callback: (value, index, values) => {
-        //           if (
-        //             index === 0 ||
-        //             index === values.length - 1 ||
-        //             index % Math.floor(values.length / 4) === 0
-        //           ) {
-        //             return value;
-        //           } else {
-        //             return "";
-        //           }
-        //         },
-        //       },
-        //     },
-        //   },
-        // },
-      },
-    ],
+    datasets: [],
+    // {
+    //   data: [],
+    //   backgroundColor: [
+    //     "rgba(75,192,192,1)",
+    //     "#ecf0f1",
+    //     "#50AF95",
+    //     "#f3ba2f",
+    //     "#2a71d0",
+    //   ],
+    //   borderColor: "black",
+    //   borderWidth: 2,
+    //   // options: {
+    //   //   scales: {
+    //   //     x: {
+    //   //       ticks: {
+    //   //         maxTicksLimit: 5,
+    //   //         callback: (value, index, values) => {
+    //   //           if (
+    //   //             index === 0 ||
+    //   //             index === values.length - 1 ||
+    //   //             index % Math.floor(values.length / 4) === 0
+    //   //           ) {
+    //   //             return value;
+    //   //           } else {
+    //   //             return "";
+    //   //           }
+    //   //         },
+    //   //       },
+    //   //     },
+    //   //   },
+    //   // },
+    // },
   });
   return (
     <div className="App flex flex-col min-h-screen items-center">
