@@ -29,15 +29,16 @@ let TimeIntervalButtons = () => {
     //Wrap our searches in this setTimeInterval updater, to ensure that we have the most up to date stuff.
     //We *could* use the useEffec to achieve this effect but the sideffects of updating it is unfortunate.
     setTimeInterval((currState) => {
-      searchIt(search, currState.interval, setChartData);
-      return currState.interval;
+      console.log("timeInterval button: ", search, currState, setChartData);
+      searchIt(search, currState, setChartData);
+      return currState;
     });
   };
 
   //This is taken from the searchClicker, need to refactor it.
 
   return (
-    <div className="grid grid-cols-1  lg:grid-cols-8 lg:gap-8 w-4/8 py-8">
+    <div className="grid grid-cols-1  lg:grid-cols-5 lg:gap-8 w-4/8 py-8">
       <button
         data-interval="1D"
         className="h-8 shadow-lg text-teal-600 font-thin border-b-4 rounded-lg"
@@ -65,27 +66,6 @@ let TimeIntervalButtons = () => {
         onClick={timeChanger}
       >
         6M
-      </button>
-      <button
-        data-interval="YTD"
-        className="h-8 shadow-lg text-teal-600 font-thin border-b-4 rounded-lg"
-        onClick={timeChanger}
-      >
-        YTD
-      </button>
-      <button
-        data-interval="1Y"
-        className="h-8 shadow-lg text-teal-600 font-thin border-b-4 rounded-lg"
-        onClick={timeChanger}
-      >
-        1Y
-      </button>
-      <button
-        data-interval="5Y"
-        className="h-8 shadow-lg text-teal-600 font-thin border-b-4 rounded-lg"
-        onClick={timeChanger}
-      >
-        5Y
       </button>
       <button
         data-interval="Max"

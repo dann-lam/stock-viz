@@ -8,32 +8,32 @@
 //     (label, index) => index % step === 0 || index === labels.length - 1
 //   );
 // };
+const oneMonthLabelsFormat = (data) => {};
 
-const oneDayLabelsFormat = (data) => {
-  console.log("onedayLabelsFormat: Data is: ", data);
-  let dateKeys = Object.keys(data);
-  let ourLabels = [];
-  let ourPrices = [];
-
-  for (let i = 0; i < dateKeys.length; i++) {
-    //String interpolated to tack on the T00:00:00 so that we don't render the wrong time.
-
-    let currPrice = data[dateKeys[i]]["4. close"];
-    // ["4. close"]
-    ourPrices.push(currPrice);
-    ourLabels.push(new Date(`${dateKeys[i]}`));
-  }
-  let formatted = [ourLabels, ourPrices];
-  return formatted;
-};
-
-const fiveDayLabelsFormat = (data) => {
+const onefiveDayLabelsFormat = (data, timeInterval) => {
   //dateKeys creates an array of all keys.
   let dateKeys = Object.keys(data);
   let ourLabels = [];
   let ourPrices = [];
+  let lengthInterval = 0;
+  console.log("in Labels formatter, time interval is: ", timeInterval);
+  //I should convert this to a switch case.
+  if (
+    timeInterval === "1D" ||
+    timeInterval === "5D" ||
+    timeInterval === "Max"
+  ) {
+    lengthInterval = dateKeys.length;
+    console.log("1D or 5D detected!", timeInterval, lengthInterval);
+  } else if (timeInterval === "1M") {
+    console.log("1M detected!", timeInterval, lengthInterval);
+    lengthInterval = 20;
+  } else if (timeInterval === "6M") {
+    lengthInterval = 25;
+  }
 
-  for (let i = 0; i < dateKeys.length; i++) {
+  console.log("lengthInterval is: ", lengthInterval);
+  for (let i = 0; i < lengthInterval; i++) {
     //String interpolated to tack on the T00:00:00 so that we don't render the wrong time.
 
     let currPrice = data[dateKeys[i]]["4. close"];
@@ -58,13 +58,12 @@ export const fetchParser = (data, timeInterval) => {
   console.log("Data found? Data: ", data);
   //Depending on what the timeInterval is, we'll format it to something ChartJS likes.
   //Essentially, because I am storing our formatted data as an array, we are accessing and then setting the appropriate values to the corresponding keys on our formatted data, and then returning it to our chart.
-  if (timeInterval.interval === "1D") {
-    formattedData.labels = oneDayLabelsFormat(data)[0];
-    formattedData.data = oneDayLabelsFormat(data)[1];
-  } else if (timeInterval.interval === "5D") {
-    formattedData.labels = fiveDayLabelsFormat(data)[0];
-
-    formattedData.data = fiveDayLabelsFormat(data)[1];
+  if (timeInterval.interval) {
+    formattedData.labels = onefiveDayLabelsFormat(
+      data,
+      timeInterval.interval
+    )[0];
+    formattedData.data = onefiveDayLabelsFormat(data, timeInterval.interval)[1];
   }
 
   return formattedData;

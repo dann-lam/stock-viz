@@ -9,6 +9,9 @@ function LineChart({ chartData }) {
   const displayFormMap = {
     "1D": "h:mm A",
     "5D": "MMM D",
+    "1M": "MMM D",
+    "6M": "MMM YYYY",
+    Max: "YYYY",
   };
   // useEffect(() => {}, [displayForm, timeInterval]);
   return (

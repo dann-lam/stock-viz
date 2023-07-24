@@ -5,7 +5,9 @@ const searchTicker = (query, timeInterval) => {
     "5D": { TIME_SERIES_INTRADAY: "30min" },
     //TIME_SERIES_DAILY_ADJUSTED actually doesn't need the interval to be set.
     //I just do it because it's convenient, it doesn't make a difference however.
-    "1M": { TIME_SERIES_DAILY_ADJUSTED: "30min" },
+    "1M": { TIME_SERIES_DAILY: "30min" },
+    "6M": { TIME_SERIES_WEEKLY: "30min" },
+    Max: { TIME_SERIES_MONTHLY: "30min" },
   };
   //The results of a button click determine the query function to be called.
   //The type of request is based off of which button is pushed.
