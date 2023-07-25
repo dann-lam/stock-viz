@@ -16,7 +16,7 @@ export default function App() {
   //Controls the color of the line on chart.
   const [symbolColor, setsymbolColor] = useState("#AFC787");
   //If an economic indicator is chosen, this controls the color of it displayed on the chart.
-  const [indicatorColor, setindicatorColor] = useState("#AFC787");
+  const [indicatorColor, setindicatorColor] = useState("#0000FF");
   //Search is simply a string that stores the symbol.
   const [search, setSearch] = useState("");
   //Stores chartData to be rendered w/ chartJS.

@@ -3,7 +3,8 @@ import indicatorTicker from "../utils/indicatorTicker";
 import { chartTimeContext } from "../App";
 import { indicatorParser } from "../utils/indicatorParser";
 const Indicator = () => {
-  const { timeInterval, chartData, search } = useContext(chartTimeContext);
+  const { timeInterval, chartData, search, setChartData, indicatorColor } =
+    useContext(chartTimeContext);
   const optionHandler = async (event) => {
     event.preventDefault();
     if (!(event.target.value === "Select")) {
@@ -17,6 +18,29 @@ const Indicator = () => {
       console.log("lastdate is: ", lastDate);
       let formattedData = indicatorParser(calledData, timeInterval, lastDate);
       console.log("formattedData: ", formattedData);
+      let newObj = {
+        label: `${currVal}`,
+        data: formattedData,
+        pointRadius: 1,
+        tension: 0.4,
+        borderColor: indicatorColor,
+      };
+      const updatedDatasets = [...chartData.datasets];
+      updatedDatasets[1] = newObj;
+
+      // Update the state with the new array of datasets
+      setChartData((prevData) => ({
+        ...prevData,
+        datasets: updatedDatasets,
+      }));
+      // setChartData(
+      //   (prevData) => (
+      //     {
+      //       ...prevData,
+      //     }
+
+      //   )
+      // );
       //Once we get bet fetched, and then we format our returns, wet set the
       // chart data, to be on the second slot of our stuff.
     } else {

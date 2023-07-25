@@ -15,9 +15,7 @@ export const indicatorParser = (data, timeInterval, lastDate) => {
     // then push the price into an array.
     resultArr.push(currPrice);
     console.log("currDate and lastDate are: ", currDate, lastDate);
-      //return that array.
-    return resultArr;
+    //return that array.
   }
-
-
+  return resultArr;
 };
