@@ -11,8 +11,8 @@ const searchTicker = (query, timeInterval) => {
   };
   //The results of a button click determine the query function to be called.
   //The type of request is based off of which button is pushed.
-  let currFunc = Object.keys(timeMap[timeInterval.interval])[0];
-  let interval = timeMap[timeInterval.interval][currFunc];
+  let currFunc = Object.keys(timeMap[timeInterval])[0];
+  let interval = timeMap[timeInterval][currFunc];
   console.log("--- searchTicker ---");
   console.log("timeInterval: ", timeInterval);
   console.log("CurrFunc is: ", currFunc);

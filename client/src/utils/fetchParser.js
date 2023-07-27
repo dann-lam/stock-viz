@@ -8,7 +8,6 @@
 //     (label, index) => index % step === 0 || index === labels.length - 1
 //   );
 // };
-const oneMonthLabelsFormat = (data) => {};
 
 const onefiveDayLabelsFormat = (data, timeInterval) => {
   //dateKeys creates an array of all keys.
@@ -58,12 +57,12 @@ export const fetchParser = (data, timeInterval) => {
   console.log("Data found? Data: ", data);
   //Depending on what the timeInterval is, we'll format it to something ChartJS likes.
   //Essentially, because I am storing our formatted data as an array, we are accessing and then setting the appropriate values to the corresponding keys on our formatted data, and then returning it to our chart.
-  if (timeInterval.interval) {
+  if (timeInterval) {
     formattedData.labels = onefiveDayLabelsFormat(
       data,
-      timeInterval.interval
+      timeInterval
     )[0];
-    formattedData.data = onefiveDayLabelsFormat(data, timeInterval.interval)[1];
+    formattedData.data = onefiveDayLabelsFormat(data, timeInterval)[1];
   }
 
   return formattedData;

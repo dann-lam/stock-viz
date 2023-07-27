@@ -10,12 +10,10 @@ export const chartTimeContext = createContext();
 
 export default function App() {
   //timeInterval, stores which timeInterval to API call/render on chart.
-  const [timeInterval, setTimeInterval] = useState({
-    interval: "1D",
-  });
+  const [timeInterval, setTimeInterval] = useState("1D");
 
   //Controls the color of the line on chart.
-  const [testFuck, setTestFuck] = useState("Select");
+  const [econIndicator, setEconIndicator] = useState("Select");
   const [symbolColor, setsymbolColor] = useState("#AFC787");
   //If an economic indicator is chosen, this controls the color of it displayed on the chart.
   const [indicatorColor, setindicatorColor] = useState("#0000FF");
@@ -41,8 +39,8 @@ export default function App() {
           setsymbolColor,
           indicatorColor,
           setindicatorColor,
-          testFuck,
-          setTestFuck,
+          econIndicator,
+          setEconIndicator,
         }}
       >
         <Navbar />

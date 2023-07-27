@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useRef } from "react";
 
 import { chartTimeContext } from "../App";
 
@@ -10,13 +10,15 @@ const Indicator = () => {
     search,
     setChartData,
     indicatorColor,
-    seteconIndicator,
-    setTestFuck,
+    setEconIndicator,
+    econIndicator,
   } = useContext(chartTimeContext);
-  const optionHandler = async (event) => {
-    event.preventDefault();
-    if (!(event.target.value === "Select")) {
-      setTestFuck(event.target.value);
+
+  const emaSelectRef = useRef();
+
+  const optionHandler = async () => {
+    if (!(emaSelectRef.current.value === "Select")) {
+      await setEconIndicator(emaSelectRef.current.value);
       // seteconIndicator((prevVal) => {
       //   console.log("Current econIndicator is: ", prevVal);
       //   console.log("EconIndicator is: ", econIndicator);
@@ -26,19 +28,14 @@ const Indicator = () => {
 
       //I should only be calling for indicatorIt if we have chartData and a symbol.
 
-      setTestFuck((prevVal) => {
-        if (search && chartData.labels.length > 0) {
-          indicatorIt(
-            prevVal,
-            search,
-            timeInterval,
-            chartData,
-            indicatorColor,
-            setChartData
-          );
-        }
-        return prevVal;
-      });
+      indicatorIt(
+        econIndicator,
+        search,
+        timeInterval,
+        chartData,
+        indicatorColor,
+        setChartData
+      );
     } else {
       return;
     }
@@ -51,6 +48,7 @@ const Indicator = () => {
         id="econIndicator"
         className="mt-1.5 w-full rounded-lg border-gray-300 text-gray-700 sm:text-sm font-thin shadow-lg"
         onChange={optionHandler}
+        ref={emaSelectRef}
       >
         <option value="Select" className="sm:text-sm font-thin">
           Please select

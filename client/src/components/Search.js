@@ -14,8 +14,7 @@ let Search = () => {
     symbolColor,
     chartData,
     indicatorColor,
-    setTestFuck,
-    testFuck,
+    econIndicator,
   } = useContext(chartTimeContext);
 
   //State value for user inputs for symbol.
@@ -36,9 +35,9 @@ let Search = () => {
     } else {
       searchIt(search, timeInterval, setChartData, symbolColor);
       //IF we have another option selected other than the default, then also grab our economic indicator upon search.
-      if (testFuck === "EMA" || testFuck === "SMA") {
+      if (econIndicator === "EMA" || econIndicator === "SMA") {
         indicatorIt(
-          testFuck,
+          econIndicator,
           search,
           timeInterval,
           chartData,

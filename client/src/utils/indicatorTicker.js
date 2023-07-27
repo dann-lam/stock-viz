@@ -12,7 +12,7 @@ const indicatorTicker = (indicator, search, timeInterval) => {
   };
 
   try {
-    let interval = Object.values(timeMap[timeInterval.interval])[0];
+    let interval = Object.values(timeMap[timeInterval])[0];
     let fetched = fetch(
       `https://www.alphavantage.co/query?function=${indicator}&symbol=${search}&interval=${interval}&time_period=10&series_type=close&apikey=NP9GNGJNY8XMZIK9`
     );

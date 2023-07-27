@@ -15,7 +15,9 @@ function LineChart() {
   useEffect(() => {
     console.log("Linechart timeinterval: ", timeInterval);
   }, [timeInterval]);
+
   // useEffect(() => {}, [displayForm, timeInterval]);
+
   return (
     //chart-container shadow-lg py-8 px-8 w-4/5 py-8 px-8 h-80
     <div className="chart-container shadow-lg py-8 px-8 h-80 rounded-lg">
@@ -39,7 +41,7 @@ function LineChart() {
               time: {
                 unit: "day",
                 displayFormats: {
-                  day: displayFormMap[timeInterval.interval],
+                  day: displayFormMap[timeInterval],
                 },
               },
               ticks: {
@@ -53,4 +55,5 @@ function LineChart() {
     </div>
   );
 }
+
 export default LineChart;

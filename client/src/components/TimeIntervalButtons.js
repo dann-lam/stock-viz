@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import { chartTimeContext } from "../App";
 // import searchTicker from "../utils/searchTicker";
 // import { fetchParser } from "../utils/fetchParser";
@@ -8,50 +8,44 @@ let TimeIntervalButtons = () => {
   const {
     setTimeInterval,
     search,
-    timeInterval,
     setChartData,
     symbolColor,
     chartData,
     indicatorColor,
-    testFuck,
-    setTestFuck,
+    econIndicator,
   } = useContext(chartTimeContext);
 
-  useEffect(() => {
-    // Create a debouncer for our memorizedSearchIt
-    //Upon
-    if (timeInterval) {
-      console.log("useEffect from timeINtervalButton firing: ", timeInterval);
-    } else {
-      return console.log("No search or timeInterval found.");
-    }
-  }, [timeInterval]);
+  // useEffect(() => {
+  //   // Create a debouncer for our memorizedSearchIt
+  //   //Upon
+  //   // if (timeInterval) {
+  //   //   console.log("useEffect from timeINtervalButton firing: ", timeInterval);
+  //   // } else {
+  //   //   return console.log("No search or timeInterval found.");
+  //   // }
+  // }, [timeInterval]);
   //Button Logic to update our Time
-  const timeChanger = async (event) => {
-    event.preventDefault();
-    console.log(`${event.target.dataset.interval} - was Pushed`);
-    console.log("Setting time interval");
-    setTimeInterval((prevState) => ({
-      ...prevState,
-      interval: event.target.dataset.interval,
-    }));
+  const timeChanger = async (buttInterval) => {
+    setTimeInterval(buttInterval);
+
     //Wrap our searches in this setTimeInterval updater, to ensure that we have the most up to date stuff.
     //We *could* use the useEffec to achieve this effect but the sideffects of updating it is unfortunate.
 
     //if search is empty, then only set the timeInterval, otherwise, if there is something there, THEN do the search.
+
     if (search) {
-      setTimeInterval((currState) => {
-        searchIt(search, currState, setChartData, symbolColor);
-      });
-    }
+      searchIt(search, buttInterval, setChartData, symbolColor);
+     };
+
+
     if (
       chartData.labels.length > 0 &&
-      (testFuck === "SMA" || testFuck === "EMA")
+      (econIndicator === "SMA" || econIndicator === "EMA")
     ) {
       indicatorIt(
-        testFuck,
+        econIndicator,
         search,
-        timeInterval,
+        buttInterval,
         chartData,
         indicatorColor,
         setChartData
@@ -66,37 +60,37 @@ let TimeIntervalButtons = () => {
   return (
     <div className="grid grid-cols-1  lg:grid-cols-5 lg:gap-8 w-4/8 py-8">
       <button
-        data-interval="1D"
+        type="button"
         className="h-8 shadow-lg text-teal-600 font-thin border-b-4 rounded-lg"
-        onClick={timeChanger}
+        onClick={() => timeChanger("1D")}
       >
         1D
       </button>
       <button
-        data-interval="5D"
+        type="button"
         className="h-8 shadow-lg text-teal-600 font-thin border-b-4 rounded-lg"
-        onClick={timeChanger}
+        onClick={() => timeChanger("5D")}
       >
         5D
       </button>
       <button
-        data-interval="1M"
+        type="button"
         className="h-8 shadow-lg text-teal-600 font-thin border-b-4 rounded-lg"
-        onClick={timeChanger}
+        onClick={() => timeChanger("1M")}
       >
         1M
       </button>
       <button
-        data-interval="6M"
+        type="button"
         className="h-8 shadow-lg text-teal-600 font-thin border-b-4 rounded-lg"
-        onClick={timeChanger}
+        onClick={() => timeChanger("6M")}
       >
         6M
       </button>
       <button
-        data-interval="Max"
+        type="button"
         className="h-8 shadow-lg text-teal-600 font-thin border-b-4 rounded-lg"
-        onClick={timeChanger}
+        onClick={() => timeChanger("Max")}
       >
         Max
       </button>
