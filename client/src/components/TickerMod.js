@@ -31,6 +31,17 @@ const TickerMod = () => {
       ],
     }));
   };
+  const updateIndicatorColor = (event) => {
+    setindicatorColor(event);
+    setChartData((prevData) => ({
+      ...prevData,
+      datasets: [
+        { ...prevData.datasets[0] },
+        { ...prevData.datasets[1], borderColor: indicatorColor },
+        ...prevData.datasets.slice(2),
+      ],
+    }));
+  };
   return (
     <div className="grid grid-cols-1 gap-4 lg:grid-cols-4 lg:gap-8 w-3/5 py-2 ">
       <div className="flex items-center  justify-center">
@@ -44,7 +55,7 @@ const TickerMod = () => {
         <Indicator />
       </div>
       <div className="flex items-center  justify-center">
-        <PopoverPicker color={indicatorColor} onChange={setindicatorColor} />
+        <PopoverPicker color={indicatorColor} onChange={updateIndicatorColor} />
       </div>
     </div>
   );

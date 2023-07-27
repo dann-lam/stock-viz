@@ -13,7 +13,9 @@ export default function App() {
   const [timeInterval, setTimeInterval] = useState({
     interval: "1D",
   });
+
   //Controls the color of the line on chart.
+  const [testFuck, setTestFuck] = useState("Select");
   const [symbolColor, setsymbolColor] = useState("#AFC787");
   //If an economic indicator is chosen, this controls the color of it displayed on the chart.
   const [indicatorColor, setindicatorColor] = useState("#0000FF");
@@ -24,38 +26,6 @@ export default function App() {
     // labels: timeInterval.data.map((data) => data.year),
     labels: [],
     datasets: [],
-    // {
-    //   data: [],
-    //   backgroundColor: [
-    //     "rgba(75,192,192,1)",
-    //     "#ecf0f1",
-    //     "#50AF95",
-    //     "#f3ba2f",
-    //     "#2a71d0",
-    //   ],
-    //   borderColor: "black",
-    //   borderWidth: 2,
-    //   // options: {
-    //   //   scales: {
-    //   //     x: {
-    //   //       ticks: {
-    //   //         maxTicksLimit: 5,
-    //   //         callback: (value, index, values) => {
-    //   //           if (
-    //   //             index === 0 ||
-    //   //             index === values.length - 1 ||
-    //   //             index % Math.floor(values.length / 4) === 0
-    //   //           ) {
-    //   //             return value;
-    //   //           } else {
-    //   //             return "";
-    //   //           }
-    //   //         },
-    //   //       },
-    //   //     },
-    //   //   },
-    //   // },
-    // },
   });
   return (
     <div className="App flex flex-col min-h-screen items-center">
@@ -71,6 +41,8 @@ export default function App() {
           setsymbolColor,
           indicatorColor,
           setindicatorColor,
+          testFuck,
+          setTestFuck,
         }}
       >
         <Navbar />
@@ -80,12 +52,3 @@ export default function App() {
     </div>
   );
 }
-
-//Moving context out from the Display into ouR aPP.
-
-//eNS7URING that nothing breaks during that moving
-//pOssible CORS issue with Search on our Navbar... UNFORTUNATE!
-// ---> Try to resolve the cors issue
-// ---> We absolutely want the search to be in the Navbar for UX reasons.
-
-//

@@ -1,48 +1,44 @@
 import React, { useContext } from "react";
-import indicatorTicker from "../utils/indicatorTicker";
+
 import { chartTimeContext } from "../App";
-import { indicatorParser } from "../utils/indicatorParser";
+
+import indicatorIt from "../utils/indicatorIt";
 const Indicator = () => {
-  const { timeInterval, chartData, search, setChartData, indicatorColor } =
-    useContext(chartTimeContext);
+  const {
+    timeInterval,
+    chartData,
+    search,
+    setChartData,
+    indicatorColor,
+    seteconIndicator,
+    setTestFuck,
+  } = useContext(chartTimeContext);
   const optionHandler = async (event) => {
     event.preventDefault();
     if (!(event.target.value === "Select")) {
-      let currVal = event.target.value;
+      setTestFuck(event.target.value);
+      // seteconIndicator((prevVal) => {
+      //   console.log("Current econIndicator is: ", prevVal);
+      //   console.log("EconIndicator is: ", econIndicator);
+      // });
       //Fetch information from the API.
-      const response = await indicatorTicker(currVal, search, timeInterval);
-      const data = await response.json();
-      let calledData = data[Object.keys(data)[1]];
-      let lastDate = chartData.labels[chartData.labels.length - 1];
-      lastDate = lastDate.getTime();
-      console.log("lastdate is: ", lastDate);
-      let formattedData = indicatorParser(calledData, timeInterval, lastDate);
-      console.log("formattedData: ", formattedData);
-      let newObj = {
-        label: `${currVal}`,
-        data: formattedData,
-        pointRadius: 1,
-        tension: 0.4,
-        borderColor: indicatorColor,
-      };
-      const updatedDatasets = [...chartData.datasets];
-      updatedDatasets[1] = newObj;
+      //indicatorIt is wrapped in the seteconIndicator to ensure that we are using the most up to date value.
 
-      // Update the state with the new array of datasets
-      setChartData((prevData) => ({
-        ...prevData,
-        datasets: updatedDatasets,
-      }));
-      // setChartData(
-      //   (prevData) => (
-      //     {
-      //       ...prevData,
-      //     }
+      //I should only be calling for indicatorIt if we have chartData and a symbol.
 
-      //   )
-      // );
-      //Once we get bet fetched, and then we format our returns, wet set the
-      // chart data, to be on the second slot of our stuff.
+      setTestFuck((prevVal) => {
+        if (search && chartData.labels.length > 0) {
+          indicatorIt(
+            prevVal,
+            search,
+            timeInterval,
+            chartData,
+            indicatorColor,
+            setChartData
+          );
+        }
+        return prevVal;
+      });
     } else {
       return;
     }

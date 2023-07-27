@@ -1,10 +1,9 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Line } from "react-chartjs-2";
 import { chartTimeContext } from "../App";
 
-function LineChart({ chartData }) {
-  const { timeInterval, search } = useContext(chartTimeContext);
-  // if (timeInterval)
+function LineChart() {
+  const { timeInterval, search, chartData } = useContext(chartTimeContext);
 
   const displayFormMap = {
     "1D": "h:mm A",
@@ -13,6 +12,9 @@ function LineChart({ chartData }) {
     "6M": "MMM YYYY",
     Max: "YYYY",
   };
+  useEffect(() => {
+    console.log("Linechart timeinterval: ", timeInterval);
+  }, [timeInterval]);
   // useEffect(() => {}, [displayForm, timeInterval]);
   return (
     //chart-container shadow-lg py-8 px-8 w-4/5 py-8 px-8 h-80

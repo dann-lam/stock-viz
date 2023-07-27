@@ -1,11 +1,21 @@
-import React, { useContext, useEffect, useCallback } from "react";
+import React, { useContext, useEffect } from "react";
 import { chartTimeContext } from "../App";
-import searchTicker from "../utils/searchTicker";
-import { fetchParser } from "../utils/fetchParser";
+// import searchTicker from "../utils/searchTicker";
+// import { fetchParser } from "../utils/fetchParser";
 import searchIt from "../utils/searchIt";
+import indicatorIt from "../utils/indicatorIt";
 let TimeIntervalButtons = () => {
-  const { setTimeInterval, search, timeInterval, setChartData, symbolColor } =
-    useContext(chartTimeContext);
+  const {
+    setTimeInterval,
+    search,
+    timeInterval,
+    setChartData,
+    symbolColor,
+    chartData,
+    indicatorColor,
+    testFuck,
+    setTestFuck,
+  } = useContext(chartTimeContext);
 
   useEffect(() => {
     // Create a debouncer for our memorizedSearchIt
@@ -25,14 +35,30 @@ let TimeIntervalButtons = () => {
       ...prevState,
       interval: event.target.dataset.interval,
     }));
-    console.log("Immediately detected timeInterval is: ", timeInterval);
     //Wrap our searches in this setTimeInterval updater, to ensure that we have the most up to date stuff.
     //We *could* use the useEffec to achieve this effect but the sideffects of updating it is unfortunate.
-    setTimeInterval((currState) => {
-      console.log("timeInterval button: ", search, currState, setChartData);
-      searchIt(search, currState, setChartData, symbolColor);
-      return currState;
-    });
+
+    //if search is empty, then only set the timeInterval, otherwise, if there is something there, THEN do the search.
+    if (search) {
+      setTimeInterval((currState) => {
+        searchIt(search, currState, setChartData, symbolColor);
+      });
+    }
+    if (
+      chartData.labels.length > 0 &&
+      (testFuck === "SMA" || testFuck === "EMA")
+    ) {
+      indicatorIt(
+        testFuck,
+        search,
+        timeInterval,
+        chartData,
+        indicatorColor,
+        setChartData
+      );
+    }
+    //Set up a condition, where indicatorIt knows whether chartData exists or not. This determines whether we do the indicatorIt search.
+    //Check to see if chartData.labels exists.
   };
 
   //This is taken from the searchClicker, need to refactor it.
