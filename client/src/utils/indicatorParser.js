@@ -1,4 +1,4 @@
-export const indicatorParser = async (data, timeInterval, lastDate) => {
+export const indicatorParser = (data, timeInterval, lastDate) => {
   let resultArr = [];
 
   let dataKeys = Object.keys(data);
