@@ -27,15 +27,17 @@ const Indicator = () => {
       //indicatorIt is wrapped in the seteconIndicator to ensure that we are using the most up to date value.
 
       //I should only be calling for indicatorIt if we have chartData and a symbol.
-
-      indicatorIt(
-        econIndicator,
-        search,
-        timeInterval,
-        chartData,
-        indicatorColor,
-        setChartData
-      );
+      setEconIndicator((currVal) => {
+        indicatorIt(
+          currVal,
+          search,
+          timeInterval,
+          chartData,
+          indicatorColor,
+          setChartData
+        );
+        return currVal;
+      });
     } else {
       return;
     }
