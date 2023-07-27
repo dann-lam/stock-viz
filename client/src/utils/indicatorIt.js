@@ -2,7 +2,7 @@ import indicatorTicker from "./indicatorTicker";
 import { indicatorParser } from "./indicatorParser";
 
 const indicatorIt = async (
-  currVal,
+  econIndicator,
   search,
   timeInterval,
   chartData,
@@ -11,17 +11,19 @@ const indicatorIt = async (
 ) => {
   console.log(
     "Entered indicatorTicker correctly? ",
-    currVal,
+    econIndicator,
     search,
-    timeInterval
+    timeInterval,
+    chartData
   );
+
   if (search) {
-    const response = await indicatorTicker(currVal, search, timeInterval);
+    console.log("ChartData is: ", chartData);
+    const response = await indicatorTicker(econIndicator, search, timeInterval);
     const data = await response.json();
-    let calledData = data[Object.keys(data)[1]];
-    //The the latest chartData information.
-    //UseEffect that listens specifically to changes to chart Data.
-    //Only do this if you have the lastDate.
+    let calledData = await data[Object.keys(data)[1]];
+    console.log("Indicator it data response: ", data);
+    console.log("Indicator it calledData :", calledData);
 
     if (chartData.labels[chartData.labels.length - 1]) {
       let lastDate = chartData.labels[chartData.labels.length - 1];
@@ -31,7 +33,7 @@ const indicatorIt = async (
       let formattedData = indicatorParser(calledData, timeInterval, lastDate);
       console.log("formattedData: ", formattedData);
       let newObj = {
-        label: `${currVal}`,
+        label: `${econIndicator}`,
         data: formattedData,
         pointRadius: 1,
         tension: 0.4,
@@ -41,7 +43,7 @@ const indicatorIt = async (
       updatedDatasets[1] = newObj;
 
       // Update the state with the new array of datasets
-      setChartData((prevData) => ({
+      await setChartData((prevData) => ({
         ...prevData,
         datasets: updatedDatasets,
       }));

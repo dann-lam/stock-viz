@@ -1,10 +1,17 @@
 import searchTicker from "./searchTicker";
-
+import indicatorIt from "./indicatorIt";
 import { fetchParser } from "./fetchParser";
 
 //timeInterval is fed into our API request
 //Handle button click
-const searchIt = async (search, timeInterval, setChartData, symbolColor) => {
+const searchIt = async (
+  search,
+  timeInterval,
+  setChartData,
+  symbolColor,
+  indicatorColor,
+  econIndicator
+) => {
   try {
     console.log("Looking for undefined: ", search, timeInterval, setChartData);
     const response = await searchTicker(search, timeInterval);
@@ -15,12 +22,12 @@ const searchIt = async (search, timeInterval, setChartData, symbolColor) => {
     //This is accessing our data's returned values based on the second key.
 
     let calledData = data[Object.keys(data)[1]];
-    console.log("Called data is: ", calledData);
+
     //Takes our data and turns it into something the chart can see.
     let chartData = fetchParser(calledData, timeInterval);
     // Update the react variable that controls the chart.
-    console.log("Chart data is: ", chartData);
-    setChartData((prevData) => ({
+
+    await setChartData((prevData) => ({
       ...prevData,
       labels: chartData.labels,
       datasets: [
@@ -32,9 +39,28 @@ const searchIt = async (search, timeInterval, setChartData, symbolColor) => {
           tension: 0.4,
           borderColor: symbolColor,
         },
-        ...prevData.datasets.slice(1),
+        {
+          ...prevData.datasets[1],
+        },
       ],
     }));
+
+    //If econIndicator is updated, then we should also update our indicator dataset.
+    if (econIndicator === "EMA" || econIndicator === "SMA") {
+      setChartData((currData) => {
+        indicatorIt(
+          econIndicator,
+          search,
+          timeInterval,
+          currData,
+          indicatorColor,
+          setChartData
+        );
+        return currData;
+      });
+    } else {
+      console.log("econIndicator set to something else.", econIndicator);
+    }
   } catch (err) {
     console.error(err);
   }

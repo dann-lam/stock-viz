@@ -34,23 +34,29 @@ let TimeIntervalButtons = () => {
     //if search is empty, then only set the timeInterval, otherwise, if there is something there, THEN do the search.
 
     if (search) {
-      searchIt(search, buttInterval, setChartData, symbolColor);
-     };
-
-
-    if (
-      chartData.labels.length > 0 &&
-      (econIndicator === "SMA" || econIndicator === "EMA")
-    ) {
-      indicatorIt(
-        econIndicator,
+      searchIt(
         search,
         buttInterval,
-        chartData,
+        setChartData,
+        symbolColor,
         indicatorColor,
-        setChartData
+        econIndicator
       );
     }
+
+    // if (
+    //   chartData.labels.length > 0 &&
+    //   (econIndicator === "SMA" || econIndicator === "EMA")
+    // ) {
+    //   indicatorIt(
+    //     econIndicator,
+    //     search,
+    //     buttInterval,
+    //     chartData,
+    //     indicatorColor,
+    //     setChartData
+    //   );
+    // }
     //Set up a condition, where indicatorIt knows whether chartData exists or not. This determines whether we do the indicatorIt search.
     //Check to see if chartData.labels exists.
   };

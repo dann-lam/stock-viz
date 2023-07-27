@@ -33,20 +33,15 @@ let Search = () => {
     if (!search) {
       return console.log("No search found!");
     } else {
-      await searchIt(search, timeInterval, setChartData, symbolColor);
+      await searchIt(
+        search,
+        timeInterval,
+        setChartData,
+        symbolColor,
+        indicatorColor,
+        econIndicator
+      );
       //IF we have another option selected other than the default, then also grab our economic indicator upon search.
-      if (econIndicator === "EMA" || econIndicator === "SMA") {
-        await indicatorIt(
-          econIndicator,
-          search,
-          timeInterval,
-          chartData,
-          indicatorColor,
-          setChartData
-        );
-      } else {
-        console.log("econIndicator set to something else.", econIndicator);
-      }
     }
   };
 
