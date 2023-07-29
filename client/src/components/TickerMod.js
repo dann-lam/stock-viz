@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 // import { EditText, EditTextarea } from "react-edit-text";
 // import "react-edit-text/dist/index.css";
-// import CheckBox from "./CheckBox";
+import CheckBox from "./CheckBox";
 import { chartTimeContext } from "../App";
 
 import { PopoverPicker } from "./ColorPicker";
@@ -56,6 +56,9 @@ const TickerMod = () => {
       </div>
       <div className="flex items-center  justify-center">
         <PopoverPicker color={indicatorColor} onChange={updateIndicatorColor} />
+      </div>
+      <div className="flex items-center  justify-center">
+        <CheckBox />
       </div>
     </div>
   );
