@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useRef } from "react";
 // import { EditText, EditTextarea } from "react-edit-text";
 // import "react-edit-text/dist/index.css";
 import CheckBox from "./CheckBox";
@@ -7,6 +7,10 @@ import { chartTimeContext } from "../App";
 import { PopoverPicker } from "./ColorPicker";
 import Indicator from "./Indicator";
 import Search from "./Search";
+import newsFetch from "../utils/newsFetch";
+
+let newsData;
+
 const TickerMod = () => {
   const {
     setChartData,
@@ -14,8 +18,12 @@ const TickerMod = () => {
     setsymbolColor,
     symbolColor,
     indicatorColor,
+    isNews,
+    setisNews,
+    search,
+    chartData,
   } = useContext(chartTimeContext);
-  //MAYBE a useEffect hook, for updating chartData, after We've set the symbol/indicator color.
+
   //Update the symbolColor and chart data.
   const updateChartColor = (event) => {
     setsymbolColor(event);
@@ -42,6 +50,47 @@ const TickerMod = () => {
       ],
     }));
   };
+
+  const checkBoxHandler = async () => {
+    await setisNews(!isNews);
+    await setisNews((currNews) => {
+      if (currNews === false) {
+        //setChartData, with the third dataset being empty.
+        setChartData((prevData) => ({
+          ...prevData,
+          datasets: [
+            { ...prevData.datasets[0] },
+            { ...prevData.datasets[1] },
+            {},
+            ...prevData.datasets.slice(3),
+          ],
+        }));
+      } else if (currNews === true && newsData) {
+        if (chartData.labels[chartData.labels.length - 1]) {
+          let lastDate = chartData.labels[chartData.labels.length - 1];
+          lastDate = lastDate.getTime();
+          //set chart Data
+        }
+
+        //fetch newsData and format it to whatever timeInterval is involved.
+        //Then set newsData to what we fetched.\
+        //Set the chart Data
+      } else if (currNews === true && !newsData) {
+        newsData = newsFetch(search, chartData, setChartData);
+
+        //take whatever was saved to newsData and just format it to whatever the current timeInterval is.
+        //Set the chart data to whatever that was.
+      } else {
+        console.log(
+          "Some other condition was hit lol. isNews, newsData: ",
+          currNews,
+          newsData
+        );
+      }
+      return currNews;
+    });
+  };
+
   return (
     <div className="grid grid-cols-1 gap-4 lg:grid-cols-4 lg:gap-8 w-3/5 py-2 ">
       <div className="flex items-center  justify-center">
@@ -58,7 +107,7 @@ const TickerMod = () => {
         <PopoverPicker color={indicatorColor} onChange={updateIndicatorColor} />
       </div>
       <div className="flex items-center  justify-center">
-        <CheckBox />
+        <CheckBox checked={isNews} onChange={checkBoxHandler} />
       </div>
     </div>
   );

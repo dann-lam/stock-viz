@@ -28,10 +28,9 @@ const indicatorIt = async (
     if (chartData.labels[chartData.labels.length - 1]) {
       let lastDate = chartData.labels[chartData.labels.length - 1];
       lastDate = lastDate.getTime();
-      console.log("indicator calledData: ", calledData);
-      console.log("lastdate is: ", lastDate);
+
       let formattedData = indicatorParser(calledData, timeInterval, lastDate);
-      console.log("formattedData: ", formattedData);
+
       let newObj = {
         label: `${econIndicator}`,
         data: formattedData,

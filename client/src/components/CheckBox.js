@@ -1,16 +1,7 @@
-import React, { useContext, useRef } from "react";
-import { chartTimeContext } from "../App";
-const CheckBox = () => {
+import React from "react";
+const CheckBox = ({ checked, onChange }) => {
   // const checkBoxInputRef = useRef();
 
-  const { isNews, setisNews } = useContext(chartTimeContext);
-  const checkBoxHandler = async () => {
-    await setisNews(!isNews);
-
-    setisNews((currState) => {
-      return currState;
-    });
-  };
   return (
     <label
       htmlFor="AcceptConditions"
@@ -18,8 +9,8 @@ const CheckBox = () => {
     >
       <input
         // ref={checkBoxInputRef}
-        checked={isNews}
-        onChange={checkBoxHandler}
+        checked={checked}
+        onChange={onChange}
         type="checkbox"
         id="AcceptConditions"
         className="peer sr-only"
