@@ -1,6 +1,6 @@
 import newsParser from "./newsParser";
 
-const newsFetch = async (symbol, chartData) => {
+const newsFetch = async (symbol, chartData, setChartData) => {
   try {
     const response = await fetch(
       `https://www.alphavantage.co/query?function=NEWS_SENTIMENT&tickers=${symbol}&apikey=NP9GNGJNY8XMZIK9`
@@ -14,9 +14,23 @@ const newsFetch = async (symbol, chartData) => {
       let lastDate = chartData.labels[chartData.labels.length - 1];
 
       lastDate = lastDate.getTime();
-      let currNewsArr = await newsParser(feed, lastDate);
-      console.log("Chart labels: ", chartData.labels);
-      console.log("currNewsArr: ", currNewsArr);
+      let currNewsArr = newsParser(feed, lastDate, chartData.labels);
+
+      setChartData((currData) => ({
+        ...currData,
+        datasets: [
+          { ...currData.datasets[0] },
+          { ...currData.datasets[1] },
+          {
+            ...currData.datasets[2],
+            label: `News Articles`,
+            data: currNewsArr,
+            pointRadius: 2,
+            tension: 0.4,
+          },
+          ...currData.datasets.slice(3),
+        ],
+      }));
     }
 
     return feed;

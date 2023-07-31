@@ -42,6 +42,7 @@ const searchIt = async (
         {
           ...prevData.datasets[1],
         },
+        { ...prevData.datasets[2] },
       ],
     }));
 

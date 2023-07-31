@@ -8,7 +8,7 @@ import { PopoverPicker } from "./ColorPicker";
 import Indicator from "./Indicator";
 import Search from "./Search";
 import newsFetch from "../utils/newsFetch";
-
+import newsParser from "../utils/newsParser";
 let newsData;
 
 const TickerMod = () => {
@@ -77,7 +77,7 @@ const TickerMod = () => {
         //Set the chart Data
       } else if (currNews === true && !newsData) {
         newsData = newsFetch(search, chartData, setChartData);
-
+        
         //take whatever was saved to newsData and just format it to whatever the current timeInterval is.
         //Set the chart data to whatever that was.
       } else {

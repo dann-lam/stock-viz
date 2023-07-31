@@ -3,7 +3,7 @@ const timeConverter = (inputDatetimeStr) => {
 
   // Extract the date components from the input string
   const year = parseInt(inputDatetimeStr.substr(0, 4));
-  const month = parseInt(inputDatetimeStr.substr(4, 2)) - 1; // Month is zero-based in JavaScript
+  const month = parseInt(inputDatetimeStr.substr(4, 2)) - 1; 
   const day = parseInt(inputDatetimeStr.substr(6, 2));
   const hours = parseInt(inputDatetimeStr.substr(9, 2));
   const minutes = parseInt(inputDatetimeStr.substr(11, 2));
