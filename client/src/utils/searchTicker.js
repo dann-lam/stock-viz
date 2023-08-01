@@ -13,10 +13,10 @@ const searchTicker = (query, timeInterval) => {
   //The type of request is based off of which button is pushed.
   let currFunc = Object.keys(timeMap[timeInterval])[0];
   let interval = timeMap[timeInterval][currFunc];
-  console.log("--- searchTicker ---");
-  console.log("timeInterval: ", timeInterval);
-  console.log("CurrFunc is: ", currFunc);
-  console.log("interval is: ", interval);
+  // console.log("--- searchTicker ---");
+  // console.log("timeInterval: ", timeInterval);
+  // console.log("CurrFunc is: ", currFunc);
+  // console.log("interval is: ", interval);
   // let currTime = queryTime;
 
   return fetch(

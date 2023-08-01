@@ -75,9 +75,13 @@ const TickerMod = () => {
         //fetch newsData and format it to whatever timeInterval is involved.
         //Then set newsData to what we fetched.\
         //Set the chart Data
-      } else if (currNews === true && !newsData) {
-        newsData = newsFetch(search, chartData, setChartData);
-        
+      } else if (currNews === true && !newsData && search && chartData.labels) {
+        newsData = newsFetch(
+          search,
+          chartData,
+          setChartData,
+        );
+
         //take whatever was saved to newsData and just format it to whatever the current timeInterval is.
         //Set the chart data to whatever that was.
       } else {

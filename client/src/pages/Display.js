@@ -19,13 +19,13 @@ const Display = () => {
     useContext(chartTimeContext);
 
   //Checking our timeInterval each time it's changed.
-  useEffect(() => {
-    //Add in a use effect that will update the chart.
-    //Set a timer here to grab our data.
-    // let blah = foo.subscribe();
-    console.log("useEffect: timeInterval, chartData, search, symbolcolor");
-    console.log(timeInterval, chartData, search, symbolColor);
-  }, [timeInterval, chartData, search, symbolColor]);
+  // useEffect(() => {
+  //   //Add in a use effect that will update the chart.
+  //   //Set a timer here to grab our data.
+  //   // let blah = foo.subscribe();
+  //   console.log("useEffect: timeInterval, chartData, search, symbolcolor");
+  //   console.log(timeInterval, chartData, search, symbolColor);
+  // }, [timeInterval, chartData, search, symbolColor]);
 
   return (
     <div className="flex flex-col py-16 h-max w-4/5 items-center">

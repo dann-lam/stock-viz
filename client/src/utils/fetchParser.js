@@ -15,7 +15,7 @@ const onefiveDayLabelsFormat = (data, timeInterval) => {
   let ourLabels = [];
   let ourPrices = [];
   let lengthInterval = 0;
-  console.log("in Labels formatter, time interval is: ", timeInterval);
+
   //I should convert this to a switch case.
   if (
     timeInterval === "1D" ||
@@ -23,21 +23,19 @@ const onefiveDayLabelsFormat = (data, timeInterval) => {
     timeInterval === "Max"
   ) {
     lengthInterval = dateKeys.length;
-    console.log("1D or 5D detected!", timeInterval, lengthInterval);
   } else if (timeInterval === "1M") {
-    console.log("1M detected!", timeInterval, lengthInterval);
     lengthInterval = 20;
   } else if (timeInterval === "6M") {
     lengthInterval = 25;
   }
 
-  console.log("lengthInterval is: ", lengthInterval);
+  // console.log("lengthInterval is: ", lengthInterval);
   for (let i = 0; i < lengthInterval; i++) {
     //String interpolated to tack on the T00:00:00 so that we don't render the wrong time.
 
     let currPrice = data[dateKeys[i]]["4. close"];
     // ["4. close"]
-    ourPrices.push(currPrice);
+    ourPrices.push({ price: currPrice });
     ourLabels.push(new Date(`${dateKeys[i]}`));
   }
   //Filter out our 100 labels and filter it down to 5.
@@ -53,17 +51,13 @@ export const fetchParser = (data, timeInterval) => {
     labels: "",
     data: "",
   };
-  console.log("fetchParser timeInterval: ", timeInterval);
-  console.log("Data found? Data: ", data);
+
   //Depending on what the timeInterval is, we'll format it to something ChartJS likes.
   //Essentially, because I am storing our formatted data as an array, we are accessing and then setting the appropriate values to the corresponding keys on our formatted data, and then returning it to our chart.
   if (timeInterval) {
-    formattedData.labels = onefiveDayLabelsFormat(
-      data,
-      timeInterval
-    )[0];
+    formattedData.labels = onefiveDayLabelsFormat(data, timeInterval)[0];
     formattedData.data = onefiveDayLabelsFormat(data, timeInterval)[1];
   }
-
+  // console.log("FormattedData is: ", formattedData);
   return formattedData;
 };

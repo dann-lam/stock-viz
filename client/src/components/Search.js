@@ -29,7 +29,7 @@ let Search = () => {
   //Handle button click
   const searchClick = async (event) => {
     event.preventDefault();
-    console.log("Search: ", search);
+    // console.log("Search: ", search);
     if (!search) {
       return console.log("No search found!");
     } else {
@@ -39,7 +39,7 @@ let Search = () => {
         setChartData,
         symbolColor,
         indicatorColor,
-        econIndicator
+        econIndicator,
       );
       //IF we have another option selected other than the default, then also grab our economic indicator upon search.
     }

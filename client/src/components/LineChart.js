@@ -12,9 +12,9 @@ function LineChart() {
     "6M": "MMM YYYY",
     Max: "YYYY",
   };
-  useEffect(() => {
-    console.log("Linechart timeinterval: ", timeInterval);
-  }, [timeInterval]);
+  // useEffect(() => {
+  //   console.log("Linechart timeinterval: ", timeInterval);
+  // }, [timeInterval]);
 
   // useEffect(() => {}, [displayForm, timeInterval]);
 

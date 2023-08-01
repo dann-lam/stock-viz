@@ -14,18 +14,20 @@ const closestIndex = (arr, num) => {
   return minIndex;
 };
 
-const newsParser = (fetched, lastDate, chartData) => {
+const newsParser = async (fetched, lastDate, chartData) => {
   let currentDate = Infinity;
   // let shortestDistance;
   // let distance;
   let currArr = [];
+  console.log("Chart data is: ", chartData.datasets[0].data);
 
   //currentDate > lastDate
   for (let i = 0; currentDate > lastDate; i++) {
     currentDate = timeConverter(fetched[i].time_published);
     console.log("Curr item is: ", fetched[i]);
-    let idx = closestIndex(chartData, currentDate);
+    let idx = closestIndex(chartData.labels, currentDate);
     let publishedDateObj = new Date(currentDate);
+
     currArr[idx] = {
       title: fetched[i].title,
       source: fetched[i].source,
