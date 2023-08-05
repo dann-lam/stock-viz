@@ -7,18 +7,17 @@ const newsFetch = async (symbol, chartData, setChartData) => {
     );
     const data = await response.json();
     const feed = await data.feed;
-    console.log("Feed complete!");
-    console.log(feed);
+    let currNewsArr;
 
     if (chartData.labels[chartData.labels.length - 1]) {
       let lastDate = chartData.labels[chartData.labels.length - 1];
 
       lastDate = lastDate.getTime();
-      let currNewsArr = await newsParser(feed, lastDate, chartData);
+      currNewsArr = await newsParser(feed, lastDate, chartData);
 
       //
-      console.log("chartData is: ", chartData);
-      console.log("currNewsArr is: ", currNewsArr);
+      // console.log("chartData is: ", chartData);
+      // console.log("currNewsArr is: ", currNewsArr);
       // setChartData((currData) => ({
       //   ...currData,
       //   datasets: [
@@ -36,7 +35,7 @@ const newsFetch = async (symbol, chartData, setChartData) => {
       // }));
     }
 
-    return feed;
+    return [feed, currNewsArr];
   } catch (err) {
     console.error(err);
   }

@@ -9,7 +9,6 @@ import Indicator from "./Indicator";
 import Search from "./Search";
 import newsFetch from "../utils/newsFetch";
 import newsParser from "../utils/newsParser";
-let newsData;
 
 const TickerMod = () => {
   const {
@@ -52,9 +51,14 @@ const TickerMod = () => {
   };
 
   const checkBoxHandler = async () => {
-    await setisNews(!isNews);
+    //Whenever we toggle the button, we change the state of isNews.isDisplayNews to true or false.
+    await setisNews((prevData) => ({
+      ...prevData,
+      isDisplayNews: !prevData.isDisplayNews,
+    }));
+    // This is bad because we're calling it twice. However, that's fine for now :).
     await setisNews((currNews) => {
-      if (currNews === false) {
+      if (currNews.isDisplayNews === false) {
         //setChartData, with the third dataset being empty.
         setChartData((prevData) => ({
           ...prevData,
@@ -65,30 +69,48 @@ const TickerMod = () => {
             ...prevData.datasets.slice(3),
           ],
         }));
-      } else if (currNews === true && newsData) {
-        if (chartData.labels[chartData.labels.length - 1]) {
-          let lastDate = chartData.labels[chartData.labels.length - 1];
-          lastDate = lastDate.getTime();
-          //set chart Data
-        }
-
+      } else if (
+        currNews.isDisplayNews === true &&
+        currNews.newsData.length > 0
+      ) {
+        //This else if controls drawing or undrawing our data onto the chart. if we have the information.
+        // if (chartData.labels[chartData.labels.length - 1]) {
+        //   let lastDate = chartData.labels[chartData.labels.length - 1];
+        //   lastDate = lastDate.getTime();
+        //   //set chart Data
+        // }
         //fetch newsData and format it to whatever timeInterval is involved.
         //Then set newsData to what we fetched.\
         //Set the chart Data
-      } else if (currNews === true && !newsData && search && chartData.labels) {
-        newsData = newsFetch(
-          search,
-          chartData,
-          setChartData,
-        );
+      } else if (
+        currNews.isDisplayNews === true &&
+        currNews.newsData.length === 0 &&
+        search &&
+        chartData.labels
+      ) {
+        //This else statement only grabs our news information if the button is on, and if the data was not fetched before, and if we have the search term and chartData range.
+        newsFetch(search, chartData, setChartData)
+          .then(([feed, currNewsArr]) => {
+            setisNews((prevNews) => ({
+              ...prevNews,
+              newsData: feed,
+              currNews: currNewsArr,
+            }));
+            setisNews((currNews) => {
+              console.log("Curr news is: ", currNews);
 
-        //take whatever was saved to newsData and just format it to whatever the current timeInterval is.
-        //Set the chart data to whatever that was.
+              return currNews;
+            });
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+          });
       } else {
+        //A generic catch all in case something bugs out. Currently doesn't do much.
         console.log(
           "Some other condition was hit lol. isNews, newsData: ",
-          currNews,
-          newsData
+          currNews.isDisplayNews,
+          currNews.newsData
         );
       }
       return currNews;
@@ -111,7 +133,7 @@ const TickerMod = () => {
         <PopoverPicker color={indicatorColor} onChange={updateIndicatorColor} />
       </div>
       <div className="flex items-center  justify-center">
-        <CheckBox checked={isNews} onChange={checkBoxHandler} />
+        <CheckBox checked={isNews.isDisplayNews} onChange={checkBoxHandler} />
       </div>
     </div>
   );

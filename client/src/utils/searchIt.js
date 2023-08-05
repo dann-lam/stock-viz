@@ -4,14 +4,39 @@ import { fetchParser } from "./fetchParser";
 
 //timeInterval is fed into our API request
 //Handle button click
+
 const searchIt = async (
   search,
   timeInterval,
   setChartData,
   symbolColor,
   indicatorColor,
-  econIndicator
+  econIndicator,
+  isNews
 ) => {
+  let smallRadiiSize = 1;
+
+  const pointRadiiHandler = (newsData) => {
+    console.log("is news is: ", newsData);
+    if (newsData.isDisplayNews && newsData.currNews) {
+      return getNewsRadii(newsData.currNews);
+    } else {
+      return smallRadiiSize;
+    }
+  };
+
+  const getNewsRadii = (newsArr) => {
+    const radii = [];
+    for (let i = 0; i < newsArr.length; i++) {
+      console.log("News arr[i] is: ", newsArr[i]);
+      if (newsArr[i] === undefined) {
+        radii.push(smallRadiiSize);
+      } else {
+        radii.push(5);
+      }
+    }
+    return radii;
+  };
   try {
     // console.log("Looking for undefined: ", search, timeInterval, setChartData);
     const response = await searchTicker(search, timeInterval);
@@ -35,7 +60,7 @@ const searchIt = async (
           ...prevData.datasets[0],
           label: `Closing Price`,
           data: searchData.data.map((item) => item.price),
-          pointRadius: 2,
+          pointRadius: pointRadiiHandler(isNews),
           tension: 0.4,
           borderColor: symbolColor,
         },

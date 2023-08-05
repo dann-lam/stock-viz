@@ -19,12 +19,10 @@ const newsParser = async (fetched, lastDate, chartData) => {
   // let shortestDistance;
   // let distance;
   let currArr = [];
-  console.log("Chart data is: ", chartData.datasets[0].data);
-
   //currentDate > lastDate
   for (let i = 0; currentDate > lastDate; i++) {
     currentDate = timeConverter(fetched[i].time_published);
-    console.log("Curr item is: ", fetched[i]);
+
     let idx = closestIndex(chartData.labels, currentDate);
     let publishedDateObj = new Date(currentDate);
 
@@ -39,7 +37,7 @@ const newsParser = async (fetched, lastDate, chartData) => {
     //Figure out where our time_published sits relative to the label array.
     //Shove an object containing the fetched[i]'s headling, link, and image into that slot that corresponds to the label array.
   }
-  console.log(currArr);
+
   return currArr;
 };
 

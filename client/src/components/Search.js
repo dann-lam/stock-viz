@@ -15,6 +15,7 @@ let Search = () => {
     chartData,
     indicatorColor,
     econIndicator,
+    isNews,
   } = useContext(chartTimeContext);
 
   //State value for user inputs for symbol.
@@ -40,6 +41,7 @@ let Search = () => {
         symbolColor,
         indicatorColor,
         econIndicator,
+        isNews
       );
       //IF we have another option selected other than the default, then also grab our economic indicator upon search.
     }
