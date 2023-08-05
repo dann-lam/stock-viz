@@ -1,5 +1,5 @@
-import React, { useContext, useEffect } from "react";
-import { Line } from "react-chartjs-2";
+import React, { useContext, useEffect, useRef } from "react";
+import { Line, getElementsAtEvent } from "react-chartjs-2";
 import { chartTimeContext } from "../App";
 
 function LineChart() {
@@ -52,6 +52,20 @@ function LineChart() {
       return `Article published:\n${currNewsStory.time_published.toLocaleString()}`;
     }
   };
+  const chartRef = useRef();
+  const clickHandler = (event) => {
+    if (
+      getElementsAtEvent(chartRef.current, event).length > 0 &&
+      isNews.isDisplayNews &&
+      isNews.currNews.length > 0
+    ) {
+      const clickDatasetIndex = getElementsAtEvent(chartRef.current, event)[0]
+        .index;
+      const clickNewsLink = isNews.currNews[clickDatasetIndex].link; //.link
+      window.open(`${clickNewsLink}`, "_blank");
+    }
+  };
+
   return (
     //chart-container shadow-lg py-8 px-8 w-4/5 py-8 px-8 h-80
     <div className="chart-container shadow-lg py-8 px-8 h-80 rounded-lg">
@@ -70,6 +84,7 @@ function LineChart() {
                 beforeFooter: beforeFooterHandler,
               },
             },
+
             title: {
               display: true,
               text: `${search}`,
@@ -95,6 +110,8 @@ function LineChart() {
             },
           },
         }}
+        onClick={clickHandler}
+        ref={chartRef}
         className="h-full"
       />
     </div>
