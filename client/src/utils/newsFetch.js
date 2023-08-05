@@ -8,7 +8,6 @@ const newsFetch = async (symbol, chartData, setChartData) => {
     const data = await response.json();
     const feed = await data.feed;
     let currNewsArr;
-
     if (chartData.labels[chartData.labels.length - 1]) {
       let lastDate = chartData.labels[chartData.labels.length - 1];
 

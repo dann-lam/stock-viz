@@ -6,6 +6,8 @@ function LineChart() {
   const { timeInterval, search, chartData, isNews } =
     useContext(chartTimeContext);
 
+  const chartRef = useRef();
+
   const displayFormMap = {
     "1D": "h:mm A",
     "5D": "MMM D",
@@ -52,7 +54,7 @@ function LineChart() {
       return `Article published:\n${currNewsStory.time_published.toLocaleString()}`;
     }
   };
-  const chartRef = useRef();
+
   const clickHandler = (event) => {
     if (
       getElementsAtEvent(chartRef.current, event).length > 0 &&

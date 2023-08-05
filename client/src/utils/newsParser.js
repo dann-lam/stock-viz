@@ -20,7 +20,7 @@ const newsParser = async (fetched, lastDate, chartData) => {
   // let distance;
   let currArr = [];
   //currentDate > lastDate
-  for (let i = 0; currentDate > lastDate; i++) {
+  for (let i = 0; currentDate > lastDate && i < fetched.length - 1; i++) {
     currentDate = timeConverter(fetched[i].time_published);
 
     let idx = closestIndex(chartData.labels, currentDate);

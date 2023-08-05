@@ -73,6 +73,9 @@ const TickerMod = () => {
         currNews.isDisplayNews === true &&
         currNews.newsData.length > 0
       ) {
+        console.log(
+          "Display news is set to true, and length is greater than 0."
+        );
         //This else if controls drawing or undrawing our data onto the chart. if we have the information.
         // if (chartData.labels[chartData.labels.length - 1]) {
         //   let lastDate = chartData.labels[chartData.labels.length - 1];
@@ -88,6 +91,31 @@ const TickerMod = () => {
         search &&
         chartData.labels
       ) {
+        let smallRadiiSize = 1;
+
+        const pointRadiiHandler = () => {
+          console.log("Is news is: ", currNews);
+          if (currNews?.isDisplayNews && currNews?.currNews) {
+            console.log("Getting news radii!");
+            return getNewsRadii(currNews.currNews);
+          } else {
+            console.log("Returning smallradii size.");
+            return smallRadiiSize;
+          }
+        };
+
+        const getNewsRadii = (newsArr) => {
+          const radii = [];
+          for (let i = 0; i < newsArr.length; i++) {
+            console.log("News arr[i] is: ", newsArr[i]);
+            if (newsArr[i] === undefined) {
+              radii.push(smallRadiiSize);
+            } else {
+              radii.push(5);
+            }
+          }
+          return radii;
+        };
         //This else statement only grabs our news information if the button is on, and if the data was not fetched before, and if we have the search term and chartData range.
         newsFetch(search, chartData, setChartData)
           .then(([feed, currNewsArr]) => {
@@ -96,15 +124,18 @@ const TickerMod = () => {
               newsData: feed,
               currNews: currNewsArr,
             }));
-            setisNews((currNews) => {
-              console.log("Curr news is: ", currNews);
-
-              return currNews;
-            });
           })
           .catch((error) => {
             console.error("Error:", error);
           });
+
+        setChartData((prevData) => ({
+          ...prevData,
+          datasets: [
+            { ...prevData.datasets[0], pointRadius: pointRadiiHandler },
+            { ...prevData.datasets[1] },
+          ],
+        }));
       } else {
         //A generic catch all in case something bugs out. Currently doesn't do much.
         console.log(

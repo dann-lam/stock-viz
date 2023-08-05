@@ -16,10 +16,9 @@ const searchIt = async (
 ) => {
   let smallRadiiSize = 1;
 
-  const pointRadiiHandler = (newsData) => {
-    console.log("is news is: ", newsData);
-    if (newsData.isDisplayNews && newsData.currNews) {
-      return getNewsRadii(newsData.currNews);
+  const pointRadiiHandler = () => {
+    if (isNews?.isDisplayNews && isNews?.currNews) {
+      return getNewsRadii(isNews.currNews);
     } else {
       return smallRadiiSize;
     }
@@ -47,6 +46,7 @@ const searchIt = async (
     //This is accessing our data's returned values based on the second key.
 
     let calledData = data[Object.keys(data)[1]];
+    console.log("Is newss from line 50: ", isNews);
     console.log("Called data is: ", calledData);
     //Takes our data and turns it into something the chart can see.
     let searchData = fetchParser(calledData, timeInterval);
@@ -60,7 +60,7 @@ const searchIt = async (
           ...prevData.datasets[0],
           label: `Closing Price`,
           data: searchData.data.map((item) => item.price),
-          pointRadius: pointRadiiHandler(isNews),
+          pointRadius: pointRadiiHandler,
           tension: 0.4,
           borderColor: symbolColor,
         },
