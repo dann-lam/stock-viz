@@ -40,14 +40,14 @@ const searchIt = async (
   try {
     // console.log("Looking for undefined: ", search, timeInterval, setChartData);
     const response = await searchTicker(search, timeInterval);
-    // console.log("Response is: ", response);
+    console.log("Response is: ", response);
     const data = await response.json();
-    // console.log("Data is: ", data);
+    console.log("Data is: ", data);
     //response returns a promise
     //This is accessing our data's returned values based on the second key.
 
     let calledData = data[Object.keys(data)[1]];
-
+    console.log("Called data is: ", calledData);
     //Takes our data and turns it into something the chart can see.
     let searchData = fetchParser(calledData, timeInterval);
     // Update the react variable that controls the chart.

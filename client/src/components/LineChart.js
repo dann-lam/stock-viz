@@ -47,10 +47,9 @@ function LineChart() {
   };
 
   const beforeFooterHandler = (context) => {
-    const currNewsStory = isNews.currNews[context.dataIndex];
-    console.log(currNewsStory.time_published.toLocaleString());
+    const currNewsStory = isNews.currNews[context[0].dataIndex];
     if (currNewsStory) {
-      return `${currNewsStory.time_published.toLocaleString()} ${currNewsStory.time_published.toLocaleTimeString()}`;
+      return `Article published:\n${currNewsStory.time_published.toLocaleString()}`;
     }
   };
   return (
