@@ -50,6 +50,32 @@ const TickerMod = () => {
     }));
   };
 
+  let smallRadiiSize = 1;
+
+  const pointRadiiHandler = (currNews) => {
+    console.log("Is news from pointHandler: ", currNews);
+    if (currNews?.isDisplayNews && currNews?.currNews) {
+      console.log("Getting news radii!");
+      return getNewsRadii(currNews.currNews);
+    } else {
+      console.log("Returning smallradii size.");
+      return smallRadiiSize;
+    }
+  };
+
+  const getNewsRadii = (newsArr) => {
+    const radii = [];
+    for (let i = 0; i < newsArr.length; i++) {
+      console.log("News arr[i] is: ", newsArr[i]);
+      if (newsArr[i] === undefined) {
+        radii.push(smallRadiiSize);
+      } else {
+        radii.push(5);
+      }
+    }
+    return radii;
+  };
+
   const checkBoxHandler = async () => {
     //Whenever we toggle the button, we change the state of isNews.isDisplayNews to true or false.
     await setisNews((prevData) => ({
@@ -58,6 +84,7 @@ const TickerMod = () => {
     }));
     // This is bad because we're calling it twice. However, that's fine for now :).
     await setisNews((currNews) => {
+      console.log("Curr news from the set: ", currNews);
       if (currNews.isDisplayNews === false) {
         //setChartData, with the third dataset being empty.
         setChartData((prevData) => ({
@@ -91,32 +118,8 @@ const TickerMod = () => {
         search &&
         chartData.labels
       ) {
-        let smallRadiiSize = 1;
-
-        const pointRadiiHandler = () => {
-          console.log("Is news is: ", currNews);
-          if (currNews?.isDisplayNews && currNews?.currNews) {
-            console.log("Getting news radii!");
-            return getNewsRadii(currNews.currNews);
-          } else {
-            console.log("Returning smallradii size.");
-            return smallRadiiSize;
-          }
-        };
-
-        const getNewsRadii = (newsArr) => {
-          const radii = [];
-          for (let i = 0; i < newsArr.length; i++) {
-            console.log("News arr[i] is: ", newsArr[i]);
-            if (newsArr[i] === undefined) {
-              radii.push(smallRadiiSize);
-            } else {
-              radii.push(5);
-            }
-          }
-          return radii;
-        };
         //This else statement only grabs our news information if the button is on, and if the data was not fetched before, and if we have the search term and chartData range.
+        console.log("Fetching newsData");
         newsFetch(search, chartData, setChartData)
           .then(([feed, currNewsArr]) => {
             setisNews((prevNews) => ({
@@ -124,15 +127,21 @@ const TickerMod = () => {
               newsData: feed,
               currNews: currNewsArr,
             }));
+            setisNews((prevNews) => ({
+              ...prevNews
+            }))
           })
           .catch((error) => {
             console.error("Error:", error);
           });
-
+        console.log("setting chartData");
         setChartData((prevData) => ({
           ...prevData,
           datasets: [
-            { ...prevData.datasets[0], pointRadius: pointRadiiHandler },
+            {
+              ...prevData.datasets[0],
+              pointRadius: pointRadiiHandler(currNews),
+            },
             { ...prevData.datasets[1] },
           ],
         }));
@@ -145,6 +154,8 @@ const TickerMod = () => {
         );
       }
       return currNews;
+
+      //End of our craziness.
     });
   };
 

@@ -34,7 +34,6 @@ let Search = () => {
     if (!search) {
       return console.log("No search found!");
     } else {
-      console.log("isNews from search.", isNews);
       await searchIt(
         search,
         timeInterval,
