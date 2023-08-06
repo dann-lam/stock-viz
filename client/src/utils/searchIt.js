@@ -27,7 +27,6 @@ const searchIt = async (
   const getNewsRadii = (newsArr) => {
     const radii = [];
     for (let i = 0; i < newsArr.length; i++) {
-      console.log("News arr[i] is: ", newsArr[i]);
       if (newsArr[i] === undefined) {
         radii.push(smallRadiiSize);
       } else {

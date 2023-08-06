@@ -53,12 +53,9 @@ const TickerMod = () => {
   let smallRadiiSize = 1;
 
   const pointRadiiHandler = (currNews) => {
-    console.log("Is news from pointHandler: ", currNews);
     if (currNews?.isDisplayNews && currNews?.currNews) {
-      console.log("Getting news radii!");
       return getNewsRadii(currNews.currNews);
     } else {
-      console.log("Returning smallradii size.");
       return smallRadiiSize;
     }
   };
@@ -66,7 +63,6 @@ const TickerMod = () => {
   const getNewsRadii = (newsArr) => {
     const radii = [];
     for (let i = 0; i < newsArr.length; i++) {
-      console.log("News arr[i] is: ", newsArr[i]);
       if (newsArr[i] === undefined) {
         radii.push(smallRadiiSize);
       } else {
@@ -119,6 +115,7 @@ const TickerMod = () => {
         chartData.labels
       ) {
         //This else statement only grabs our news information if the button is on, and if the data was not fetched before, and if we have the search term and chartData range.
+
         console.log("Fetching newsData");
         newsFetch(search, chartData, setChartData)
           .then(([feed, currNewsArr]) => {
@@ -127,24 +124,24 @@ const TickerMod = () => {
               newsData: feed,
               currNews: currNewsArr,
             }));
-            setisNews((prevNews) => ({
-              ...prevNews
-            }))
           })
           .catch((error) => {
             console.error("Error:", error);
           });
         console.log("setting chartData");
-        setChartData((prevData) => ({
-          ...prevData,
-          datasets: [
-            {
-              ...prevData.datasets[0],
-              pointRadius: pointRadiiHandler(currNews),
-            },
-            { ...prevData.datasets[1] },
-          ],
-        }));
+        setisNews((oldData) => {
+          setChartData((prevData) => ({
+            ...prevData,
+            datasets: [
+              {
+                ...prevData.datasets[0],
+                pointRadius: pointRadiiHandler(oldData),
+              },
+              { ...prevData.datasets[1] },
+            ],
+          }));
+          return oldData;
+        });
       } else {
         //A generic catch all in case something bugs out. Currently doesn't do much.
         console.log(

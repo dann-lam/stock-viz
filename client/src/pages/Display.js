@@ -15,10 +15,12 @@ Chart.register(CategoryScale);
 // export const chartTimeContext = createContext();
 
 const Display = () => {
-  const { search, timeInterval, symbolColor, chartData, } =
+  const { search, timeInterval, symbolColor, chartData, setChartData, isNews } =
     useContext(chartTimeContext);
 
+
   //Checking our timeInterval each time it's changed.
+
   // useEffect(() => {
   //   //Add in a use effect that will update the chart.
   //   //Set a timer here to grab our data.
