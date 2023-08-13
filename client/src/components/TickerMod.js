@@ -157,7 +157,7 @@ const TickerMod = () => {
   };
 
   return (
-    <div className="grid grid-cols-1 gap-4 lg:grid-cols-4 lg:gap-8 w-3/5 py-2 ">
+    <div className="grid grid-cols-1 gap-4 lg:grid-cols-5 lg:gap-8 w-3/5 py-2 ">
       <div className="flex items-center  justify-center">
         {/* <EditText name="textbox" placeholder="Enter Ticker" /> */}
         <Search />
