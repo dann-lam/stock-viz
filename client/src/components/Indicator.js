@@ -1,18 +1,14 @@
-import React, { useContext, useRef } from "react";
-
-import { chartTimeContext } from "../App";
+import React, { useRef } from "react";
 
 import indicatorIt from "../utils/indicatorIt";
-const Indicator = () => {
-  const {
-    timeInterval,
-    chartData,
-    search,
-    setChartData,
-    indicatorColor,
-    setEconIndicator,
-  } = useContext(chartTimeContext);
-
+const Indicator = ({
+  timeInterval,
+  chartData,
+  search,
+  setChartData,
+  indicatorColor,
+  setEconIndicator,
+}) => {
   const emaSelectRef = useRef();
 
   const optionHandler = async () => {
