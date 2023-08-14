@@ -1,11 +1,7 @@
-import React, { useContext, useEffect, useRef } from "react";
+import React, { useRef } from "react";
 import { Line, getElementsAtEvent } from "react-chartjs-2";
-import { chartTimeContext } from "../App";
 
-function LineChart() {
-  const { timeInterval, search, chartData, isNews } =
-    useContext(chartTimeContext);
-
+function LineChart({ timeInterval, search, chartData, isNews }) {
   const chartRef = useRef();
 
   const displayFormMap = {
