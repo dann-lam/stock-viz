@@ -26,6 +26,8 @@ const Display = ({
   setindicatorColor,
   setsymbolColor,
   setisNews,
+  setSearch,
+  setEconIndicator,
 }) => {
   //Checking our timeInterval each time it's changed.
 
@@ -69,6 +71,10 @@ const Display = ({
         setisNews={setisNews}
         search={search}
         chartData={chartData}
+        timeInterval={timeInterval}
+        setSearch={setSearch}
+        econIndicator={econIndicator}
+        setEconIndicator={setEconIndicator}
       />
     </div>
   );

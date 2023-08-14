@@ -64,6 +64,8 @@ export default function App() {
           setindicatorColor={setindicatorColor}
           setsymbolColor={setsymbolColor}
           setisNews={setisNews}
+          setSearch={setSearch}
+          setEconIndicator={setEconIndicator}
         />
         {/* <Footer /> */}
       </chartTimeContext.Provider>

@@ -4,26 +4,15 @@ import { chartTimeContext } from "../App";
 // import { fetchParser } from "../utils/fetchParser";
 import searchIt from "../utils/searchIt";
 import indicatorIt from "../utils/indicatorIt";
-let TimeIntervalButtons = () => {
-  const {
-    setTimeInterval,
-    search,
-    setChartData,
-    symbolColor,
-    chartData,
-    indicatorColor,
-    econIndicator,
-  } = useContext(chartTimeContext);
-
-  // useEffect(() => {
-  //   // Create a debouncer for our memorizedSearchIt
-  //   //Upon
-  //   // if (timeInterval) {
-  //   //   console.log("useEffect from timeINtervalButton firing: ", timeInterval);
-  //   // } else {
-  //   //   return console.log("No search or timeInterval found.");
-  //   // }
-  // }, [timeInterval]);
+let TimeIntervalButtons = ({
+  setTimeInterval,
+  search,
+  setChartData,
+  symbolColor,
+  chartData,
+  indicatorColor,
+  econIndicator,
+}) => {
   //Button Logic to update our Time
   const timeChanger = async (buttInterval) => {
     setTimeInterval(buttInterval);

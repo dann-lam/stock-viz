@@ -11,7 +11,6 @@ const Indicator = () => {
     setChartData,
     indicatorColor,
     setEconIndicator,
-    econIndicator,
   } = useContext(chartTimeContext);
 
   const emaSelectRef = useRef();

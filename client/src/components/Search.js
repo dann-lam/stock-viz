@@ -1,22 +1,20 @@
-import React, { useContext } from "react";
+import React from "react";
 // import searchTicker from "../utils/searchTicker";
-import { chartTimeContext } from "../App";
 import searchIt from "../utils/searchIt";
 // import { fetchParser } from "../utils/fetchParser";
-import indicatorIt from "../utils/indicatorIt";
-let Search = () => {
+// import indicatorIt from "../utils/indicatorIt";
+let Search = ({
+  timeInterval,
+  setChartData,
+  search,
+  setSearch,
+  symbolColor,
+  chartData,
+  indicatorColor,
+  econIndicator,
+  isNews,
+}) => {
   //timeInterval is fed into our API request
-  const {
-    timeInterval,
-    setChartData,
-    search,
-    setSearch,
-    symbolColor,
-    chartData,
-    indicatorColor,
-    econIndicator,
-    isNews,
-  } = useContext(chartTimeContext);
 
   //State value for user inputs for symbol.
 
