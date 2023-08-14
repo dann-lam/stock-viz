@@ -14,9 +14,8 @@ Chart.register(CategoryScale);
 //Moved contex to top level
 // export const chartTimeContext = createContext();
 
-const Display = () => {
-  const { search, timeInterval, symbolColor, chartData, setChartData, isNews } =
-    useContext(chartTimeContext);
+const Display = ({ search, timeInterval, symbolColor, chartData, setChartData, isNews }) => {
+  
 
 
   //Checking our timeInterval each time it's changed.

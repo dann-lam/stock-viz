@@ -51,7 +51,7 @@ export default function App() {
         }}
       >
         <Navbar />
-        <Display />
+        <Display search={search} timeInterval={timeInterval} symbolColor={symbolColor} chartData={chartData} setChartData={setChartData} isNews={isNews} />
         {/* <Footer /> */}
       </chartTimeContext.Provider>
     </div>
