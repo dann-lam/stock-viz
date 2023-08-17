@@ -8,6 +8,7 @@ import Indicator from "./Indicator";
 import Search from "./Search";
 import newsFetch from "../utils/newsFetch";
 // import newsParser from "../utils/newsParser";
+import pointRadiiHandler from "../utils/tooltiplabelHandler";
 
 const TickerMod = ({
   setChartData,
@@ -49,28 +50,6 @@ const TickerMod = ({
         ...prevData.datasets.slice(2),
       ],
     }));
-  };
-
-  let smallRadiiSize = 1;
-
-  const pointRadiiHandler = (currNews) => {
-    if (currNews?.isDisplayNews && currNews?.currNews) {
-      return getNewsRadii(currNews.currNews);
-    } else {
-      return smallRadiiSize;
-    }
-  };
-
-  const getNewsRadii = (newsArr) => {
-    const radii = [];
-    for (let i = 0; i < newsArr.length; i++) {
-      if (newsArr[i] === undefined) {
-        radii.push(smallRadiiSize);
-      } else {
-        radii.push(5);
-      }
-    }
-    return radii;
   };
 
   const checkBoxHandler = async () => {
