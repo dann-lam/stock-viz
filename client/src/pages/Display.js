@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Chart from "chart.js/auto";
 import { CategoryScale } from "chart.js";
 // import PieChart from "../components/PieChart";
@@ -13,31 +13,33 @@ Chart.register(CategoryScale);
 //Moved contex to top level
 // export const chartTimeContext = createContext();
 
-const Display = ({
-  search,
-  timeInterval,
-  symbolColor,
-  chartData,
-  setChartData,
-  isNews,
-  setTimeInterval,
-  indicatorColor,
-  econIndicator,
-  setindicatorColor,
-  setsymbolColor,
-  setisNews,
-  setSearch,
-  setEconIndicator,
-}) => {
-  //Checking our timeInterval each time it's changed.
+const Display = () => {
+  //timeInterval, stores which timeInterval to API call/render on chart.
+  const [timeInterval, setTimeInterval] = useState("1D");
+  //
+  const [isNews, setisNews] = useState({
+    isDisplayNews: false,
+    newsData: [],
+    currNews: [],
+  });
+  //Controls the color of the line on chart.
+  const [econIndicator, setEconIndicator] = useState("Select");
+  const [symbolColor, setsymbolColor] = useState("#AFC787");
+  //If an economic indicator is chosen, this controls the color of it displayed on the chart.
+  const [indicatorColor, setindicatorColor] = useState("#0000FF");
+  //Search is simply a string that stores the symbol.
+  const [search, setSearch] = useState("");
+  //Stores chartData to be rendered w/ chartJS.
+  const [chartData, setChartData] = useState({
+    // labels: timeInterval.data.map((data) => data.year),
+    labels: [],
+    datasets: [],
+  });
 
   // useEffect(() => {
-  //   //Add in a use effect that will update the chart.
-  //   //Set a timer here to grab our data.
-  //   // let blah = foo.subscribe();
-  //   console.log("useEffect: timeInterval, chartData, search, symbolcolor");
-  //   console.log(timeInterval, chartData, search, symbolColor);
-  // }, [timeInterval, chartData, search, symbolColor]);
+  //   console.log("useeffect from display Fired.");
+  // }, []);
+  //Checking our timeInterval each time it's changed.
 
   return (
     <div className="flex flex-col py-16 h-max w-4/5 items-center">
@@ -57,6 +59,7 @@ const Display = ({
         chartData={chartData}
         indicatorColor={indicatorColor}
         econIndicator={econIndicator}
+        isNews={isNews}
       />
 
       <Labels />

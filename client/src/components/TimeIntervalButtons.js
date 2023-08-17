@@ -1,9 +1,8 @@
-import React, { useContext } from "react";
-import { chartTimeContext } from "../App";
+import React from "react";
 // import searchTicker from "../utils/searchTicker";
 // import { fetchParser } from "../utils/fetchParser";
 import searchIt from "../utils/searchIt";
-import indicatorIt from "../utils/indicatorIt";
+// import indicatorIt from "../utils/indicatorIt";
 let TimeIntervalButtons = ({
   setTimeInterval,
   search,
@@ -12,10 +11,11 @@ let TimeIntervalButtons = ({
   chartData,
   indicatorColor,
   econIndicator,
+  isNews,
 }) => {
   //Button Logic to update our Time
   const timeChanger = async (buttInterval) => {
-    setTimeInterval(buttInterval);
+    await setTimeInterval(buttInterval);
 
     //Wrap our searches in this setTimeInterval updater, to ensure that we have the most up to date stuff.
     //We *could* use the useEffec to achieve this effect but the sideffects of updating it is unfortunate.
@@ -29,23 +29,12 @@ let TimeIntervalButtons = ({
         setChartData,
         symbolColor,
         indicatorColor,
-        econIndicator
+        econIndicator,
+        isNews,
+        chartData
       );
     }
 
-    // if (
-    //   chartData.labels.length > 0 &&
-    //   (econIndicator === "SMA" || econIndicator === "EMA")
-    // ) {
-    //   indicatorIt(
-    //     econIndicator,
-    //     search,
-    //     buttInterval,
-    //     chartData,
-    //     indicatorColor,
-    //     setChartData
-    //   );
-    // }
     //Set up a condition, where indicatorIt knows whether chartData exists or not. This determines whether we do the indicatorIt search.
     //Check to see if chartData.labels exists.
   };

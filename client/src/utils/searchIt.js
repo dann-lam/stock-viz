@@ -12,12 +12,14 @@ const searchIt = async (
   symbolColor,
   indicatorColor,
   econIndicator,
-  isNews
+  isNews,
+  chartData
 ) => {
   let smallRadiiSize = 1;
 
-  const pointRadiiHandler = () => {
-    if (isNews?.isDisplayNews && isNews?.currNews) {
+  const pointRadiiHandler = (isNews) => {
+    //Check to see if isNews's display is on, and whether there is any information to be fetched.
+    if (isNews?.isDisplayNews && isNews?.currNews.length > 0) {
       return getNewsRadii(isNews.currNews);
     } else {
       return smallRadiiSize;
@@ -50,41 +52,46 @@ const searchIt = async (
     let searchData = fetchParser(calledData, timeInterval);
     // Update the react variable that controls the chart.
 
-    await setChartData((prevData) => ({
-      ...prevData,
-      labels: searchData.labels,
-      datasets: [
-        {
-          ...prevData.datasets[0],
-          label: `Closing Price`,
-          data: searchData.data.map((item) => item.price),
-          pointRadius: pointRadiiHandler,
-          tension: 0.4,
-          borderColor: symbolColor,
-        },
-        {
-          ...prevData.datasets[1],
-        },
-        { ...prevData.datasets[2] },
-      ],
-    }));
-
-    //If econIndicator is updated, then we should also update our indicator dataset.
-    if (econIndicator === "EMA" || econIndicator === "SMA") {
-      setChartData((currData) => {
-        indicatorIt(
+    let indicatorChecker = async (newChartData) => {
+      if (econIndicator === "EMA" || econIndicator === "SMA") {
+        await indicatorIt(
           econIndicator,
           search,
           timeInterval,
-          currData,
+          newChartData,
           indicatorColor,
           setChartData
         );
-        return currData;
-      });
-    } else {
-      // console.log("econIndicator set to something else.", econIndicator);
-    }
+        console.log("Exited out indicatorIt");
+      } else {
+        console.log("econIndicator set to something else.", econIndicator);
+      }
+    };
+
+    await setChartData((currData) => {
+      let updatedData = {
+        ...currData,
+        labels: searchData.labels,
+        datasets: [
+          {
+            ...currData.datasets[0],
+            label: `Closing Price`,
+            data: searchData.data.map((item) => item.price),
+            pointRadius: pointRadiiHandler(isNews),
+            tension: 0.4,
+            borderColor: symbolColor,
+          },
+          {
+            ...currData.datasets[1],
+          },
+          { ...currData.datasets[2] },
+        ],
+      };
+      indicatorChecker(updatedData);
+      return updatedData;
+    });
+    // console.log("CurrData inside chartData is: ", currData);
+    // indicatorChecker(currData);
   } catch (err) {
     console.error(err);
   }

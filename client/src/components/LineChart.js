@@ -11,20 +11,9 @@ function LineChart({ timeInterval, search, chartData, isNews }) {
     "6M": "MMM YYYY",
     Max: "YYYY",
   };
-  // useEffect(() => {
-  //   console.log("Linechart timeinterval: ", timeInterval);
-  // }, [timeInterval]);
 
-  // useEffect(() => {}, [displayForm, timeInterval]);
-  // const getOrCreateTooltip = (chart) => {
-  //   let tooltipEl = chart.canvas.parentNode.querySelector("div");
-  // };
-  // const newsTooltipHandler = (context) => {
-  //   const { chart, tooltip } = context;
-  //   console.log(context);
-  //   // const tooltipEl = getOrCreateTooltip(chart);
-  // };
 
+  //label handlers will receive parts of text and format them to the tooltip on our chart.
   const beforeLabelHandler = (context) => {
     const currNewsStory = isNews.currNews[context.dataIndex];
     if (currNewsStory) {
@@ -51,6 +40,7 @@ function LineChart({ timeInterval, search, chartData, isNews }) {
     }
   };
 
+  //Upon click, checks to see if a hoverable dot has news that aligns with it, if it does, make it a clickable link to that news article.
   const clickHandler = (event) => {
     if (
       getElementsAtEvent(chartRef.current, event).length > 0 &&
