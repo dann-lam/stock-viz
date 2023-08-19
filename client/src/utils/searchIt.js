@@ -67,6 +67,7 @@ const searchIt = async (
         ],
       };
       indicatorChecker(updatedData);
+      console.log("updated Data is: ", updatedData)
       return updatedData;
     });
     // console.log("CurrData inside chartData is: ", currData);

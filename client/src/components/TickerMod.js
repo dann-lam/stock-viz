@@ -63,22 +63,36 @@ const TickerMod = ({
       console.log("Curr news from the set: ", currNews);
       if (currNews.isDisplayNews === false) {
         //setChartData, with the third dataset being empty.
-        setChartData((prevData) => ({
-          ...prevData,
-          datasets: [
-            { ...prevData.datasets[0] },
-            { ...prevData.datasets[1] },
-            {},
-            ...prevData.datasets.slice(3),
-          ],
-        }));
+
+        setChartData((prevData) => {
+          const updatedChartData = {
+            ...prevData,
+            datasets: [
+              { ...prevData.datasets[0], pointRadius: 1 },
+              { ...prevData.datasets[1] },
+              {},
+              ...prevData.datasets.slice(3),
+            ],
+          };
+          console.log("Updated chart data:", updatedChartData);
+
+          return updatedChartData;
+        });
       } else if (
         currNews.isDisplayNews === true &&
         currNews.newsData.length > 0
       ) {
-        console.log(
-          "Display news is set to true, and length is greater than 0."
-        );
+        setChartData((currNews) => ({
+          ...currNews,
+          datasets: [
+            {
+              ...currNews.datasets[0],
+              pointRadius: pointRadiiHandler(currNews),
+            },
+            { ...currNews.datasets[1] },
+            { ...currNews.datasets[2] },
+          ],
+        }));
         //This else if controls drawing or undrawing our data onto the chart. if we have the information.
         // if (chartData.labels[chartData.labels.length - 1]) {
         //   let lastDate = chartData.labels[chartData.labels.length - 1];
@@ -99,29 +113,30 @@ const TickerMod = ({
         console.log("Fetching newsData");
         newsFetch(search, chartData, setChartData)
           .then(([feed, currNewsArr]) => {
-            setisNews((prevNews) => ({
-              ...prevNews,
-              newsData: feed,
-              currNews: currNewsArr,
-            }));
+            setisNews((prevNews) => {
+              const updatedNewsState = {
+                ...prevNews,
+                newsData: feed,
+                currNews: currNewsArr,
+              };
+              //setChartData uses the most up to date news from the setisNews
+              setChartData((prevData) => ({
+                ...prevData,
+                datasets: [
+                  {
+                    ...prevData.datasets[0],
+                    pointRadius: pointRadiiHandler(prevNews),
+                  },
+                  { ...prevData.datasets[1] },
+                ],
+              }));
+
+              return updatedNewsState;
+            });
           })
           .catch((error) => {
             console.error("Error:", error);
           });
-        console.log("setting chartData");
-        setisNews((oldData) => {
-          setChartData((prevData) => ({
-            ...prevData,
-            datasets: [
-              {
-                ...prevData.datasets[0],
-                pointRadius: pointRadiiHandler(oldData),
-              },
-              { ...prevData.datasets[1] },
-            ],
-          }));
-          return oldData;
-        });
       } else {
         //A generic catch all in case something bugs out. Currently doesn't do much.
         console.log(

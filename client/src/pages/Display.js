@@ -6,6 +6,7 @@ import LineChart from "../components/LineChart";
 import TickerMod from "../components/TickerMod";
 import Labels from "../components/Labels";
 import TimeIntervalButtons from "../components/TimeIntervalButtons";
+import Price from "../components/Price";
 import "chartjs-adapter-dayjs-4/dist/chartjs-adapter-dayjs-4.esm";
 // import { Observable } from "rxjs";
 
@@ -40,11 +41,22 @@ const Display = () => {
   //   console.log("useeffect from display Fired.");
   // }, []);
   //Checking our timeInterval each time it's changed.
-
+  // {chartData.datasets[0].data[0] !== undefined ? (
+  //   <Price chartData={chartData} />
+  // ) : null}
+  // let priceRenderer = ({ chartData }) => {
+  //   if (chartData?.datasets[0]?.data[0]) {
+  //     console.log("True");
+  //     return true;
+  //   } else {
+  //     console.log("False");
+  //     return false;
+  //   }
+  // };
   return (
     <div className="flex flex-col py-16 h-max w-4/5 items-center">
       <h2 style={{ textAlign: "center" }}> </h2>
-
+      {chartData?.datasets[0]?.data[0] ? <Price chartData={chartData} /> : null}
       <LineChart
         chartData={chartData}
         timeInterval={timeInterval}
