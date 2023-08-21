@@ -8,6 +8,7 @@ import Labels from "../components/Labels";
 import TimeIntervalButtons from "../components/TimeIntervalButtons";
 import Price from "../components/Price";
 import "chartjs-adapter-dayjs-4/dist/chartjs-adapter-dayjs-4.esm";
+import Search from "../components/Search";
 // import { Observable } from "rxjs";
 
 Chart.register(CategoryScale);
@@ -56,41 +57,69 @@ const Display = () => {
   return (
     <div className="flex flex-col py-16 h-max w-4/5 items-center">
       <h2 style={{ textAlign: "center" }}> </h2>
-      {chartData?.datasets[0]?.data[0] ? <Price chartData={chartData} /> : null}
-      <LineChart
-        chartData={chartData}
-        timeInterval={timeInterval}
-        search={search}
-        isNews={isNews}
-      />
-      <TimeIntervalButtons
-        setTimeInterval={setTimeInterval}
-        search={search}
-        setChartData={setChartData}
-        symbolColor={symbolColor}
-        chartData={chartData}
-        indicatorColor={indicatorColor}
-        econIndicator={econIndicator}
-        isNews={isNews}
-      />
+      {chartData?.datasets[0]?.data[0] ? (
+        <>
+          <Price chartData={chartData} />
+          <LineChart
+            chartData={chartData}
+            timeInterval={timeInterval}
+            search={search}
+            isNews={isNews}
+          />
+          <TimeIntervalButtons
+            setTimeInterval={setTimeInterval}
+            search={search}
+            setChartData={setChartData}
+            symbolColor={symbolColor}
+            chartData={chartData}
+            indicatorColor={indicatorColor}
+            econIndicator={econIndicator}
+            isNews={isNews}
+          />
 
-      <Labels />
-      <hr className="divide-slate-400/10 w-3/5 m-4" />
-      <TickerMod
-        setChartData={setChartData}
-        setindicatorColor={setindicatorColor}
-        setsymbolColor={setsymbolColor}
-        symbolColor={symbolColor}
-        indicatorColor={indicatorColor}
-        isNews={isNews}
-        setisNews={setisNews}
-        search={search}
-        chartData={chartData}
-        timeInterval={timeInterval}
-        setSearch={setSearch}
-        econIndicator={econIndicator}
-        setEconIndicator={setEconIndicator}
-      />
+          <Labels />
+          <hr className="divide-slate-400/10 w-3/5 m-4" />
+          <TickerMod
+            setChartData={setChartData}
+            setindicatorColor={setindicatorColor}
+            setsymbolColor={setsymbolColor}
+            symbolColor={symbolColor}
+            indicatorColor={indicatorColor}
+            isNews={isNews}
+            setisNews={setisNews}
+            search={search}
+            chartData={chartData}
+            timeInterval={timeInterval}
+            setSearch={setSearch}
+            econIndicator={econIndicator}
+            setEconIndicator={setEconIndicator}
+          />
+        </>
+      ) : (
+        <div className="divide-slate-400/10 w-2/5 m-4">
+          <Search
+            timeInterval={timeInterval}
+            setChartData={setChartData}
+            search={search}
+            setSearch={setSearch}
+            symbolColor={symbolColor}
+            chartData={chartData}
+            indicatorColor={indicatorColor}
+            econIndicator={econIndicator}
+            isNews={isNews}
+          />
+          <TimeIntervalButtons
+            setTimeInterval={setTimeInterval}
+            search={search}
+            setChartData={setChartData}
+            symbolColor={symbolColor}
+            chartData={chartData}
+            indicatorColor={indicatorColor}
+            econIndicator={econIndicator}
+            isNews={isNews}
+          />
+        </div>
+      )}
     </div>
   );
 };

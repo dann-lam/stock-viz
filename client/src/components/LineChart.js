@@ -12,7 +12,6 @@ function LineChart({ timeInterval, search, chartData, isNews }) {
     Max: "YYYY",
   };
 
-
   //label handlers will receive parts of text and format them to the tooltip on our chart.
   const beforeLabelHandler = (context) => {
     const currNewsStory = isNews.currNews[context.dataIndex];
