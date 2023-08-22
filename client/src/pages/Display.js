@@ -1,35 +1,31 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Chart from "chart.js/auto";
 import { CategoryScale } from "chart.js";
-// import PieChart from "../components/PieChart";
 import LineChart from "../components/LineChart";
 import TickerMod from "../components/TickerMod";
 import Labels from "../components/Labels";
 import TimeIntervalButtons from "../components/TimeIntervalButtons";
 import Price from "../components/Price";
-import "chartjs-adapter-dayjs-4/dist/chartjs-adapter-dayjs-4.esm";
 import Search from "../components/Search";
-// import { Observable } from "rxjs";
 
 Chart.register(CategoryScale);
-//Moved contex to top level
-// export const chartTimeContext = createContext();
 
 const Display = () => {
-  //timeScale, stores which timeScale to API call/render on chart.
+  //timeScale, determined by userclick, used for API calls.
   const [timeScale, setTimeScale] = useState("1D");
-  //
+  //Stores news information and button status for rendering on chart.
   const [news, setNews] = useState({
     isDisplayNews: false,
     newsData: [],
     currNews: [],
   });
-  //Controls the color of the line on chart.
+  //econMode determines what econ indicator to search for.
   const [econMode, setEconMode] = useState("Select");
+  //Changes color of ticker line on chart.
   const [symbolColor, setsymbolColor] = useState("#AFC787");
-  //If an economic indicator is chosen, this controls the color of it displayed on the chart.
+  //changes color of econ indicator.
   const [indicatorColor, setindicatorColor] = useState("#0000FF");
-  //Search is simply a string that stores the symbol.
+  //Search stores ticker symbol.
   const [search, setSearch] = useState("");
   //Stores chartData to be rendered w/ chartJS.
   const [chartData, setChartData] = useState({
@@ -41,6 +37,7 @@ const Display = () => {
   return (
     <div className="flex flex-col py-16 h-max w-4/5 items-center">
       <h2 style={{ textAlign: "center" }}> </h2>
+      {/* If there is no chartData, render a simple timeScale selector with a search option. Once user does a search, show them the rest of the options. */}
       {chartData?.datasets[0]?.data[0] ? (
         <>
           <Price chartData={chartData} />
