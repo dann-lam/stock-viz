@@ -2,18 +2,18 @@ import React, { useRef } from "react";
 
 import indicatorIt from "../utils/indicatorIt";
 const Indicator = ({
-  timeInterval,
+  timeScale,
   chartData,
   search,
   setChartData,
   indicatorColor,
-  setEconIndicator,
+  setEconMode,
 }) => {
   const emaSelectRef = useRef();
 
   const optionHandler = async () => {
     if (!(emaSelectRef.current.value === "Select")) {
-      await setEconIndicator(emaSelectRef.current.value);
+      await setEconMode(emaSelectRef.current.value);
       // seteconIndicator((prevVal) => {
       //   console.log("Current econIndicator is: ", prevVal);
       //   console.log("EconIndicator is: ", econIndicator);
@@ -22,11 +22,11 @@ const Indicator = ({
       //indicatorIt is wrapped in the seteconIndicator to ensure that we are using the most up to date value.
 
       //I should only be calling for indicatorIt if we have chartData and a symbol.
-      setEconIndicator((currVal) => {
+      setEconMode((currVal) => {
         indicatorIt(
           currVal,
           search,
-          timeInterval,
+          timeScale,
           chartData,
           indicatorColor,
           setChartData

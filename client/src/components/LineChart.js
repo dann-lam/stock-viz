@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import { Line, getElementsAtEvent } from "react-chartjs-2";
 
-function LineChart({ timeInterval, search, chartData, isNews }) {
+function LineChart({ timeScale, search, chartData, news }) {
   const chartRef = useRef();
 
   const displayFormMap = {
@@ -14,7 +14,7 @@ function LineChart({ timeInterval, search, chartData, isNews }) {
 
   //label handlers will receive parts of text and format them to the tooltip on our chart.
   const beforeLabelHandler = (context) => {
-    const currNewsStory = isNews.currNews[context.dataIndex];
+    const currNewsStory = news.currNews[context.dataIndex];
     if (currNewsStory) {
       return `${currNewsStory.title.replace(
         /(.{1,20})(?:\s|$)/g,
@@ -33,7 +33,7 @@ function LineChart({ timeInterval, search, chartData, isNews }) {
   };
 
   const beforeFooterHandler = (context) => {
-    const currNewsStory = isNews.currNews[context[0].dataIndex];
+    const currNewsStory = news.currNews[context[0].dataIndex];
     if (currNewsStory) {
       return `Article published:\n${currNewsStory.time_published.toLocaleString()}`;
     }
@@ -43,12 +43,12 @@ function LineChart({ timeInterval, search, chartData, isNews }) {
   const clickHandler = (event) => {
     if (
       getElementsAtEvent(chartRef.current, event).length > 0 &&
-      isNews.isDisplayNews &&
-      isNews.currNews.length > 0
+      news.isDisplayNews &&
+      news.currNews.length > 0
     ) {
       const clickDatasetIndex = getElementsAtEvent(chartRef.current, event)[0]
         .index;
-      const clickNewsLink = isNews.currNews[clickDatasetIndex].link; //.link
+      const clickNewsLink = news.currNews[clickDatasetIndex].link; //.link
       window.open(`${clickNewsLink}`, "_blank");
     }
   };
@@ -88,7 +88,7 @@ function LineChart({ timeInterval, search, chartData, isNews }) {
               time: {
                 unit: "day",
                 displayFormats: {
-                  day: displayFormMap[timeInterval],
+                  day: displayFormMap[timeScale],
                 },
               },
               ticks: {

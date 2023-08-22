@@ -4,20 +4,20 @@ import React from "react";
 import searchIt from "../utils/searchIt";
 // import indicatorIt from "../utils/indicatorIt";
 let TimeIntervalButtons = ({
-  setTimeInterval,
+  setTimeScale,
   search,
   setChartData,
   symbolColor,
   chartData,
   indicatorColor,
-  econIndicator,
-  isNews,
+  econMode,
+  news,
 }) => {
   //Button Logic to update our Time
   const timeChanger = async (buttInterval) => {
-    await setTimeInterval(buttInterval);
+    await setTimeScale(buttInterval);
 
-    //Wrap our searches in this setTimeInterval updater, to ensure that we have the most up to date stuff.
+    //Wrap our searches in this setTimeScale updater, to ensure that we have the most up to date stuff.
     //We *could* use the useEffec to achieve this effect but the sideffects of updating it is unfortunate.
 
     //if search is empty, then only set the timeInterval, otherwise, if there is something there, THEN do the search.
@@ -29,8 +29,8 @@ let TimeIntervalButtons = ({
         setChartData,
         symbolColor,
         indicatorColor,
-        econIndicator,
-        isNews,
+        econMode,
+        news,
         chartData
       );
     }

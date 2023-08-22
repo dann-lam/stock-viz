@@ -16,16 +16,16 @@ Chart.register(CategoryScale);
 // export const chartTimeContext = createContext();
 
 const Display = () => {
-  //timeInterval, stores which timeInterval to API call/render on chart.
-  const [timeInterval, setTimeInterval] = useState("1D");
+  //timeScale, stores which timeScale to API call/render on chart.
+  const [timeScale, setTimeScale] = useState("1D");
   //
-  const [isNews, setisNews] = useState({
+  const [news, setNews] = useState({
     isDisplayNews: false,
     newsData: [],
     currNews: [],
   });
   //Controls the color of the line on chart.
-  const [econIndicator, setEconIndicator] = useState("Select");
+  const [econMode, setEconMode] = useState("Select");
   const [symbolColor, setsymbolColor] = useState("#AFC787");
   //If an economic indicator is chosen, this controls the color of it displayed on the chart.
   const [indicatorColor, setindicatorColor] = useState("#0000FF");
@@ -33,27 +33,11 @@ const Display = () => {
   const [search, setSearch] = useState("");
   //Stores chartData to be rendered w/ chartJS.
   const [chartData, setChartData] = useState({
-    // labels: timeInterval.data.map((data) => data.year),
+    // labels: timeScale.data.map((data) => data.year),
     labels: [],
     datasets: [],
   });
 
-  // useEffect(() => {
-  //   console.log("useeffect from display Fired.");
-  // }, []);
-  //Checking our timeInterval each time it's changed.
-  // {chartData.datasets[0].data[0] !== undefined ? (
-  //   <Price chartData={chartData} />
-  // ) : null}
-  // let priceRenderer = ({ chartData }) => {
-  //   if (chartData?.datasets[0]?.data[0]) {
-  //     console.log("True");
-  //     return true;
-  //   } else {
-  //     console.log("False");
-  //     return false;
-  //   }
-  // };
   return (
     <div className="flex flex-col py-16 h-max w-4/5 items-center">
       <h2 style={{ textAlign: "center" }}> </h2>
@@ -62,19 +46,19 @@ const Display = () => {
           <Price chartData={chartData} />
           <LineChart
             chartData={chartData}
-            timeInterval={timeInterval}
+            timeScale={timeScale}
             search={search}
-            isNews={isNews}
+            news={news}
           />
           <TimeIntervalButtons
-            setTimeInterval={setTimeInterval}
+            setTimeScale={setTimeScale}
             search={search}
             setChartData={setChartData}
             symbolColor={symbolColor}
             chartData={chartData}
             indicatorColor={indicatorColor}
-            econIndicator={econIndicator}
-            isNews={isNews}
+            econMode={econMode}
+            news={news}
           />
 
           <Labels />
@@ -85,38 +69,38 @@ const Display = () => {
             setsymbolColor={setsymbolColor}
             symbolColor={symbolColor}
             indicatorColor={indicatorColor}
-            isNews={isNews}
-            setisNews={setisNews}
+            news={news}
+            setNews={setNews}
             search={search}
             chartData={chartData}
-            timeInterval={timeInterval}
+            timeScale={timeScale}
             setSearch={setSearch}
-            econIndicator={econIndicator}
-            setEconIndicator={setEconIndicator}
+            econMode={econMode}
+            setEconMode={setEconMode}
           />
         </>
       ) : (
         <div className="divide-slate-400/10 w-2/5 m-4">
           <Search
-            timeInterval={timeInterval}
+            timeScale={timeScale}
             setChartData={setChartData}
             search={search}
             setSearch={setSearch}
             symbolColor={symbolColor}
             chartData={chartData}
             indicatorColor={indicatorColor}
-            econIndicator={econIndicator}
-            isNews={isNews}
+            econMode={econMode}
+            news={news}
           />
           <TimeIntervalButtons
-            setTimeInterval={setTimeInterval}
+            setTimeScale={setTimeScale}
             search={search}
             setChartData={setChartData}
             symbolColor={symbolColor}
             chartData={chartData}
             indicatorColor={indicatorColor}
-            econIndicator={econIndicator}
-            isNews={isNews}
+            econMode={econMode}
+            news={news}
           />
         </div>
       )}

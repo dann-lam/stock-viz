@@ -3,22 +3,22 @@ import indicatorIt from "./indicatorIt";
 import { fetchParser } from "./fetchParser";
 import pointRadiiHandler from "./tooltiplabelHandler";
 
-//timeInterval is fed into our API request
+//timeScale is fed into our API request
 //Handle button click
 
 const searchIt = async (
   search,
-  timeInterval,
+  timeScale,
   setChartData,
   symbolColor,
   indicatorColor,
-  econIndicator,
-  isNews,
+  econMode,
+  news,
   chartData
 ) => {
   try {
-    // console.log("Looking for undefined: ", search, timeInterval, setChartData);
-    const response = await searchTicker(search, timeInterval);
+    // console.log("Looking for undefined: ", search, timeScale, setChartData);
+    const response = await searchTicker(search, timeScale);
 
     const data = await response.json();
 
@@ -28,22 +28,22 @@ const searchIt = async (
     let calledData = data[Object.keys(data)[1]];
 
     //Takes our data and turns it into something the chart can see.
-    let searchData = fetchParser(calledData, timeInterval);
+    let searchData = fetchParser(calledData, timeScale);
     // Update the react variable that controls the chart.
 
     let indicatorChecker = async (newChartData) => {
-      if (econIndicator === "EMA" || econIndicator === "SMA") {
+      if (econMode === "EMA" || econMode === "SMA") {
         await indicatorIt(
-          econIndicator,
+          econMode,
           search,
-          timeInterval,
+          timeScale,
           newChartData,
           indicatorColor,
           setChartData
         );
         console.log("Exited out indicatorIt");
       } else {
-        console.log("econIndicator set to something else.", econIndicator);
+        console.log("econMode set to something else.", econMode);
       }
     };
 
@@ -56,7 +56,7 @@ const searchIt = async (
             ...currData.datasets[0],
             label: `Closing Price`,
             data: searchData.data.map((item) => item.price),
-            pointRadius: pointRadiiHandler(isNews),
+            pointRadius: pointRadiiHandler(news),
             tension: 0.4,
             borderColor: symbolColor,
           },

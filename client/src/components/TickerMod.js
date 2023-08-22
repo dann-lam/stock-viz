@@ -16,14 +16,14 @@ const TickerMod = ({
   setsymbolColor,
   symbolColor,
   indicatorColor,
-  isNews,
-  setisNews,
+  news,
+  setNews,
   search,
   chartData,
-  timeInterval,
+  timeScale,
   setSearch,
-  econIndicator,
-  setEconIndicator,
+  econMode,
+  setEconMode,
 }) => {
   //Update the symbolColor and chart data.
   const updateChartColor = (event) => {
@@ -53,13 +53,13 @@ const TickerMod = ({
   };
 
   const checkBoxHandler = async () => {
-    //Whenever we toggle the button, we change the state of isNews.isDisplayNews to true or false.
-    await setisNews((prevData) => ({
+    //Whenever we toggle the button, we change the state of news.isDisplayNews to true or false.
+    await setNews((prevData) => ({
       ...prevData,
       isDisplayNews: !prevData.isDisplayNews,
     }));
     // This is bad because we're calling it twice. However, that's fine for now :).
-    await setisNews((currNews) => {
+    await setNews((currNews) => {
       console.log("Curr news from the set: ", currNews);
       if (currNews.isDisplayNews === false) {
         //setChartData, with the third dataset being empty.
@@ -99,7 +99,7 @@ const TickerMod = ({
         //   lastDate = lastDate.getTime();
         //   //set chart Data
         // }
-        //fetch newsData and format it to whatever timeInterval is involved.
+        //fetch newsData and format it to whatever timeScale is involved.
         //Then set newsData to what we fetched.\
         //Set the chart Data
       } else if (
@@ -113,13 +113,13 @@ const TickerMod = ({
         console.log("Fetching newsData");
         newsFetch(search, chartData, setChartData)
           .then(([feed, currNewsArr]) => {
-            setisNews((prevNews) => {
+            setNews((prevNews) => {
               const updatedNewsState = {
                 ...prevNews,
                 newsData: feed,
                 currNews: currNewsArr,
               };
-              //setChartData uses the most up to date news from the setisNews
+              //setChartData uses the most up to date news from the setNews
               setChartData((prevData) => ({
                 ...prevData,
                 datasets: [
@@ -140,7 +140,7 @@ const TickerMod = ({
       } else {
         //A generic catch all in case something bugs out. Currently doesn't do much.
         console.log(
-          "Some other condition was hit lol. isNews, newsData: ",
+          "Some other condition was hit lol. news, newsData: ",
           currNews.isDisplayNews,
           currNews.newsData
         );
@@ -156,15 +156,15 @@ const TickerMod = ({
       <div className="flex items-center  justify-center">
         {/* <EditText name="textbox" placeholder="Enter Ticker" /> */}
         <Search
-          timeInterval={timeInterval}
+          timeScale={timeScale}
           setChartData={setChartData}
           search={search}
           setSearch={setSearch}
           symbolColor={symbolColor}
           chartData={chartData}
           indicatorColor={indicatorColor}
-          econIndicator={econIndicator}
-          isNews={isNews}
+          econMode={econMode}
+          news={news}
         />
       </div>
       <div className="flex items-center  justify-center">
@@ -172,19 +172,19 @@ const TickerMod = ({
       </div>
       <div className="h-8 flex items-center  justify-center font-thin">
         <Indicator
-          timeInterval={timeInterval}
+          timeScale={timeScale}
           chartData={chartData}
           search={search}
           setChartData={setChartData}
           indicatorColor={indicatorColor}
-          setEconIndicator={setEconIndicator}
+          setEconMode={setEconMode}
         />
       </div>
       <div className="flex items-center  justify-center">
         <PopoverPicker color={indicatorColor} onChange={updateIndicatorColor} />
       </div>
       <div className="flex items-center  justify-center">
-        <CheckBox checked={isNews.isDisplayNews} onChange={checkBoxHandler} />
+        <CheckBox checked={news.isDisplayNews} onChange={checkBoxHandler} />
       </div>
     </div>
   );

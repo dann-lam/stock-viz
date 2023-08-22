@@ -4,17 +4,17 @@ import searchIt from "../utils/searchIt";
 // import { fetchParser } from "../utils/fetchParser";
 // import indicatorIt from "../utils/indicatorIt";
 let Search = ({
-  timeInterval,
+  timeScale,
   setChartData,
   search,
   setSearch,
   symbolColor,
   chartData,
   indicatorColor,
-  econIndicator,
-  isNews,
+  econMode,
+  news,
 }) => {
-  //timeInterval is fed into our API request
+  //timeScale is fed into our API request
 
   //State value for user inputs for symbol.
 
@@ -34,12 +34,12 @@ let Search = ({
     } else {
       await searchIt(
         search,
-        timeInterval,
+        timeScale,
         setChartData,
         symbolColor,
         indicatorColor,
-        econIndicator,
-        isNews
+        econMode,
+        news
       );
       //IF we have another option selected other than the default, then also grab our economic indicator upon search.
     }
