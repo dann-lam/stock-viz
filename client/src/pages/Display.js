@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Chart from "chart.js/auto";
 import { CategoryScale } from "chart.js";
 import LineChart from "../components/LineChart";
-import TickerMod from "../components/TickerMod";
+import TickerMenu from "../components/TickerMenu";
 import Labels from "../components/Labels";
 import TimeIntervalButtons from "../components/TimeIntervalButtons";
 import Price from "../components/Price";
@@ -60,7 +60,7 @@ const Display = () => {
 
           <Labels />
           <hr className="divide-slate-400/10 w-3/5 m-4" />
-          <TickerMod
+          <TickerMenu
             setChartData={setChartData}
             setindicatorColor={setindicatorColor}
             setsymbolColor={setsymbolColor}

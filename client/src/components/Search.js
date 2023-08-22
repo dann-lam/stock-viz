@@ -1,6 +1,6 @@
 import React from "react";
 
-import searchIt from "../utils/searchIt";
+import searchUpdater from "../utils/searchUpdater";
 
 let Search = ({
   timeScale,
@@ -31,7 +31,7 @@ let Search = ({
     if (!search) {
       return console.log("No search found!");
     } else {
-      await searchIt(
+      await searchUpdater(
         search,
         timeScale,
         setChartData,

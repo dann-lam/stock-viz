@@ -10,7 +10,7 @@ import newsFetch from "../utils/newsFetch";
 // import newsParser from "../utils/newsParser";
 import pointRadiiHandler from "../utils/tooltiplabelHandler";
 //Ticker modifier is basically a container that holds ticker related modifications for our chart.
-const TickerMod = ({
+const TickerMenu = ({
   setChartData,
   setindicatorColor,
   setsymbolColor,
@@ -64,7 +64,6 @@ const TickerMod = ({
     }));
     // This is bad because we're calling it twice. However, that's fine for now :).
     await setNews((currNews) => {
-
       if (currNews.isDisplayNews === false) {
         //setChartData, with the third dataset being empty.
 
@@ -78,7 +77,6 @@ const TickerMod = ({
               ...prevData.datasets.slice(3),
             ],
           };
-
 
           return updatedChartData;
         });
@@ -104,7 +102,6 @@ const TickerMod = ({
         chartData.labels
       ) {
         //This else statement only grabs our news information if the button is on, and if the data was not fetched before, and if we have the search term and chartData range.
-
 
         newsFetch(search, chartData, setChartData)
           .then(([feed, currNewsArr]) => {
@@ -185,4 +182,4 @@ const TickerMod = ({
   );
 };
 
-export default TickerMod;
+export default TickerMenu;

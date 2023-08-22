@@ -1,5 +1,3 @@
-
-
 const onefiveDayLabelsFormat = (data, timeInterval) => {
   //dateKeys creates an array of all keys.
   let dateKeys = Object.keys(data);
@@ -37,7 +35,7 @@ const onefiveDayLabelsFormat = (data, timeInterval) => {
   return formatted;
   //Take those dates, format them and return them.
 };
-export const fetchParser = (data, timeInterval) => {
+export const searchParser = (data, timeInterval) => {
   let formattedData = {
     labels: "",
     data: "",

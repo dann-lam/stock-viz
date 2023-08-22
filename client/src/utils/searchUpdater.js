@@ -1,12 +1,12 @@
-import searchTicker from "./searchTicker";
+import searchFetch from "./searchFetch";
 import indicatorUpdater from "./indicatorUpdater";
-import { fetchParser } from "./fetchParser";
+import { searchParser } from "./searchParser";
 import pointRadiiHandler from "./tooltiplabelHandler";
 
 //timeScale is fed into our API request
 //Handle button click
 
-const searchIt = async (
+const searchUpdater = async (
   search,
   timeScale,
   setChartData,
@@ -17,8 +17,7 @@ const searchIt = async (
   chartData
 ) => {
   try {
-
-    const response = await searchTicker(search, timeScale);
+    const response = await searchFetch(search, timeScale);
 
     const data = await response.json();
 
@@ -28,7 +27,7 @@ const searchIt = async (
     let calledData = data[Object.keys(data)[1]];
 
     //Takes our data and turns it into something the chart can see.
-    let searchData = fetchParser(calledData, timeScale);
+    let searchData = searchParser(calledData, timeScale);
     // Update the react variable that controls the chart.
 
     let indicatorChecker = async (newChartData) => {
@@ -68,10 +67,9 @@ const searchIt = async (
       indicatorChecker(updatedData);
       return updatedData;
     });
-
   } catch (err) {
     console.error(err);
   }
 };
 
-export default searchIt;
+export default searchUpdater;

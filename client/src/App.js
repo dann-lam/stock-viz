@@ -5,8 +5,7 @@ import Navbar from "./components/Navbar";
 // import Footer from "./components/Footer";
 import Display from "./pages/Display";
 
-// import TickerMod from "./components/TickerMod";
-
+// import TickerMenu from "./components/TickerMenu";
 
 export default function App() {
   return (

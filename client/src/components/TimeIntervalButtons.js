@@ -1,7 +1,7 @@
 import React from "react";
-// import searchTicker from "../utils/searchTicker";
-// import { fetchParser } from "../utils/fetchParser";
-import searchIt from "../utils/searchIt";
+// import searchFetch from "../utils/searchFetch";
+// import { searchParser } from "../utils/searchParser";
+import searchUpdater from "../utils/searchUpdater";
 // import indicatorUpdater from "../utils/indicatorUpdater";
 let TimeIntervalButtons = ({
   setTimeScale,
@@ -23,7 +23,7 @@ let TimeIntervalButtons = ({
     //if search is empty, then only set the timeInterval, otherwise, if there is something there, THEN do the search.
 
     if (search) {
-      searchIt(
+      searchUpdater(
         search,
         buttInterval,
         setChartData,
