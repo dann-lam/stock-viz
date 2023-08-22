@@ -1,5 +1,5 @@
 import React from "react";
-
+//Labels for UX, number of columns is controlled by "lg:grid-cols-#"
 const Labels = () => {
   return (
     <div className="grid grid-cols-1  lg:grid-cols-5 lg:gap-8 w-3/5 py-2">

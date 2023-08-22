@@ -2,7 +2,7 @@ import React from "react";
 // import searchTicker from "../utils/searchTicker";
 // import { fetchParser } from "../utils/fetchParser";
 import searchIt from "../utils/searchIt";
-// import indicatorIt from "../utils/indicatorIt";
+// import indicatorUpdater from "../utils/indicatorUpdater";
 let TimeIntervalButtons = ({
   setTimeScale,
   search,
@@ -35,11 +35,9 @@ let TimeIntervalButtons = ({
       );
     }
 
-    //Set up a condition, where indicatorIt knows whether chartData exists or not. This determines whether we do the indicatorIt search.
+    //Set up a condition, where indicatorUpdater knows whether chartData exists or not. This determines whether we do the indicatorUpdater search.
     //Check to see if chartData.labels exists.
   };
-
-  //This is taken from the searchClicker, need to refactor it.
 
   return (
     <div className="grid grid-cols-1  lg:grid-cols-5 lg:gap-8 w-4/8 py-8">

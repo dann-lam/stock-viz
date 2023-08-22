@@ -9,7 +9,7 @@ import Search from "./Search";
 import newsFetch from "../utils/newsFetch";
 // import newsParser from "../utils/newsParser";
 import pointRadiiHandler from "../utils/tooltiplabelHandler";
-
+//Ticker modifier is basically a container that holds ticker related modifications for our chart.
 const TickerMod = ({
   setChartData,
   setindicatorColor,
@@ -29,6 +29,8 @@ const TickerMod = ({
   const updateChartColor = (event) => {
     setsymbolColor(event);
     //Targets specifically the border color, copies over any left overs as well taht we may have missed.
+
+    //Keep everything the same in the chart, but update the border color.
     setChartData((prevData) => ({
       ...prevData,
       datasets: [
@@ -40,8 +42,10 @@ const TickerMod = ({
       ],
     }));
   };
+
   const updateIndicatorColor = (event) => {
     setindicatorColor(event);
+    //everything is the same, specifically targets the indicatorColordataset and updates its border color.
     setChartData((prevData) => ({
       ...prevData,
       datasets: [
@@ -93,15 +97,6 @@ const TickerMod = ({
             { ...currNews.datasets[2] },
           ],
         }));
-        //This else if controls drawing or undrawing our data onto the chart. if we have the information.
-        // if (chartData.labels[chartData.labels.length - 1]) {
-        //   let lastDate = chartData.labels[chartData.labels.length - 1];
-        //   lastDate = lastDate.getTime();
-        //   //set chart Data
-        // }
-        //fetch newsData and format it to whatever timeScale is involved.
-        //Then set newsData to what we fetched.\
-        //Set the chart Data
       } else if (
         currNews.isDisplayNews === true &&
         currNews.newsData.length === 0 &&

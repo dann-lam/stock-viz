@@ -1,5 +1,5 @@
 import searchTicker from "./searchTicker";
-import indicatorIt from "./indicatorIt";
+import indicatorUpdater from "./indicatorUpdater";
 import { fetchParser } from "./fetchParser";
 import pointRadiiHandler from "./tooltiplabelHandler";
 
@@ -33,7 +33,7 @@ const searchIt = async (
 
     let indicatorChecker = async (newChartData) => {
       if (econMode === "EMA" || econMode === "SMA") {
-        await indicatorIt(
+        await indicatorUpdater(
           econMode,
           search,
           timeScale,
@@ -41,7 +41,7 @@ const searchIt = async (
           indicatorColor,
           setChartData
         );
-        console.log("Exited out indicatorIt");
+        console.log("Exited out indicatorUpdater");
       } else {
         console.log("econMode set to something else.", econMode);
       }
@@ -67,7 +67,7 @@ const searchIt = async (
         ],
       };
       indicatorChecker(updatedData);
-      console.log("updated Data is: ", updatedData)
+      console.log("updated Data is: ", updatedData);
       return updatedData;
     });
     // console.log("CurrData inside chartData is: ", currData);

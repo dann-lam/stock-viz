@@ -2,7 +2,7 @@ import React from "react";
 // import searchTicker from "../utils/searchTicker";
 import searchIt from "../utils/searchIt";
 // import { fetchParser } from "../utils/fetchParser";
-// import indicatorIt from "../utils/indicatorIt";
+// import indicatorUpdater from "../utils/indicatorUpdater";
 let Search = ({
   timeScale,
   setChartData,

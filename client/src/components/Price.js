@@ -1,5 +1,5 @@
 import React from "react";
-
+//Component reflects the price and percent change for that time frame 
 let Price = ({ chartData }) => {
   let priceStatus;
   let lastPrice;

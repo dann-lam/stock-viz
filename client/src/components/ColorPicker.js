@@ -1,6 +1,7 @@
 import React, { useCallback, useRef, useState } from "react";
 import { HexColorPicker } from "react-colorful";
 
+//useCLickOutside is an imported function that handles toggling the colorpicker based on whether it has attention or not.
 import useClickOutside from "../utils/useClickOutside";
 
 export const PopoverPicker = ({ color, onChange }) => {

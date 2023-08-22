@@ -3,7 +3,7 @@ import { Line, getElementsAtEvent } from "react-chartjs-2";
 
 function LineChart({ timeScale, search, chartData, news }) {
   const chartRef = useRef();
-
+  //displayFormMap controls how dates should be displayed based on our timeScale.
   const displayFormMap = {
     "1D": "h:mm A",
     "5D": "MMM D",
@@ -14,8 +14,11 @@ function LineChart({ timeScale, search, chartData, news }) {
 
   //label handlers will receive parts of text and format them to the tooltip on our chart.
   const beforeLabelHandler = (context) => {
+    //Context is our dataset.
+    //Whenhovering over context, we look at the dataIndex property, and use that position to get our newsStory info from the array at context.dataIndex's position.
     const currNewsStory = news.currNews[context.dataIndex];
     if (currNewsStory) {
+      //regex to split up the long title to something more manageable for the tooltip. There is a better approach for this but this will do for now.
       return `${currNewsStory.title.replace(
         /(.{1,20})(?:\s|$)/g,
         "$1\n"
@@ -24,9 +27,11 @@ function LineChart({ timeScale, search, chartData, news }) {
       return;
     }
   };
+
   const labelHandler = (context) => {
     const label = context.dataset.label || "";
     if (label) {
+      //parsed.y is the price.
       return `${label}: ${context.parsed.y}`;
     }
     return context.parsed.y;
@@ -35,6 +40,7 @@ function LineChart({ timeScale, search, chartData, news }) {
   const beforeFooterHandler = (context) => {
     const currNewsStory = news.currNews[context[0].dataIndex];
     if (currNewsStory) {
+      //Display when the story was published. We .toLocaleString it to convert it from its timezone to a relevent one.
       return `Article published:\n${currNewsStory.time_published.toLocaleString()}`;
     }
   };
@@ -45,9 +51,12 @@ function LineChart({ timeScale, search, chartData, news }) {
       getElementsAtEvent(chartRef.current, event).length > 0 &&
       news.isDisplayNews &&
       news.currNews.length > 0
+      //Check to see if we have anything.
     ) {
+      //Get our stored link based on the index from getElementsAtEvent (chartJS function)
       const clickDatasetIndex = getElementsAtEvent(chartRef.current, event)[0]
         .index;
+      // console.log("clickDatasetIndex: ", clickDatasetIndex);
       const clickNewsLink = news.currNews[clickDatasetIndex].link; //.link
       window.open(`${clickNewsLink}`, "_blank");
     }
