@@ -13,11 +13,7 @@ const searchTicker = (query, timeScale) => {
   //The type of request is based off of which button is pushed.
   let currFunc = Object.keys(timeMap[timeScale])[0];
   let interval = timeMap[timeScale][currFunc];
-  // console.log("--- searchTicker ---");
-  // console.log("timeScale: ", timeScale);
-  // console.log("CurrFunc is: ", currFunc);
-  // console.log("interval is: ", interval);
-  // let currTime = queryTime;
+
 
   return fetch(
     `https://www.alphavantage.co/query?function=${currFunc}&symbol=${query}&interval=${interval}&apikey=66M911GUXN2WRHBR&datatype=json`

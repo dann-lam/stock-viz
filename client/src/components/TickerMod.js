@@ -64,7 +64,7 @@ const TickerMod = ({
     }));
     // This is bad because we're calling it twice. However, that's fine for now :).
     await setNews((currNews) => {
-      console.log("Curr news from the set: ", currNews);
+
       if (currNews.isDisplayNews === false) {
         //setChartData, with the third dataset being empty.
 
@@ -78,7 +78,7 @@ const TickerMod = ({
               ...prevData.datasets.slice(3),
             ],
           };
-          console.log("Updated chart data:", updatedChartData);
+
 
           return updatedChartData;
         });
@@ -105,7 +105,7 @@ const TickerMod = ({
       ) {
         //This else statement only grabs our news information if the button is on, and if the data was not fetched before, and if we have the search term and chartData range.
 
-        console.log("Fetching newsData");
+
         newsFetch(search, chartData, setChartData)
           .then(([feed, currNewsArr]) => {
             setNews((prevNews) => {

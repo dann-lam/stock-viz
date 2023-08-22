@@ -17,7 +17,7 @@ const searchIt = async (
   chartData
 ) => {
   try {
-    // console.log("Looking for undefined: ", search, timeScale, setChartData);
+
     const response = await searchTicker(search, timeScale);
 
     const data = await response.json();
@@ -41,7 +41,6 @@ const searchIt = async (
           indicatorColor,
           setChartData
         );
-        console.log("Exited out indicatorUpdater");
       } else {
         console.log("econMode set to something else.", econMode);
       }
@@ -67,11 +66,9 @@ const searchIt = async (
         ],
       };
       indicatorChecker(updatedData);
-      console.log("updated Data is: ", updatedData);
       return updatedData;
     });
-    // console.log("CurrData inside chartData is: ", currData);
-    // indicatorChecker(currData);
+
   } catch (err) {
     console.error(err);
   }
