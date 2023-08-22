@@ -41,7 +41,8 @@ const searchUpdater = async (
           setChartData
         );
       } else {
-        console.log("econMode set to something else.", econMode);
+        return;
+        // console.log("econMode set to something else.", econMode);
       }
     };
 

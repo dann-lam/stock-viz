@@ -8,8 +8,9 @@ import Indicator from "./Indicator";
 import Search from "./Search";
 import newsFetch from "../utils/newsFetch";
 // import newsParser from "../utils/newsParser";
-import pointRadiiHandler from "../utils/tooltiplabelHandler";
-//Ticker modifier is basically a container that holds ticker related modifications for our chart.
+// import pointRadiiHandler from "../utils/tooltiplabelHandler";
+//Ticker menu - container that holds ticker related modifications for our chart.
+import setChartDataUpdater from "../utils/setChartDataUpdater";
 const TickerMenu = ({
   setChartData,
   setindicatorColor,
@@ -31,29 +32,13 @@ const TickerMenu = ({
     //Targets specifically the border color, copies over any left overs as well taht we may have missed.
 
     //Keep everything the same in the chart, but update the border color.
-    setChartData((prevData) => ({
-      ...prevData,
-      datasets: [
-        {
-          ...prevData.datasets[0],
-          borderColor: symbolColor,
-        },
-        ...prevData.datasets.slice(1),
-      ],
-    }));
+    setChartDataUpdater(setChartData, 0, "borderColor", symbolColor);
   };
 
   const updateIndicatorColor = (event) => {
     setindicatorColor(event);
     //everything is the same, specifically targets the indicatorColordataset and updates its border color.
-    setChartData((prevData) => ({
-      ...prevData,
-      datasets: [
-        { ...prevData.datasets[0] },
-        { ...prevData.datasets[1], borderColor: indicatorColor },
-        ...prevData.datasets.slice(2),
-      ],
-    }));
+    setChartDataUpdater(setChartData, 1, "borderColor", indicatorColor);
   };
 
   const checkBoxHandler = async () => {
@@ -64,38 +49,48 @@ const TickerMenu = ({
     }));
     // This is bad because we're calling it twice. However, that's fine for now :).
     await setNews((currNews) => {
+      //If the button is set to false: turn our displayNews off on the chart.
       if (currNews.isDisplayNews === false) {
-        //setChartData, with the third dataset being empty.
+        //Turn on pointRadius for the first Dataset,
+        //Turn off the 2nd dataset (news Array)
+        setChartDataUpdater(setChartData, 0, "pointRadius", 1);
+        setChartDataUpdater(setChartData, 2);
 
-        setChartData((prevData) => {
-          const updatedChartData = {
-            ...prevData,
-            datasets: [
-              { ...prevData.datasets[0], pointRadius: 1 },
-              { ...prevData.datasets[1] },
-              {},
-              ...prevData.datasets.slice(3),
-            ],
-          };
+        //OLD setChartData, kept just in case.
+        // setChartData((prevData) => {
+        //   const updatedChartData = {
+        //     ...prevData,
+        //     datasets: [
+        //       { ...prevData.datasets[0], pointRadius: 1 },
+        //       { ...prevData.datasets[1] },
+        //       {},
+        //       ...prevData.datasets.slice(3),
+        //     ],
+        //   };
 
-          return updatedChartData;
-        });
+        //   return updatedChartData;
+        // });
       } else if (
+        //If it's ON, and we have newsData, display it.
         currNews.isDisplayNews === true &&
         currNews.newsData.length > 0
       ) {
-        setChartData((currNews) => ({
-          ...currNews,
-          datasets: [
-            {
-              ...currNews.datasets[0],
-              pointRadius: pointRadiiHandler(currNews),
-            },
-            { ...currNews.datasets[1] },
-            { ...currNews.datasets[2] },
-          ],
-        }));
+        setChartDataUpdater(setChartData, 0, "pointRadius");
+
+        //OLD version, kept just in case.
+
+        // setChartData((currNews) => ({
+        //   ...currNews,
+        //   datasets: [
+        //     {
+        //       ...currNews.datasets[0],
+        //       pointRadius: pointRadiiHandler(currNews),
+        //     },
+        //     ...currNews.datasets.slice(1),
+        //   ],
+        // }));
       } else if (
+        //If it's ON, and we don't have anything already, go get it.
         currNews.isDisplayNews === true &&
         currNews.newsData.length === 0 &&
         search &&
@@ -112,16 +107,20 @@ const TickerMenu = ({
                 currNews: currNewsArr,
               };
               //setChartData uses the most up to date news from the setNews
-              setChartData((prevData) => ({
-                ...prevData,
-                datasets: [
-                  {
-                    ...prevData.datasets[0],
-                    pointRadius: pointRadiiHandler(prevNews),
-                  },
-                  { ...prevData.datasets[1] },
-                ],
-              }));
+              setChartDataUpdater(setChartData, 0, "pointRadius");
+
+              // Old Set Chart Data just in case :)
+
+              // setChartData((prevData) => ({
+              //   ...prevData,
+              //   datasets: [
+              //     {
+              //       ...prevData.datasets[0],
+              //       pointRadius: pointRadiiHandler(prevNews),
+              //     },
+              //     { ...prevData.datasets[1] },
+              //   ],
+              // }));
 
               return updatedNewsState;
             });
