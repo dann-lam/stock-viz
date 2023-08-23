@@ -13,7 +13,6 @@ const newsFetch = async (symbol, chartData, setChartData) => {
 
       lastDate = lastDate.getTime();
       currNewsArr = await newsParser(feed, lastDate, chartData);
-
     }
 
     return [feed, currNewsArr];

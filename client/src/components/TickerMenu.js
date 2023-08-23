@@ -7,7 +7,7 @@ import { PopoverPicker } from "./ColorPicker";
 import Indicator from "./Indicator";
 import Search from "./Search";
 import newsFetch from "../utils/newsFetch";
-// import newsParser from "../utils/newsParser";
+import newsParser from "../utils/newsParser";
 // import pointRadiiHandler from "../utils/tooltiplabelHandler";
 //Ticker menu - container that holds ticker related modifications for our chart.
 import setChartDataUpdater from "../utils/setChartDataUpdater";
@@ -48,14 +48,17 @@ const TickerMenu = ({
       isDisplayNews: !prevData.isDisplayNews,
     }));
     // This is bad because we're calling it twice. However, that's fine for now :).
-    await setNews((currNews) => {
+    await setNews((news) => {
       //If the button is set to false: turn our displayNews off on the chart.
-      if (currNews.isDisplayNews === false) {
+      if (news.isDisplayNews === false) {
         //Turn on pointRadius for the first Dataset,
         //Turn off the 2nd dataset (news Array)
         setChartDataUpdater(setChartData, 0, "pointRadius", 1);
         setChartDataUpdater(setChartData, 2);
-
+        //empty out the currNews array so that it won't be visible to the hover effects.
+        news.currNews = [];
+        console.log("curr news from currnewsfalse condition: ", news);
+        return news;
         //OLD setChartData, kept just in case.
         // setChartData((prevData) => {
         //   const updatedChartData = {
@@ -72,11 +75,19 @@ const TickerMenu = ({
         // });
       } else if (
         //If it's ON, and we have newsData, display it.
-        currNews.isDisplayNews === true &&
-        currNews.newsData.length > 0
+        news.isDisplayNews === true &&
+        news.newsData.length > 0
       ) {
         setChartDataUpdater(setChartData, 0, "pointRadius");
 
+        let lastDate = chartData.labels[chartData.labels.length - 1];
+
+        //Get + format the newest obtained newsData, then set our currNews so that the newest hovertips will be seen on the linechart for rendering.
+        newsParser(news.newsData, lastDate, chartData).then((content) => {
+          news.currNews = content;
+        });
+
+        // currNews.currNews
         //OLD version, kept just in case.
 
         // setChartData((currNews) => ({
@@ -89,10 +100,12 @@ const TickerMenu = ({
         //     ...currNews.datasets.slice(1),
         //   ],
         // }));
+        console.log("currNews from  button on with data: ", news);
+        return news;
       } else if (
         //If it's ON, and we don't have anything already, go get it.
-        currNews.isDisplayNews === true &&
-        currNews.newsData.length === 0 &&
+        news.isDisplayNews === true &&
+        news.newsData.length === 0 &&
         search &&
         chartData.labels
       ) {
@@ -132,11 +145,11 @@ const TickerMenu = ({
         //A generic catch all in case something bugs out. Currently doesn't do much.
         console.log(
           "Some other condition was hit lol. news, newsData: ",
-          currNews.isDisplayNews,
-          currNews.newsData
+          news.isDisplayNews,
+          news.newsData
         );
       }
-      return currNews;
+      return news;
 
       //End of our craziness.
     });
