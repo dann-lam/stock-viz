@@ -9,7 +9,8 @@ const setChartDataUpdater = (
   setChartData,
   targSet,
   targProperty,
-  propertyVal
+  propertyVal,
+  news
 ) => {
   if (targProperty === undefined) {
   }
@@ -30,7 +31,7 @@ const setChartDataUpdater = (
         //Else, we want a newsArray aligned with our priceArray
         updatedDataset[targSet] = {
           ...updatedDataset[targSet],
-          [targProperty]: pointRadiiHandler(prevData),
+          [targProperty]: pointRadiiHandler(news),
         };
       }
     } else if (targProperty) {

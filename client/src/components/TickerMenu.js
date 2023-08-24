@@ -57,50 +57,21 @@ const TickerMenu = ({
         setChartDataUpdater(setChartData, 2);
         //empty out the currNews array so that it won't be visible to the hover effects.
         news.currNews = [];
-        console.log("curr news from currnewsfalse condition: ", news);
         return news;
-        //OLD setChartData, kept just in case.
-        // setChartData((prevData) => {
-        //   const updatedChartData = {
-        //     ...prevData,
-        //     datasets: [
-        //       { ...prevData.datasets[0], pointRadius: 1 },
-        //       { ...prevData.datasets[1] },
-        //       {},
-        //       ...prevData.datasets.slice(3),
-        //     ],
-        //   };
-
-        //   return updatedChartData;
-        // });
       } else if (
         //If it's ON, and we have newsData, display it.
         news.isDisplayNews === true &&
         news.newsData.length > 0
       ) {
-        setChartDataUpdater(setChartData, 0, "pointRadius");
-
+        //Chart isn't being updated with the appropriate point radius.
         let lastDate = chartData.labels[chartData.labels.length - 1];
-
-        //Get + format the newest obtained newsData, then set our currNews so that the newest hovertips will be seen on the linechart for rendering.
         newsParser(news.newsData, lastDate, chartData).then((content) => {
           news.currNews = content;
+          setChartDataUpdater(setChartData, 0, "pointRadius", null, news);
         });
 
-        // currNews.currNews
-        //OLD version, kept just in case.
+        //Get + format the newest obtained newsData, then set our currNews so that the newest hovertips will be seen on the linechart for rendering.
 
-        // setChartData((currNews) => ({
-        //   ...currNews,
-        //   datasets: [
-        //     {
-        //       ...currNews.datasets[0],
-        //       pointRadius: pointRadiiHandler(currNews),
-        //     },
-        //     ...currNews.datasets.slice(1),
-        //   ],
-        // }));
-        console.log("currNews from  button on with data: ", news);
         return news;
       } else if (
         //If it's ON, and we don't have anything already, go get it.
@@ -120,21 +91,13 @@ const TickerMenu = ({
                 currNews: currNewsArr,
               };
               //setChartData uses the most up to date news from the setNews
-              setChartDataUpdater(setChartData, 0, "pointRadius");
-
-              // Old Set Chart Data just in case :)
-
-              // setChartData((prevData) => ({
-              //   ...prevData,
-              //   datasets: [
-              //     {
-              //       ...prevData.datasets[0],
-              //       pointRadius: pointRadiiHandler(prevNews),
-              //     },
-              //     { ...prevData.datasets[1] },
-              //   ],
-              // }));
-
+              setChartDataUpdater(
+                setChartData,
+                0,
+                "pointRadius",
+                null,
+                updatedNewsState
+              );
               return updatedNewsState;
             });
           })
@@ -150,8 +113,6 @@ const TickerMenu = ({
         );
       }
       return news;
-
-      //End of our craziness.
     });
   };
 
