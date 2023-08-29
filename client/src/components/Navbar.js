@@ -1,7 +1,5 @@
 import React from "react";
 
-
-
 const Navbar = () => {
   return (
     <div className="min-w-full">
@@ -30,7 +28,7 @@ const Navbar = () => {
                     className="text-gray-500 transition hover:text-gray-500/75"
                     href="/"
                   >
-                    Abo ABO ABO BOBOBOO
+                    {/* Link 1 */}
                   </a>
                 </li>
 
@@ -39,7 +37,7 @@ const Navbar = () => {
                     className="text-gray-500 transition hover:text-gray-500/75"
                     href="/"
                   >
-                    CaR CAR CAR CAR
+                    {/* Link 2 */}
                   </a>
                 </li>
 
@@ -48,16 +46,14 @@ const Navbar = () => {
                     className="text-gray-500 transition hover:text-gray-500/75"
                     href="/"
                   >
-                    HJIS HIS IHIS HIS
+                    {/* Link 3 */}
                   </a>
                 </li>
               </ul>
             </nav>
 
             <div className="flex items-center gap-4">
-              <div className="sm:flex sm:gap-4">
-
-              </div>
+              <div className="sm:flex sm:gap-4"></div>
 
               <button className="block rounded bg-gray-100 p-2.5 text-gray-600 transition hover:text-gray-600/75 md:hidden">
                 <span className="sr-only">Toggle menu</span>

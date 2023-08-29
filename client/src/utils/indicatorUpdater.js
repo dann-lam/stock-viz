@@ -1,7 +1,7 @@
-import indicatorTicker from "./indicatorTicker";
+import indicatorFetch from "./indicatorFetch";
 import { indicatorParser } from "./indicatorParser";
 
-const indicatorIt = async (
+const indicatorUpdater = async (
   econIndicator,
   search,
   timeInterval,
@@ -9,21 +9,14 @@ const indicatorIt = async (
   indicatorColor,
   setChartData
 ) => {
-  console.log(
-    "Entered indicatorTicker correctly? ",
-    econIndicator,
-    search,
-    timeInterval,
-    chartData
-  );
+
 
   if (search) {
-    console.log("ChartData is: ", chartData);
-    const response = await indicatorTicker(econIndicator, search, timeInterval);
+
+    const response = await indicatorFetch(econIndicator, search, timeInterval);
     const data = await response.json();
     let calledData = await data[Object.keys(data)[1]];
-    console.log("Indicator it data response: ", data);
-    console.log("Indicator it calledData :", calledData);
+
 
     if (chartData.labels[chartData.labels.length - 1]) {
       let lastDate = chartData.labels[chartData.labels.length - 1];
@@ -52,4 +45,4 @@ const indicatorIt = async (
   }
 };
 
-export default indicatorIt;
+export default indicatorUpdater;

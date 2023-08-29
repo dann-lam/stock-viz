@@ -1,5 +1,5 @@
-const searchTicker = (query, timeInterval) => {
-  //Make switch case and object to handle timeInterval that will affect the function request on our API.
+const searchFetch = (query, timeScale) => {
+  //Make switch case and object to handle timeScale that will affect the function request on our API.
   const timeMap = {
     "1D": { TIME_SERIES_INTRADAY: "5min" },
     "5D": { TIME_SERIES_INTRADAY: "30min" },
@@ -11,13 +11,8 @@ const searchTicker = (query, timeInterval) => {
   };
   //The results of a button click determine the query function to be called.
   //The type of request is based off of which button is pushed.
-  let currFunc = Object.keys(timeMap[timeInterval])[0];
-  let interval = timeMap[timeInterval][currFunc];
-  // console.log("--- searchTicker ---");
-  // console.log("timeInterval: ", timeInterval);
-  // console.log("CurrFunc is: ", currFunc);
-  // console.log("interval is: ", interval);
-  // let currTime = queryTime;
+  let currFunc = Object.keys(timeMap[timeScale])[0];
+  let interval = timeMap[timeScale][currFunc];
 
   return fetch(
     `https://www.alphavantage.co/query?function=${currFunc}&symbol=${query}&interval=${interval}&apikey=66M911GUXN2WRHBR&datatype=json`
@@ -27,6 +22,6 @@ const searchTicker = (query, timeInterval) => {
 
 //www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=IBM&interval=5min&apikey=demo
 //`https://www.alphavantage.co/query?function=${currFunc}&symbol=${query}&interval=${interval}&apikey=66M911GUXN2WRHBR&datatype=json`
-export default searchTicker;
+export default searchFetch;
 //NP9GNGJNY8XMZIK9
 //66M911GUXN2WRHBR

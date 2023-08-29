@@ -1,14 +1,3 @@
-//write day specific parsers
-//write week specific parsers
-
-//Function designed to filter down our labels to 5, but isn't working as expected due to how charts are filtered.dis
-// const selectEvenLabels = (labels) => {
-//   const step = Math.floor(labels.length / 5);
-//   return labels.filter(
-//     (label, index) => index % step === 0 || index === labels.length - 1
-//   );
-// };
-
 const onefiveDayLabelsFormat = (data, timeInterval) => {
   //dateKeys creates an array of all keys.
   let dateKeys = Object.keys(data);
@@ -46,7 +35,7 @@ const onefiveDayLabelsFormat = (data, timeInterval) => {
   return formatted;
   //Take those dates, format them and return them.
 };
-export const fetchParser = (data, timeInterval) => {
+export const searchParser = (data, timeInterval) => {
   let formattedData = {
     labels: "",
     data: "",

@@ -1,6 +1,6 @@
 //Ingesting of react values to return the economic indicator data for a given ticker.
 
-const indicatorTicker = (indicator, search, timeInterval) => {
+const indicatorFetch = (indicator, search, timeInterval) => {
   const timeMap = {
     "1D": { TIME_SERIES_INTRADAY: "5min" },
     "5D": { TIME_SERIES_INTRADAY: "30min" },
@@ -27,4 +27,4 @@ const indicatorTicker = (indicator, search, timeInterval) => {
   //return that information
 };
 
-export default indicatorTicker;
+export default indicatorFetch;

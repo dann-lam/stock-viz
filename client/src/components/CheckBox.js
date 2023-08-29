@@ -1,4 +1,5 @@
 import React from "react";
+//Does whatever is fed into our parameters. Very generic.
 const CheckBox = ({ checked, onChange }) => {
   // const checkBoxInputRef = useRef();
 

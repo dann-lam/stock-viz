@@ -1,22 +1,19 @@
-import React, { useContext } from "react";
-// import searchTicker from "../utils/searchTicker";
-import { chartTimeContext } from "../App";
-import searchIt from "../utils/searchIt";
-// import { fetchParser } from "../utils/fetchParser";
-import indicatorIt from "../utils/indicatorIt";
-let Search = () => {
-  //timeInterval is fed into our API request
-  const {
-    timeInterval,
-    setChartData,
-    search,
-    setSearch,
-    symbolColor,
-    chartData,
-    indicatorColor,
-    econIndicator,
-    isNews,
-  } = useContext(chartTimeContext);
+import React from "react";
+
+import searchUpdater from "../utils/searchUpdater";
+
+let Search = ({
+  timeScale,
+  setChartData,
+  search,
+  setSearch,
+  symbolColor,
+  chartData,
+  indicatorColor,
+  econMode,
+  news,
+}) => {
+  //timeScale is fed into our API request
 
   //State value for user inputs for symbol.
 
@@ -34,14 +31,14 @@ let Search = () => {
     if (!search) {
       return console.log("No search found!");
     } else {
-      await searchIt(
+      await searchUpdater(
         search,
-        timeInterval,
+        timeScale,
         setChartData,
         symbolColor,
         indicatorColor,
-        econIndicator,
-        isNews
+        econMode,
+        news
       );
       //IF we have another option selected other than the default, then also grab our economic indicator upon search.
     }

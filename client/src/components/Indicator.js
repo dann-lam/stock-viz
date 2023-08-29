@@ -1,37 +1,27 @@
-import React, { useContext, useRef } from "react";
+import React, { useRef } from "react";
 
-import { chartTimeContext } from "../App";
-
-import indicatorIt from "../utils/indicatorIt";
-const Indicator = () => {
-  const {
-    timeInterval,
-    chartData,
-    search,
-    setChartData,
-    indicatorColor,
-    setEconIndicator,
-    econIndicator,
-  } = useContext(chartTimeContext);
-
+import indicatorUpdater from "../utils/indicatorUpdater";
+const Indicator = ({
+  timeScale,
+  chartData,
+  search,
+  setChartData,
+  indicatorColor,
+  setEconMode,
+}) => {
   const emaSelectRef = useRef();
 
   const optionHandler = async () => {
     if (!(emaSelectRef.current.value === "Select")) {
-      await setEconIndicator(emaSelectRef.current.value);
-      // seteconIndicator((prevVal) => {
-      //   console.log("Current econIndicator is: ", prevVal);
-      //   console.log("EconIndicator is: ", econIndicator);
-      // });
-      //Fetch information from the API.
-      //indicatorIt is wrapped in the seteconIndicator to ensure that we are using the most up to date value.
+      await setEconMode(emaSelectRef.current.value);
+      //If an option other an select is selected, update our econMode to what was selected, which is known by useRef.
 
-      //I should only be calling for indicatorIt if we have chartData and a symbol.
-      setEconIndicator((currVal) => {
-        indicatorIt(
+      //Then, use what was just selected and update the indicator and our chart.
+      setEconMode((currVal) => {
+        indicatorUpdater(
           currVal,
           search,
-          timeInterval,
+          timeScale,
           chartData,
           indicatorColor,
           setChartData
@@ -39,6 +29,7 @@ const Indicator = () => {
         return currVal;
       });
     } else {
+      //If it's still select, do nothing.
       return;
     }
   };

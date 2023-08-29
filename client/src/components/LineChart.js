@@ -1,13 +1,9 @@
-import React, { useContext, useEffect, useRef } from "react";
+import React, { useRef } from "react";
 import { Line, getElementsAtEvent } from "react-chartjs-2";
-import { chartTimeContext } from "../App";
 
-function LineChart() {
-  const { timeInterval, search, chartData, isNews } =
-    useContext(chartTimeContext);
-
+function LineChart({ timeScale, search, chartData, news }) {
   const chartRef = useRef();
-
+  //displayFormMap controls how dates should be displayed based on our timeScale.
   const displayFormMap = {
     "1D": "h:mm A",
     "5D": "MMM D",
@@ -15,23 +11,14 @@ function LineChart() {
     "6M": "MMM YYYY",
     Max: "YYYY",
   };
-  // useEffect(() => {
-  //   console.log("Linechart timeinterval: ", timeInterval);
-  // }, [timeInterval]);
 
-  // useEffect(() => {}, [displayForm, timeInterval]);
-  // const getOrCreateTooltip = (chart) => {
-  //   let tooltipEl = chart.canvas.parentNode.querySelector("div");
-  // };
-  // const newsTooltipHandler = (context) => {
-  //   const { chart, tooltip } = context;
-  //   console.log(context);
-  //   // const tooltipEl = getOrCreateTooltip(chart);
-  // };
-
+  //label handlers will receive parts of text and format them to the tooltip on our chart.
   const beforeLabelHandler = (context) => {
-    const currNewsStory = isNews.currNews[context.dataIndex];
+    //Context is our dataset.
+    //Whenhovering over context, we look at the dataIndex property, and use that position to get our newsStory info from the array at context.dataIndex's position.
+    const currNewsStory = news.currNews[context.dataIndex];
     if (currNewsStory) {
+      //regex to split up the long title to something more manageable for the tooltip. There is a better approach for this but this will do for now.
       return `${currNewsStory.title.replace(
         /(.{1,20})(?:\s|$)/g,
         "$1\n"
@@ -40,30 +27,37 @@ function LineChart() {
       return;
     }
   };
+
   const labelHandler = (context) => {
     const label = context.dataset.label || "";
     if (label) {
+      //parsed.y is the price.
       return `${label}: ${context.parsed.y}`;
     }
     return context.parsed.y;
   };
 
   const beforeFooterHandler = (context) => {
-    const currNewsStory = isNews.currNews[context[0].dataIndex];
+    const currNewsStory = news.currNews[context[0].dataIndex];
     if (currNewsStory) {
+      //Display when the story was published. We .toLocaleString it to convert it from its timezone to a relevent one.
       return `Article published:\n${currNewsStory.time_published.toLocaleString()}`;
     }
   };
 
+  //Upon click, checks to see if a hoverable dot has news that aligns with it, if it does, make it a clickable link to that news article.
   const clickHandler = (event) => {
     if (
       getElementsAtEvent(chartRef.current, event).length > 0 &&
-      isNews.isDisplayNews &&
-      isNews.currNews.length > 0
+      news.isDisplayNews &&
+      news.currNews.length > 0
+      //Check to see if we have anything.
     ) {
+      //Get our stored link based on the index from getElementsAtEvent (chartJS function)
       const clickDatasetIndex = getElementsAtEvent(chartRef.current, event)[0]
         .index;
-      const clickNewsLink = isNews.currNews[clickDatasetIndex].link; //.link
+      // console.log("clickDatasetIndex: ", clickDatasetIndex);
+      const clickNewsLink = news.currNews[clickDatasetIndex].link; //.link
       window.open(`${clickNewsLink}`, "_blank");
     }
   };
@@ -103,7 +97,7 @@ function LineChart() {
               time: {
                 unit: "day",
                 displayFormats: {
-                  day: displayFormMap[timeInterval],
+                  day: displayFormMap[timeScale],
                 },
               },
               ticks: {

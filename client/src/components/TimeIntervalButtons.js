@@ -1,67 +1,43 @@
-import React, { useContext } from "react";
-import { chartTimeContext } from "../App";
-// import searchTicker from "../utils/searchTicker";
-// import { fetchParser } from "../utils/fetchParser";
-import searchIt from "../utils/searchIt";
-import indicatorIt from "../utils/indicatorIt";
-let TimeIntervalButtons = () => {
-  const {
-    setTimeInterval,
-    search,
-    setChartData,
-    symbolColor,
-    chartData,
-    indicatorColor,
-    econIndicator,
-  } = useContext(chartTimeContext);
-
-  // useEffect(() => {
-  //   // Create a debouncer for our memorizedSearchIt
-  //   //Upon
-  //   // if (timeInterval) {
-  //   //   console.log("useEffect from timeINtervalButton firing: ", timeInterval);
-  //   // } else {
-  //   //   return console.log("No search or timeInterval found.");
-  //   // }
-  // }, [timeInterval]);
+import React from "react";
+// import searchFetch from "../utils/searchFetch";
+// import { searchParser } from "../utils/searchParser";
+import searchUpdater from "../utils/searchUpdater";
+// import indicatorUpdater from "../utils/indicatorUpdater";
+let TimeIntervalButtons = ({
+  setTimeScale,
+  search,
+  setChartData,
+  symbolColor,
+  chartData,
+  indicatorColor,
+  econMode,
+  news,
+}) => {
   //Button Logic to update our Time
   const timeChanger = async (buttInterval) => {
-    setTimeInterval(buttInterval);
+    await setTimeScale(buttInterval);
 
-    //Wrap our searches in this setTimeInterval updater, to ensure that we have the most up to date stuff.
+    //Wrap our searches in this setTimeScale updater, to ensure that we have the most up to date stuff.
     //We *could* use the useEffec to achieve this effect but the sideffects of updating it is unfortunate.
 
     //if search is empty, then only set the timeInterval, otherwise, if there is something there, THEN do the search.
 
     if (search) {
-      searchIt(
+      searchUpdater(
         search,
         buttInterval,
         setChartData,
         symbolColor,
         indicatorColor,
-        econIndicator
+        econMode,
+        news,
+        chartData
       );
     }
 
-    // if (
-    //   chartData.labels.length > 0 &&
-    //   (econIndicator === "SMA" || econIndicator === "EMA")
-    // ) {
-    //   indicatorIt(
-    //     econIndicator,
-    //     search,
-    //     buttInterval,
-    //     chartData,
-    //     indicatorColor,
-    //     setChartData
-    //   );
-    // }
-    //Set up a condition, where indicatorIt knows whether chartData exists or not. This determines whether we do the indicatorIt search.
+    //Set up a condition, where indicatorUpdater knows whether chartData exists or not. This determines whether we do the indicatorUpdater search.
     //Check to see if chartData.labels exists.
   };
-
-  //This is taken from the searchClicker, need to refactor it.
 
   return (
     <div className="grid grid-cols-1  lg:grid-cols-5 lg:gap-8 w-4/8 py-8">
