@@ -1,19 +1,16 @@
 import React from "react";
 //Does whatever is fed into our parameters. Very generic.
-const CheckBox = ({ checked, onChange }) => {
+const CheckBox = ({ checked, onChange, boxName }) => {
   // const checkBoxInputRef = useRef();
 
   return (
-    <label
-      htmlFor="AcceptConditions"
-      className="relative h-8 w-14 cursor-pointer"
-    >
+    <label htmlFor={boxName} className="relative h-8 w-14 cursor-pointer">
       <input
         // ref={checkBoxInputRef}
         checked={checked}
         onChange={onChange}
         type="checkbox"
-        id="AcceptConditions"
+        id={boxName}
         className="peer sr-only"
       />
 

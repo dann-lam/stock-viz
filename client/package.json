@@ -9,6 +9,7 @@
     "chart.js": "^4.3.0",
     "chartjs-adapter-dayjs-4": "^1.0.4",
     "dayjs": "^1.11.9",
+    "fs": "^0.0.1-security",
     "react": "^18.2.0",
     "react-chartjs-2": "^5.2.0",
     "react-color-modal": "^0.0.15",
@@ -46,5 +47,10 @@
   },
   "devDependencies": {
     "tailwindcss": "^3.3.2"
+  },
+  "browser": {
+    "fs": false,
+    "os": false,
+    "path": false
   }
 }

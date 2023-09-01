@@ -11,6 +11,8 @@ import newsParser from "../utils/newsParser";
 // import pointRadiiHandler from "../utils/tooltiplabelHandler";
 //Ticker menu - container that holds ticker related modifications for our chart.
 import setChartDataUpdater from "../utils/setChartDataUpdater";
+import congressTradingUpdater from "../utils/congressTradingUpdater";
+
 const TickerMenu = ({
   setChartData,
   setindicatorColor,
@@ -25,6 +27,9 @@ const TickerMenu = ({
   setSearch,
   econMode,
   setEconMode,
+  setCongressData,
+  setLobbyingData,
+  congressData,
 }) => {
   //Update the symbolColor and chart data.
   const updateChartColor = (event) => {
@@ -41,7 +46,7 @@ const TickerMenu = ({
     setChartDataUpdater(setChartData, 1, "borderColor", indicatorColor);
   };
 
-  const checkBoxHandler = async () => {
+  const newsButtonHandler = async () => {
     //Whenever we toggle the button, we change the state of news.isDisplayNews to true or false.
     await setNews((prevData) => ({
       ...prevData,
@@ -116,8 +121,20 @@ const TickerMenu = ({
     });
   };
 
+  // const congressButtonHandler = async () => {
+  //   await setCongressData((currData) => ({
+  //     ...currData,
+  //     isDisplayed: !currData.isDisplayed,
+  //   }));
+  // };
+
+  const congressButtonHandler = () => {
+    //Function will handle fetching, parsing, and updating relevent react values to render our data onto the site.
+    congressTradingUpdater(setCongressData, setLobbyingData, search, congressData);
+  };
+
   return (
-    <div className="grid grid-cols-1 gap-4 lg:grid-cols-5 lg:gap-8 w-3/5 py-2 ">
+    <div className="grid grid-cols-1 gap-4 lg:grid-cols-6 lg:gap-8 w-3/5 py-2 ">
       <div className="flex items-center  justify-center">
         {/* <EditText name="textbox" placeholder="Enter Ticker" /> */}
         <Search
@@ -149,7 +166,18 @@ const TickerMenu = ({
         <PopoverPicker color={indicatorColor} onChange={updateIndicatorColor} />
       </div>
       <div className="flex items-center  justify-center">
-        <CheckBox checked={news.isDisplayNews} onChange={checkBoxHandler} />
+        <CheckBox
+          checked={news.isDisplayNews}
+          onChange={newsButtonHandler}
+          boxName={"newsBox"}
+        />
+      </div>
+      <div className="flex items-center  justify-center">
+        <CheckBox
+          checked={congressData.isDisplayed}
+          onChange={congressButtonHandler}
+          boxName={"congressBox"}
+        />
       </div>
     </div>
   );

@@ -7,6 +7,7 @@ import Labels from "../components/Labels";
 import TimeIntervalButtons from "../components/TimeIntervalButtons";
 import Price from "../components/Price";
 import Search from "../components/Search";
+import CongressLobbying from "../components/CongressLobbying";
 
 Chart.register(CategoryScale);
 
@@ -32,6 +33,28 @@ const Display = () => {
     // labels: timeScale.data.map((data) => data.year),
     labels: [],
     datasets: [],
+  });
+  //congressData.trades tracks which stocks congress members are buying.
+  //congressData.isFetched tracks whether to render data or is fetched.
+  const [congressData, setCongressData] = useState({
+    isDisplayed: false,
+    isFetched: false,
+    trades: {},
+  });
+
+  /*
+  bills:
+    {
+     S.1235: [{Anderson Hellman: Yes},{Yulia Yasser: No}],
+     HR.12345: [{Hillary Clinton: No}, {Obama Barrack: Yes}]
+    },
+  */
+
+  //lobbyingData.organizations tracks information on organizations the target company is paying,
+  //lobbyingData.bills tracks Bills it is lobbying for.
+  const [lobbyingData, setLobbyingData] = useState({
+    organizations: [],
+    bills: [{}],
   });
 
   return (
@@ -74,7 +97,17 @@ const Display = () => {
             setSearch={setSearch}
             econMode={econMode}
             setEconMode={setEconMode}
+            setCongressData={setCongressData}
+            setLobbyingData={setLobbyingData}
+            congressData={congressData}
           />
+          {/* If congressData.isDisplayed is set to on, than display our information on congress lobbying. */}
+          {congressData.isDisplayed && (
+            <CongressLobbying
+              congressData={congressData}
+              lobbyingData={lobbyingData}
+            />
+          )}
         </>
       ) : (
         <div className="divide-slate-400/10 w-2/5 m-4">
