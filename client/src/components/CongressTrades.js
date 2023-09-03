@@ -1,40 +1,33 @@
 import React, { useEffect } from "react";
-
+import CongressLabels from "./CongressLabels";
+import CongressIndividuals from "./CongressIndividuals";
 let CongressTrades = ({ congressData }) => {
   //Loop through our object
 
   //     //Under each name, create a list element that contains our relevent information under eat name.
 
-  const renderPurchaseInfo = (value) => {
-    return value.map((trade, index) => (
-      <div key={index}>
-        <p>Amount: {trade.amount}</p>
-        <p>Transaction Date: {trade.transaction_date}</p>
-        <p>Type: {trade.type}</p>
-        <p>Ptr Link: {trade.ptr_link}</p>
-      </div>
-    ));
-  };
+
 
   const renderTrades = () => {
     if (congressData.trades) {
       return Object.entries(congressData.trades).map(([key, value]) => (
-        <div key={key}>
-          <p>Key: {key}</p>
-          <p>Party: {value[0].party}</p>
-          <p>State: {value[0].state}</p>
-          {/* value needs to be iterated through, their keys also need to be key'd. */}
-          {renderPurchaseInfo(value)}
-          {/* <p>Value: {value[0].amount}</p> */}
+        <div
+          key={key}
+          className="grid grid-cols-1 gap-4 lg:grid-cols-7 lg:gap-8 w-4/5 py-2"
+        >
+          {CongressIndividuals(key, value)}
         </div>
       ));
     } else {
       return <p>No trades data available.</p>;
     }
   };
-
+  //Take each key and value, and bring them to a component which will then render each of those values.
+  //
   return (
     <>
+      <hr className="divide-slate-400/10 w-3/5 m-4" />
+      <CongressLabels />
       <hr className="divide-slate-400/10 w-3/5 m-4" />
       {renderTrades()}
     </>
