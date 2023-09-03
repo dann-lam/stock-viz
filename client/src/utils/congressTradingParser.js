@@ -3,7 +3,6 @@ const congressTradingParser = (fetchedData) => {
   //Loop through our fetchedData
   for (let i = 0; i < fetchedData.length; i++) {
     let currRep = fetchedData[i].representative;
-    console.log(currRep);
     //See if the representative is on our Object.
     if (parsedObj[currRep]) {
       //If the rep is in our object, push that currentObject into the list of the array.

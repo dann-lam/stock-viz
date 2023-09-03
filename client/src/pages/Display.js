@@ -7,7 +7,7 @@ import Labels from "../components/Labels";
 import TimeIntervalButtons from "../components/TimeIntervalButtons";
 import Price from "../components/Price";
 import Search from "../components/Search";
-import CongressLobbying from "../components/CongressLobbying";
+import CongressTrades from "../components/CongressTrades";
 
 Chart.register(CategoryScale);
 
@@ -52,10 +52,12 @@ const Display = () => {
 
   //lobbyingData.organizations tracks information on organizations the target company is paying,
   //lobbyingData.bills tracks Bills it is lobbying for.
-  const [lobbyingData, setLobbyingData] = useState({
-    organizations: [],
-    bills: [{}],
-  });
+  //This react state is currently not being used or updated!!
+
+  // const [lobbyingData, setLobbyingData] = useState({
+  //   organizations: [],
+  //   bills: [{}],
+  // });
 
   return (
     <div className="flex flex-col py-16 h-max w-4/5 items-center">
@@ -98,15 +100,11 @@ const Display = () => {
             econMode={econMode}
             setEconMode={setEconMode}
             setCongressData={setCongressData}
-            setLobbyingData={setLobbyingData}
             congressData={congressData}
           />
           {/* If congressData.isDisplayed is set to on, than display our information on congress lobbying. */}
           {congressData.isDisplayed && (
-            <CongressLobbying
-              congressData={congressData}
-              lobbyingData={lobbyingData}
-            />
+            <CongressTrades congressData={congressData} />
           )}
         </>
       ) : (

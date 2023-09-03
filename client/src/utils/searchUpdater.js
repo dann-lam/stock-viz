@@ -23,7 +23,6 @@ const searchUpdater = async (
 
     //response returns a promise
     //This is accessing our data's returned values based on the second key.
-
     let calledData = data[Object.keys(data)[1]];
 
     //Takes our data and turns it into something the chart can see.

@@ -1,3 +1,4 @@
+import { alphavantageKey } from "../temp_apikey";
 const searchFetch = (query, timeScale) => {
   //Make switch case and object to handle timeScale that will affect the function request on our API.
   const timeMap = {
@@ -15,7 +16,7 @@ const searchFetch = (query, timeScale) => {
   let interval = timeMap[timeScale][currFunc];
 
   return fetch(
-    `https://www.alphavantage.co/query?function=${currFunc}&symbol=${query}&interval=${interval}&apikey=66M911GUXN2WRHBR&datatype=json`
+    `https://www.alphavantage.co/query?function=${currFunc}&symbol=${query}&interval=${interval}&apikey=${alphavantageKey}&datatype=json`
   );
 };
 //

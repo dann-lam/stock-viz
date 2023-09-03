@@ -1,5 +1,5 @@
 //Ingesting of react values to return the economic indicator data for a given ticker.
-
+import { alphavantageKey } from "../temp_apikey";
 const indicatorFetch = (indicator, search, timeInterval) => {
   const timeMap = {
     "1D": { TIME_SERIES_INTRADAY: "5min" },
@@ -14,7 +14,7 @@ const indicatorFetch = (indicator, search, timeInterval) => {
   try {
     let interval = Object.values(timeMap[timeInterval])[0];
     let fetched = fetch(
-      `https://www.alphavantage.co/query?function=${indicator}&symbol=${search}&interval=${interval}&time_period=10&series_type=close&apikey=NP9GNGJNY8XMZIK9`
+      `https://www.alphavantage.co/query?function=${indicator}&symbol=${search}&interval=${interval}&time_period=10&series_type=close&apikey=${alphavantageKey}`
     );
     return fetched;
   } catch (err) {

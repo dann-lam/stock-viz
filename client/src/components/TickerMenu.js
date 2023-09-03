@@ -28,7 +28,6 @@ const TickerMenu = ({
   econMode,
   setEconMode,
   setCongressData,
-  setLobbyingData,
   congressData,
 }) => {
   //Update the symbolColor and chart data.
@@ -128,9 +127,19 @@ const TickerMenu = ({
   //   }));
   // };
 
-  const congressButtonHandler = () => {
+  const congressButtonHandler = async () => {
     //Function will handle fetching, parsing, and updating relevent react values to render our data onto the site.
-    congressTradingUpdater(setCongressData, setLobbyingData, search, congressData);
+    await congressTradingUpdater(setCongressData, search, congressData);
+
+    // await setCongressData((currData) => {
+    //   console.log("currData is: ", currData);
+    //   //run a function that takes our currData,
+
+    //   //which will create a unordered list of each representative, which is then containing a list of elements of what was bought and when.
+    //   //Contains: Amount, Type (Sale? Purchase?) Transaction Date, party, state
+
+    //   return currData;
+    // });
   };
 
   return (
