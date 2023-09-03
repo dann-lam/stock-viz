@@ -6,8 +6,6 @@ let CongressTrades = ({ congressData }) => {
 
   //     //Under each name, create a list element that contains our relevent information under eat name.
 
-
-
   const renderTrades = () => {
     if (congressData.trades) {
       return Object.entries(congressData.trades).map(([key, value]) => (

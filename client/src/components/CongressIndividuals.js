@@ -52,7 +52,12 @@ const renderPurchaseInfo = (value, action) => {
     return (
       <ul>
         {value.map((trade, index) => (
-          <a target="_blank" key={index} href={trade.ptr_link} rel="noopener noreferrer" >
+          <a
+            target="_blank"
+            key={index}
+            href={trade.ptr_link}
+            rel="noopener noreferrer"
+          >
             <li className="text-blue-600">[Link]</li>
           </a>
           //   <li key={index}>{trade.ptr_link}</li>
