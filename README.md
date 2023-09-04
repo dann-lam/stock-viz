@@ -1,40 +1,47 @@
-OHhh lawwwwdy
-Welcome to my super temporary readyme for this webapp.
+# Stock-Vizualizer
 
-What's the point? It's a data vizualization exercise.
+## Technology Used
 
-User stories:
+| Technology Used |                        Resource URL                        |
+| --------------- | :--------------------------------------------------------: |
+| Git             |        [https://git-scm.com/](https://git-scm.com/)        |
+| JS              | [https://www.javascript.com/](https://www.javascript.com/) |
+| Node            |       [https://nodejs.org/en](https://nodejs.org/en)       |
+| ChartJS         |    [https://www.chartjs.org/](https://www.chartjs.org/)    |
+| React           |          [https://react.dev/](https://react.dev/)          |
 
-As a user, I want to be able to search for companies I'm interested in.
+## Description
 
-I then want to be able to see the results for said company and view the price per stock over time, whether it's a 1 year graph, 6 month graph, 1 month, or week.
+This stock visualizer gives you basic controls to view a ticker or company and it's associated price action on a chart.
 
-I also want to compare that company's data with another company's data, I can have up to 3 comparisons per graph.
+Two interesting features that makes it stand apart from other stock projects is the ability to visualize news stories associated with said ticker and company, seeing when that story was published, and corresponding it on the Chart.
 
-I want to be be able to see simple indicators as well, SMA, MACD, EMA, etc.
+The second interesting feature is the ability to see which Congressperson is trading on said stock.
 
-For each company, I want to be able to see general economic data on their overhead, revenue, costs, etc.
+## Table of Contents
 
-As a user, I want to be able to make an account so that I can save my searches.
+- [Usage](#usage)
+- [Learning Points](#learning-points)
+- [Credits](#credits)
+- [License](#license)
 
-Node Packages:
-concurrently
-tailwindcss
-chartJS
-React
+## Usage
 
-https://www.hyperui.dev/components/marketing/footers
+Install NPM, along with the associated packages, cd to client, and npm run start.
 
-https://www.alphavantage.co
-Alpha Vantage API
+I do not provide API keys, there are three you will have to create, API links will be linked below.
 
----To Do---
-Create front end components
-Create front end pages
-Integrate API
+Here is a quick demo of the application, a longer version can be found here: https://raw.githubusercontent.com/dann-lam/04-29-2023-employee-database/main/walkthrough.mp4
 
----Larger Features To Do ---
-3D Graphs/Animated?
-Multiple Ticker requests, same graph comparisons.
-Cards for general revenue generation of TIX for same time period.
-Sequelize Models for Users
+https://raw.githubusercontent.com/dann-lam/04-29-2023-employee-database/main/walkthrough2.mp4
+![Image of Application](https://raw.githubusercontent.com/dann-lam/e-commerce-orm-db/main/short_demo.gif)
+
+## Learning Points
+
+## Credits
+
+Thanks, Bed.
+
+## License
+
+MIT License
