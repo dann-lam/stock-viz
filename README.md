@@ -54,6 +54,9 @@ There are services that allow more real time searched via an API, but they're al
 
 This was primarily a way for me to learn how to use ChartJS, and to get some good practice using React with semi-complex state management. The project itself was an enjoyable challenge, with many new features learned and re-learned.
 
+There's still quite a bit to fix with this project, it's nowhere near complete, but in its current state the primary features work perfectly.
+
+
 ## Credits
 
 Thanks, Bed.
