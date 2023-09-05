@@ -41,6 +41,15 @@ Install NPM, along with the associated packages, cd to client, and npm run start
 
 I do not provide API keys, there are three you will have to create, API links will be linked below.
 
+The first thing you will see is an empty search box with a time interval from which you can decide which time range you wish to see your stocks.
+
+Upon searching for said ticker, you'll be able to decide whether you wish to see additional news articles related to said stock, it will then create "bubbles" on the chart that correlate to each news article's publish date on the timeline.
+Clickin on a bubble will link you to the news article.
+
+The next button activates the ability to display congress people who have traded this stock.
+The time is limited to 2019-2023, it is not actively updated and is simply being read from a JSON file at the moment.
+There are services that allow more real time searched via an API, but they're all quite costly, so we have a temporary solution here.
+
 ## Learning Points
 
 This was primarily a way for me to learn how to use ChartJS, and to get some good practice using React with semi-complex state management. The project itself was an enjoyable challenge, with many new features learned and re-learned.
