@@ -1,5 +1,6 @@
 # Stock-Vizualizer
-
+[Visit this Project!](https://dann-lam.github.io/stock-viz/)  
+https://dann-lam.github.io/stock-viz/
 ## Technology Used
 
 | Technology Used |                        Resource URL                        |
