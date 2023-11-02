@@ -1,8 +1,7 @@
 # Stock-Vizualizer
 [Visit this Project!](https://dann-lam.github.io/stock-viz/) 
-## Technology Used
 
-
+## Preview Videos
 https://github.com/dann-lam/stock-viz/assets/15963035/2e479f14-94a3-496a-b4d6-44961f9fe339
 
 
@@ -12,7 +11,7 @@ https://github.com/dann-lam/stock-viz/assets/15963035/e2e426f5-f3d5-40c6-9808-fd
 
 https://github.com/dann-lam/stock-viz/assets/15963035/498cd3c3-e389-4d69-8a47-26c7ca708071
 
-
+## Technology Used
 
 | Technology Used |                        Resource URL                        |
 | --------------- | :--------------------------------------------------------: |
