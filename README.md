@@ -1,5 +1,6 @@
 # Stock-Vizualizer
 [Visit this Project!](https://dann-lam.github.io/stock-viz/) 
+Warning: Due to the nature of limited API calls, each click you do is an API call at the moment, so sadly you are limited to 5 moves before things break, an indicator call is an API call, changing time frames is an API call etc, however calling for congress information is free as it's actually reading and parsing a JSON file.
 
 ## Preview Videos
 https://github.com/dann-lam/stock-viz/assets/15963035/2e479f14-94a3-496a-b4d6-44961f9fe339
